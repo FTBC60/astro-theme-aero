@@ -1,0 +1,58 @@
+---
+import 'remixicon/fonts/remixicon.css';
+import '../styles/style.scss';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+import { themeConfig, themePresets, themeStorageKey } from '../config/theme.config';
+import { withBase } from '../scripts/paths';
+import { ClientRouter } from 'astro:transitions';
+interface Props { title?: string; description?: string }
+const { title, description = siteConfig.subtitle } = Astro.props;
+const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
+const ui = getUi(siteConfig.lang);
+---
+<!doctype html>
+<html
+  lang={siteConfig.lang}
+  data-aero-theme={themeConfig.defaultTheme}
+  data-aero-default-theme={themeConfig.defaultTheme}
+  data-aero-theme-options={themePresets.map((preset) => preset.id).join(',')}
+  data-aero-storage-key={themeStorageKey}
+  style={`--bg-image: url(${JSON.stringify(withBase(themeConfig.wallpaper))}); --bg-position: ${themeConfig.wallpaperPosition}`}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>
+      try {
+        const root = document.documentElement;
+        const saved = localStorage.getItem(root.dataset.aeroStorageKey);
+        if (saved && root.dataset.aeroThemeOptions.split(',').includes(saved)) root.dataset.aeroTheme = saved;
+      } catch { /* Use the author's default when storage is unavailable. */ }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href={withBase(siteConfig.favicon)} />
+    <title>{pageTitle}</title>
+    <ClientRouter fallback="animate" />
+  </head>
+  <body>
+    <div class="container">
+      <Header />
+      <button class="button mobile-menu-btn" id="mobile-menu-btn" type="button" aria-label={ui.openSidebar} aria-controls="sidebar" aria-expanded="false">
+        <span class="menu-icon ri-menu-fill" aria-hidden="true"></span>
+      </button>
+      <div class="main-layout">
+        <Sidebar />
+        <main id="main-content"><slot /></main>
+        <div class="sidebar-mask" id="sidebar-mask" aria-hidden="true"></div>
+      </div>
+      <Footer />
+    </div>
+    <script>
+      import '../scripts/sidebar';
+    </script>
+  </body>
+</html>

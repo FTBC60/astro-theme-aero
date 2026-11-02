@@ -1,0 +1,42 @@
+{
+  "name": "astro-theme-aero",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "export": "node tools/export.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:content": "node --test tools/test/content.test.mjs tools/test/publication.test.mjs",
+    "test:playlist": "node --test tools/test/playlist-panel.test.mjs tools/test/playlist-touch.test.mjs tools/test/playback-session.test.mjs",
+    "test:resources": "node --test tools/test/public-resources.test.mjs tools/test/release.test.mjs",
+    "deploy": "node tools/deploy.mjs",
+    "deploy:dry-run": "node tools/deploy.mjs --dry-run",
+    "deploy:build": "node tools/deploy.mjs --build-only",
+    "test:publisher": "node --test tools/test/publisher.test.mjs tools/test/notes-snapshot.test.mjs",
+    "test:page-images": "node --test tools/test/page-images.test.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.3",
+    "astro": "7.3.8",
+    "github-slugger": "2.0.0",
+    "rehype-mathjax": "^7.1.0",
+    "remark-math": "^6.0.0",
+    "remixicon": "4.9.1",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/node": "^24.19.2",
+    "ignore": "7.0.5",
+    "proper-lockfile": "4.1.2",
+    "sass": "^1.97.0",
+    "typescript": "^5.9.3",
+    "wrangler": "4.152.0"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
+  }
+}

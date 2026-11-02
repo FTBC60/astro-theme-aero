@@ -1,0 +1,37 @@
+---
+import { siteConfig } from '../config/site.config';
+import { withBase } from '../scripts/paths';
+import MusicWidget from './MusicWidget.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+import { allTags, publishedPosts, tagPath } from '../lib/posts';
+import { getUi } from '../i18n/ui';
+const ui = getUi(siteConfig.lang);
+const tags = allTags(await publishedPosts());
+---
+<aside id="sidebar" aria-label={ui.sidebar} tabindex="-1">
+  <div class="widget avatar-widget">
+    <div class="avatar-bg">
+      <a href={withBase(siteConfig.avatarLink)} aria-label={siteConfig.avatarLink === '/' ? ui.backHome : ui.visitAuthor(siteConfig.author)}>
+        <img src={withBase(siteConfig.avatar)} alt={ui.authorAvatar(siteConfig.author)} class="profile-img" width="110" height="110" />
+      </a>
+    </div>
+  </div>
+  <section class="widget card profile-widget" aria-label={ui.profile}>
+    <div class="profile">
+      <div>{siteConfig.author}</div>
+    </div>
+    <div class="about">
+      {siteConfig.signature.map((line, index) => <>{line}{index < siteConfig.signature.length - 1 && <br />}</>)}
+    </div>
+  </section>
+  <div class="sidebar-sticky-group">
+    <MusicWidget />
+    {tags.length > 0 && <section class="widget card tags-widget" aria-labelledby="tags-title">
+      <h2 id="tags-title">{ui.tags}</h2>
+      <div class="tag-list">
+        {tags.map(({ name }) => <a href={withBase(tagPath(name))}>#{name}</a>)}
+      </div>
+    </section>}
+    <ThemeSwitcher />
+  </div>
+</aside>

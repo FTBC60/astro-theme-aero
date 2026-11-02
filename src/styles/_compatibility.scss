@@ -1,0 +1,47 @@
+// Preserve the upstream visual metrics when using semantic HTML and Shiki.
+.post-title { margin: 0; font-weight: 400; }
+main { min-width: 0; }
+.profile-img { object-fit: cover; height: 110px; }
+.play-btn, .ctrl-btn { color: var(--player-accent); }
+.music-widget button:disabled { cursor: default; }
+.music-widget button:disabled::after { opacity: 0; }
+.post-content pre.astro-code { background-color: #fafafa !important; }
+.post-content > :first-child { margin-top: 1em; }
+.post-content img { max-width: 100%; }
+.tags-widget { padding: 10px; }
+.tags-widget h2 { margin: 0 0 10px; font-size: 24px; font-weight: 400; text-shadow: 0 0 10px var(--white-main); }
+.tag-list {
+  background: var(--white-main);
+  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.tag-list a { color: var(--primary-color); text-decoration: none; overflow-wrap: anywhere; }
+.tag-list a:hover { text-decoration: underline; }
+.archive-heading { font-size: 24px; font-weight: 400; margin: 20px 0 0; text-shadow: 0 0 10px var(--white-main); }
+.year-header { margin: 0; font-weight: 400; }
+.archive-date { white-space: nowrap; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media screen and (max-width: 768px) {
+  // 260px content + 40px padding matches the original drawer's outer width.
+  aside { box-sizing: border-box; width: min(300px, 100vw); height: 100dvh; }
+  body.sidebar-open { overflow: hidden; }
+  .mobile-menu-btn { padding: 0; color: var(--black-main); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  aside, .sidebar-mask, .button::after { transition: none; }
+}

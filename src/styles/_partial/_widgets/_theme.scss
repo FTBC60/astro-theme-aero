@@ -1,0 +1,54 @@
+.theme-widget {
+    padding: 12px;
+}
+
+.theme-widget h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 400;
+    text-shadow: 0 0 10px var(--white-main);
+}
+
+.theme-options {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 7px;
+    border-radius: var(--panel-radius);
+    background: var(--aero-grad);
+    box-shadow: inset 0 0 0 1px var(--white-main), 0 0 0 0.5px var(--black-main);
+    cursor: pointer;
+}
+
+.theme-option:has(input:checked) {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.theme-option:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.theme-option input {
+    margin: 0;
+    accent-color: var(--primary-color);
+}
+
+.theme-swatch {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 1px solid var(--white-main);
+    box-shadow: 0 0 0 1px var(--black-main);
+}

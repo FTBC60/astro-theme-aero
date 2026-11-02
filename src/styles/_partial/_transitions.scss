@@ -1,0 +1,28 @@
+@keyframes aero-page-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes aero-page-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    // Match the original site's concurrent whole-page crossfade.
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation-duration: 500ms;
+        animation-timing-function: ease-in-out;
+    }
+
+    // Astro's fallback runs sequentially. Keep its total near 500ms and
+    // leave the body wallpaper visible underneath the fading page chrome.
+    [data-astro-transition-fallback="old"] .container {
+        animation: aero-page-fade-out 250ms ease-in-out both;
+    }
+
+    [data-astro-transition-fallback="new"] .container {
+        animation: aero-page-fade-in 250ms ease-in-out both;
+    }
+}

@@ -1,0 +1,32 @@
+---
+import { siteConfig } from '../config/site.config';
+import { withBase } from '../scripts/paths';
+import { getUi } from '../i18n/ui';
+const path = Astro.url.pathname;
+const ui = getUi(siteConfig.lang);
+---
+<div class="header">
+  <header class="card">
+    <p class="blog-title">{siteConfig.subtitle}</p>
+  </header>
+  <nav class="button-bar" aria-label={ui.navigation}>
+    <ul class="nav-links">
+      {siteConfig.navigation.map((item, index) => (
+        <li>
+          <a
+            href={item.href ? withBase(item.href) : undefined}
+            class:list={['button', { 'link-home': index === 0, active: !!item.href && (item.href === '/' ? path === withBase('/') || path.startsWith(withBase('/page/')) : path.startsWith(withBase(item.href))) }]}
+            aria-current={item.href && (item.href === '/' ? path === withBase('/') || path.startsWith(withBase('/page/')) : path.startsWith(withBase(item.href))) ? 'page' : undefined}
+            aria-disabled={!item.href ? 'true' : undefined}
+            role={!item.href ? 'link' : undefined}
+          >
+            <span class="nav-text">
+              <img src={withBase(item.icon)} alt="" class="icon" width="24" height="24" />
+              <span>{typeof item.label === 'string' ? item.label : item.label[siteConfig.lang]}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,25 @@
+---
+import type { Post } from '../lib/posts';
+import { displayDate, excerpt, postPath } from '../lib/posts';
+import { withBase } from '../scripts/paths';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+const ui = getUi(siteConfig.lang);
+---
+<section class="post-list" aria-label={ui.postList}>
+  {posts.map((post) => <article class="card post-item">
+    {post.data.cover && <div class="post-cover">
+      <a href={withBase(postPath(post))} aria-label={ui.readPost(post.data.title)}>
+        <img src={post.data.cover} alt={post.data.title} loading="lazy" />
+      </a>
+    </div>}
+    <div class="post-info">
+      <h2 class="post-title">{post.data.title}</h2>
+      <div class="post-meta"><time datetime={displayDate(post.data.date)}>{displayDate(post.data.date)}</time></div>
+      <div class="post-excerpt">{excerpt(post)}</div>
+      <a href={withBase(postPath(post))} class="button rm-link"><span class="read-more">{ui.readMore}</span></a>
+    </div>
+  </article>)}
+</section>

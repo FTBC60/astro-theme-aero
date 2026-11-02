@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160">
+  <rect width="320" height="160" fill="#e2f1d8"/>
+  <path d="M20 120 95 40 160 110 290 25" fill="none" stroke="#42798d" stroke-width="6"/>
+  <text x="12" y="150" font-size="14">VAULT_ROUTE_IMAGE</text>
+</svg>

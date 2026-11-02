@@ -1,0 +1,31 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { displayDate, publishedPosts, tagPath, type Post } from '../../lib/posts';
+import { withBase } from '../../scripts/paths';
+import { siteConfig } from '../../config/site.config';
+import { getUi } from '../../i18n/ui';
+
+interface Props { post: Post }
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = displayDate(post.data.date);
+const updated = post.data.updated ? displayDate(post.data.updated) : undefined;
+const showUpdated = updated !== undefined && updated > date;
+const ui = getUi(siteConfig.lang);
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="card post-full">
+    <h1 class="post-title article-title">{post.data.title}</h1>
+    <div class="post-meta">
+      <time datetime={date}>{date}</time>
+      {post.data.tags.length > 0 && <span> | {post.data.tags.map((tag, index) => <>{index > 0 && ', '}<a class="tag-none-link" href={withBase(tagPath(tag))}>#{tag}</a></>)}</span>}
+      {showUpdated && <span> | {ui.updated} <time datetime={updated}>{updated}</time></span>}
+    </div>
+    <div class="post-content"><Content /></div>
+  </article>
+</BaseLayout>

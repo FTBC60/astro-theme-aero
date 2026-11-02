@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160">
+  <rect width="320" height="160" fill="#cceaff"/>
+  <circle cx="250" cy="45" r="24" fill="#ffd76d"/>
+  <path d="M0 160 100 55 200 160Z" fill="#6faaa0"/>
+  <text x="12" y="145" font-size="14">VAULT_MORNING_IMAGE</text>
+</svg>

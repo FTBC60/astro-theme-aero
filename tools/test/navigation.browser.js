@@ -1,0 +1,61 @@
+// Run with playwright-cli run-code --filename tools/test/navigation.browser.js after opening the preview homepage.
+async (page) => {
+  const base = page.url();
+  const check = (condition, message) => { if (!condition) throw new Error(message); };
+  const results = [];
+  const failedImages = [];
+  const recordImage = (response) => {
+    if (response.request().resourceType() === 'image' && response.status() >= 400) failedImages.push(response.url());
+  };
+  page.on('response', recordImage);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  const audio = await page.locator('audio').elementHandle();
+  const article = page.getByRole('link', { name: /阅读全文|Read more/i }).first();
+  const articlePath = new URL(await article.getAttribute('href'), base).pathname;
+  await article.click();
+  await page.waitForURL((url) => url.pathname === articlePath);
+  await page.waitForFunction(() => [...document.querySelectorAll('main img')].every((i) => i.complete && i.naturalWidth > 0));
+  // Let the preceding view transition finish before starting the next user action.
+  await page.waitForTimeout(500);
+  const about = page.getByRole('link', { name: /^(关于|About)$/ });
+  const aboutPath = new URL(await about.getAttribute('href'), base).pathname;
+  await about.click();
+  await page.waitForURL((url) => url.pathname === aboutPath);
+  await page.waitForFunction(() => [...document.querySelectorAll('main img')].every((i) => i.complete && i.naturalWidth > 0));
+  results.push('article → About: images loaded');
+  if (audio) check(await audio.evaluate((a) => a === document.querySelector('audio') && a.isConnected), 'Client navigation must retain the music audio element');
+  await page.goBack();
+  await page.waitForURL((url) => url.pathname === articlePath);
+  await page.waitForFunction(() => [...document.querySelectorAll('main img')].every((i) => i.complete && i.naturalWidth > 0));
+  await page.goForward();
+  await page.waitForURL((url) => url.pathname === aboutPath);
+  await page.waitForFunction(() => [...document.querySelectorAll('main img')].every((i) => i.complete && i.naturalWidth > 0));
+  await page.reload();
+  await page.waitForFunction(() => [...document.querySelectorAll('main img')].every((i) => i.complete && i.naturalWidth > 0));
+  results.push('back/forward and reload: images loaded');
+  await page.setViewportSize({ width: 390, height: 844 });
+  const menu = page.locator('#mobile-menu-btn');
+  await menu.click();
+  check(await page.evaluate(() => document.activeElement.id === 'sidebar'), 'Pointer opening must focus the sidebar container, not the avatar');
+  check(await page.locator('#sidebar').evaluate((s) => getComputedStyle(s).outlineStyle === 'none'), 'The neutral sidebar focus must have no outline');
+  await page.keyboard.press('Tab');
+  check(await page.evaluate(() => document.activeElement === document.querySelector('.avatar-bg a')), 'Tab from the container must enter the first link');
+  check(await page.locator('.avatar-bg a').evaluate((a) => a.matches(':focus-visible')), 'Keyboard focus must remain visible');
+  await page.keyboard.press('Shift+Tab');
+  check(await page.evaluate(() => document.activeElement === [...document.querySelectorAll('#sidebar a[href], #sidebar button:not(:disabled), #sidebar input:not(:disabled)')].filter((e) => e.getClientRects().length && !e.closest('[hidden]')).at(-1)), 'Shift+Tab must wrap to the last visible control');
+  await page.keyboard.press('Tab');
+  check(await page.evaluate(() => document.activeElement === document.querySelector('.avatar-bg a')), 'Tab must wrap back to the first link');
+  await page.keyboard.press('Escape');
+  check(await menu.evaluate((m) => document.activeElement === m && m.getAttribute('aria-expanded') === 'false'), 'Escape must close and restore menu focus');
+  await page.keyboard.press('Enter');
+  check(await page.evaluate(() => document.activeElement === document.querySelector('.avatar-bg a')), 'Keyboard opening must focus the first link');
+  await page.keyboard.press('Escape');
+  await menu.click();
+  await page.locator('#sidebar-mask').click({ position: { x: 350, y: 500 } });
+  check(await menu.evaluate((m) => document.activeElement === m && m.getAttribute('aria-expanded') === 'false'), 'Mask closing must restore focus');
+  results.push('pointer/keyboard focus, Tab wrapping, Escape and mask: passed');
+  await page.goto(base);
+  page.off('response', recordImage);
+  check(failedImages.length === 0, `Images must not issue failing requests during navigation: ${failedImages.join(', ')}`);
+  return results;
+}

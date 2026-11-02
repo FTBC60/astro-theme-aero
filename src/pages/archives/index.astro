@@ -1,0 +1,9 @@
+---
+import ArchivePage from '../../components/ArchivePage.astro';
+import { publishedPosts } from '../../lib/posts';
+import { siteConfig } from '../../config/site.config';
+import { getUi } from '../../i18n/ui';
+const ui = getUi(siteConfig.lang);
+const posts = await publishedPosts();
+---
+<ArchivePage posts={posts} title={ui.archives} />

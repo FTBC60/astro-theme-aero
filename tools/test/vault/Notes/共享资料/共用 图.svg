@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160">
+  <rect width="320" height="160" fill="#eee5ff"/>
+  <circle cx="160" cy="65" r="35" fill="#947cb5"/>
+  <text x="12" y="145" font-size="14">VAULT_SHARED_IMAGE</text>
+</svg>

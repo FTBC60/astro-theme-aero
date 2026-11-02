@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import Pagination from '../components/Pagination.astro';
+import { publishedPosts, pages } from '../lib/posts';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+const ui = getUi(siteConfig.lang);
+const chunks = pages(await publishedPosts(), siteConfig.postsPerPage);
+---
+<BaseLayout>
+  <h1 class="sr-only">{ui.postList}</h1>
+  <PostList posts={chunks[0]} />
+  <Pagination basePath="/" current={1} total={chunks.length} />
+</BaseLayout>

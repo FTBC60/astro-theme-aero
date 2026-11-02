@@ -1,0 +1,15 @@
+---
+import { withBase } from '../scripts/paths';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+interface Props { basePath: string; current: number; total: number }
+const { basePath, current, total } = Astro.props;
+const ui = getUi(siteConfig.lang);
+const href = (page: number) => withBase(page === 1 ? basePath : `${basePath}page/${page}/`);
+---
+{total > 1 && <nav class="page-nav" aria-label={ui.pagination}>
+  {current > 1 && <a class="extend" href={href(current - 1)} aria-label={ui.previousPage}>&lt;</a>}
+  {Array.from({ length: total }, (_, index) => index + 1).map((page) =>
+    <a href={href(page)} class:list={['page-number', { current: page === current }]} aria-current={page === current ? 'page' : undefined} aria-label={ui.pageNumber(page)}>{page}</a>)}
+  {current < total && <a class="extend" href={href(current + 1)} aria-label={ui.nextPage}>&gt;</a>}
+</nav>}

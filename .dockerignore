@@ -1,0 +1,11 @@
+# Allow only the files needed to build the publisher image.
+**
+!package.json
+!package-lock.json
+!tools/
+!tools/**
+tools/test/
+# Theme files and notes are runtime mounts, never part of the image.
+**/.env*
+**/.git/
+**/.obsidian/

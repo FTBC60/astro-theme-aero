@@ -1,0 +1,23 @@
+---
+import { themeConfig, themePresets } from '../config/theme.config';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+const ui = getUi(siteConfig.lang);
+---
+<section class="widget card theme-widget" aria-labelledby="theme-title" data-theme-switcher>
+  <h2 id="theme-title">{ui.themeTitle}</h2>
+  <fieldset class="theme-options">
+    <legend class="sr-only">{ui.chooseTheme}</legend>
+    {themePresets.map((preset) => (
+      <label class="theme-option" data-theme-option={preset.id}>
+        <input type="radio" name="aero-theme" value={preset.id} checked={preset.id === themeConfig.defaultTheme} />
+        <span class="theme-swatch" aria-hidden="true"></span>
+        <span>{ui.themeLabels[preset.id]}{preset.id === themeConfig.defaultTheme && ` (${ui.defaultTheme})`}</span>
+      </label>
+    ))}
+  </fieldset>
+  <span class="sr-only" role="status" aria-live="polite" data-theme-status></span>
+</section>
+<script>
+  import '../scripts/theme';
+</script>

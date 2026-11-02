@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Windows Media Player Aero 风格默认音乐专辑封面</title>
+  <desc id="desc">深蓝色渐变方形封面，带玻璃质感、高光和中央浅蓝白色双音符。</desc>
+  <defs>
+    <radialGradient id="background" cx="48%" cy="39%" r="79%">
+      <stop offset="0" stop-color="#3e7bad"/>
+      <stop offset=".36" stop-color="#22547e"/>
+      <stop offset=".74" stop-color="#102d4d"/>
+      <stop offset="1" stop-color="#071a32"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bcecff" stop-opacity=".7"/>
+      <stop offset=".25" stop-color="#8bb9d9" stop-opacity=".2"/>
+      <stop offset=".74" stop-color="#03152c" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#72b9df" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8f7ff" stop-opacity=".33"/>
+      <stop offset=".38" stop-color="#80c6ee" stop-opacity=".13"/>
+      <stop offset=".55" stop-color="#1e5b91" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#99d9fb" stop-opacity=".19"/>
+    </linearGradient>
+    <linearGradient id="note" x1="0" y1="0" x2=".88" y2="1">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".37" stop-color="#e8f9ff"/>
+      <stop offset=".7" stop-color="#a8d9f1"/>
+      <stop offset="1" stop-color="#6eb7df"/>
+    </linearGradient>
+    <linearGradient id="noteShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".84"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop offset="0" stop-color="#77c8f5" stop-opacity=".43"/>
+      <stop offset=".62" stop-color="#377bae" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#206090" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="noteShadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="14" stdDeviation="17" flood-color="#00152b" flood-opacity=".62"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#c6f4ff" flood-opacity=".45"/>
+    </filter>
+    <clipPath id="coverClip"><rect x="12" y="12" width="1000" height="1000" rx="30"/></clipPath>
+  </defs>
+
+  <rect x="22" y="31" width="980" height="980" rx="32" fill="#001020" opacity=".58" filter="url(#shadow)"/>
+  <g clip-path="url(#coverClip)">
+    <rect x="12" y="12" width="1000" height="1000" fill="url(#background)"/>
+    <ellipse cx="510" cy="523" rx="420" ry="415" fill="url(#halo)"/>
+
+    <!-- Soft glass sweep and restrained Aero blue reflections. -->
+    <path d="M12 12H1012V326C807 427 456 430 12 257Z" fill="#bceeff" opacity=".095"/>
+    <path d="M12 104C281 21 727 3 1012 116V12H12Z" fill="#e8fbff" opacity=".075"/>
+    <path d="M-70 795C228 702 402 682 610 714S934 839 1095 780" fill="none" stroke="#9ad9ff" stroke-width="24" opacity=".045"/>
+    <path d="M-60 847C200 760 385 739 563 768S879 876 1060 839" fill="none" stroke="#d6f4ff" stroke-width="3" opacity=".1"/>
+
+    <!-- The inset artwork tile mirrors the old player's translucent placeholder. -->
+    <rect x="225" y="225" width="574" height="574" rx="44" fill="#001d3e" opacity=".43" filter="url(#shadow)"/>
+    <rect x="210" y="208" width="604" height="604" rx="47" fill="url(#glass)" stroke="#bde9ff" stroke-opacity=".32" stroke-width="2"/>
+    <rect x="224" y="222" width="576" height="576" rx="34" fill="none" stroke="#f1fcff" stroke-opacity=".25" stroke-width="2"/>
+    <path d="M225 425V255Q225 223 258 223H766Q799 223 799 255V425C641 371 390 362 225 425Z" fill="#fff" opacity=".075"/>
+    <path d="M229 750Q512 804 795 750" fill="none" stroke="#b4e5ff" stroke-width="3" opacity=".16"/>
+
+    <!-- Double eighth note, drawn entirely with editable vector paths. -->
+    <g filter="url(#noteShadow)" fill="url(#note)" stroke="#e4f9ff" stroke-opacity=".5" stroke-width="2" stroke-linejoin="round">
+      <path d="M447 368L669 315Q683 312 683 326V572C683 611 651 636 612 645C571 654 536 638 530 608C523 575 550 548 592 539C613 534 634 534 652 538V397L477 439V642C477 680 445 706 406 714C363 723 330 706 325 676C319 643 346 617 388 608C410 603 430 604 447 608Z"/>
+    </g>
+    <path d="M452 375L666 324V346L469 394V626C466 635 460 641 452 646ZM657 384L675 379V555C670 547 664 543 657 541Z" fill="url(#noteShine)" opacity=".7"/>
+    <path d="M336 668C345 640 392 625 424 633M541 599C552 572 598 556 630 564" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".28"/>
+  </g>
+  <rect x="12" y="12" width="1000" height="1000" rx="30" fill="none" stroke="url(#rim)" stroke-width="5"/>
+  <rect x="18" y="18" width="988" height="988" rx="25" fill="none" stroke="#ecfbff" stroke-opacity=".18" stroke-width="2"/>
+</svg>

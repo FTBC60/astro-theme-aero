@@ -1,0 +1,21 @@
+---
+import type { Post } from '../lib/posts';
+import { archiveYears, displayDate, postPath } from '../lib/posts';
+import { withBase } from '../scripts/paths';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+const ui = getUi(siteConfig.lang);
+---
+<section class="archive-container" aria-label={ui.postArchive}>
+  {archiveYears(posts).map(({ year, posts: entries }) => <div class="card year-group">
+    <h2 class="year-header">{year}</h2>
+    <div class="archive-list">
+      {entries.map((post) => <div class="archive-item">
+        <time class="archive-date" datetime={displayDate(post.data.date)}>{displayDate(post.data.date).slice(5)}</time>
+        <a class="archive-title" href={withBase(postPath(post))}>{post.data.title}</a>
+      </div>)}
+    </div>
+  </div>)}
+</section>

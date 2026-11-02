@@ -1,0 +1,70 @@
+﻿---
+import { musicConfig, playbackModes } from '../config/music.config';
+import { withBase } from '../scripts/paths';
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+const ui = getUi(siteConfig.lang);
+const initialMode = musicConfig.defaultPlaybackMode;
+const nextMode = playbackModes[(playbackModes.indexOf(initialMode) + 1) % playbackModes.length];
+---
+{musicConfig.enabled && <section
+  class="widget music-widget"
+  aria-label={ui.musicPlayer}
+  data-music-player
+  data-playlist-url={withBase('/audio/playlist.json')}
+  data-playback-mode={musicConfig.defaultPlaybackMode}
+  transition:persist="aero-music-player"
+>
+  <audio data-audio preload="metadata"></audio>
+  <div class="player-content">
+    <div class="song-info">
+      <div class="info-bg album-art" data-cover style={`background-image: url(${JSON.stringify(withBase(musicConfig.defaultCover))})`}></div>
+      <div class="info-bg title-bar" data-track-info title={ui.playlistLoading}>
+        <div class="song-title-viewport" data-title-viewport>
+          <span class="song-title" data-title>{ui.playlistLoading}</span>
+        </div>
+      </div>
+    </div>
+    <div class="info-bg progress-container">
+      <div class="progress-bar" data-progress></div>
+      <input class="music-seek" data-seek type="range" min="0" max="100" step="0.1" value="0" disabled aria-label={ui.seek} aria-valuetext="0:00 / 0:00" />
+    </div>
+    <div class="music-controls">
+      <div class="controls">
+        <button class="button play-btn" data-play type="button" disabled aria-label={ui.playNoTracks}>
+          <span class="ri-play-large-fill" aria-hidden="true"></span>
+        </button>
+        <button class="button ctrl-btn" data-previous type="button" disabled aria-label={ui.previousTrack}>
+          <span class="ri-skip-back-fill" aria-hidden="true"></span>
+        </button>
+        <button class="button ctrl-btn" data-next type="button" disabled aria-label={ui.nextTrack}>
+          <span class="ri-skip-forward-fill" aria-hidden="true"></span>
+        </button>
+        <button class="button ctrl-btn" data-playlist-toggle type="button" aria-label={ui.openPlaylist} aria-expanded="false" aria-controls="music-playlist">
+          <span class="ri-play-list-line" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="playlist-panel" data-playlist-panel id="music-playlist" hidden>
+      <div class="playlist-heading">
+        <span>{ui.playlist}</span>
+        <div class="playlist-actions">
+          <button class="playlist-refresh" data-playlist-refresh type="button" disabled>
+            <span class="ri-refresh-line" aria-hidden="true"></span>
+            <span data-refresh-label>{ui.refreshPlaylist}</span>
+          </button>
+          <button class="playlist-mode" data-playback-mode-toggle type="button" aria-label={ui.playbackModeButton(ui.playbackModes[initialMode], ui.playbackModes[nextMode])} title={ui.playbackModes[initialMode]}>
+            <span class="ri-repeat-line" data-playback-mode-icon aria-hidden="true"></span>
+            <span data-playback-mode-label>{ui.playbackModes[initialMode]}</span>
+          </button>
+        </div>
+      </div>
+      <ol class="playlist-items"></ol>
+      <p class="playlist-feedback" data-playlist-feedback role="status">{ui.playlistLoading}</p>
+    </div>
+    <span class="sr-only" data-status role="status" aria-live="polite"></span>
+  </div>
+</section>}
+<script>
+  import '../scripts/music';
+</script>

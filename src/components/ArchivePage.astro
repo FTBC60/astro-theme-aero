@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArchiveList from './ArchiveList.astro';
+import ArchiveTags from './ArchiveTags.astro';
+import Pagination from './Pagination.astro';
+import { allTags } from '../lib/posts';
+import type { Post } from '../lib/posts';
+interface Props { posts: Post[]; title: string; current?: number; total?: number; basePath?: string; tag?: string }
+const { posts, title, current = 1, total = 1, basePath = '/archives/', tag } = Astro.props;
+---
+<BaseLayout title={title}>
+  {tag && <h1 class="archive-heading">#{tag}</h1>}
+  {!tag && <><h1 class="sr-only">{title}</h1><ArchiveTags tags={allTags(posts)} /></>}
+  <ArchiveList posts={posts} />
+  {tag && <Pagination basePath={basePath} current={current} total={total} />}
+</BaseLayout>

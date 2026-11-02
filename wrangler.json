@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "aero-diary",
+  "compatibility_date": "2026-10-25",
+  "send_metrics": false,
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

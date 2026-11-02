@@ -1,0 +1,32 @@
+services:
+  publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    stop_grace_period: 2m
+    environment:
+      CRON_SCHEDULE: "0 3 * * *"
+      TZ: "America/Los_Angeles"
+      THEME_DIR: "/theme"
+      CLOUDFLARE_ACCOUNT_ID: "REPLACE_WITH_ACCOUNT_ID"
+      CLOUDFLARE_API_TOKEN: "REPLACE_WITH_API_TOKEN"
+    volumes:
+      - type: bind
+        source: .
+        target: /theme
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /volume1/Files/Vault/Notes
+        target: /theme/src/content/blog
+        read_only: true
+        bind:
+          create_host_path: false
+      - ./publisher-data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

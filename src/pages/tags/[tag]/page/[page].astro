@@ -1,0 +1,18 @@
+---
+import ArchivePage from '../../../../components/ArchivePage.astro';
+import { allTags, publishedPosts, pages, type Post } from '../../../../lib/posts';
+import { siteConfig } from '../../../../config/site.config';
+interface Props { posts: Post[]; name: string; slug: string; current: number; total: number }
+export async function getStaticPaths() {
+  const tags = allTags(await publishedPosts());
+  return tags.flatMap(({ name, slug, posts }) => {
+    const chunks = pages(posts, siteConfig.postsPerPage);
+    return chunks.slice(1).map((entries, index) => ({
+      params: { tag: slug, page: String(index + 2) },
+      props: { posts: entries, name, slug, current: index + 2, total: chunks.length },
+    }));
+  });
+}
+const { posts, name, slug, current, total } = Astro.props;
+---
+<ArchivePage posts={posts} tag={name} title={`#${name}`} current={current} total={total} basePath={`/tags/${encodeURIComponent(slug)}/`} />

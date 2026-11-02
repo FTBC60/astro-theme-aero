@@ -1,0 +1,15 @@
+---
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+import { tagPath } from '../lib/posts';
+import { withBase } from '../scripts/paths';
+interface Props { tags: { name: string }[] }
+const { tags } = Astro.props;
+const ui = getUi(siteConfig.lang);
+---
+{tags.length > 0 && <section class="card tags-widget archive-tags" aria-labelledby="archive-tags-title">
+  <h2 id="archive-tags-title">{ui.tags}</h2>
+  <div class="tag-list">
+    {tags.map(({ name }) => <a href={withBase(tagPath(name))}>#{name}</a>)}
+  </div>
+</section>}

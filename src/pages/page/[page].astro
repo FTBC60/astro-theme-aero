@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import Pagination from '../../components/Pagination.astro';
+import { publishedPosts, pages, type Post } from '../../lib/posts';
+import { siteConfig } from '../../config/site.config';
+import { getUi } from '../../i18n/ui';
+const ui = getUi(siteConfig.lang);
+
+interface Props { posts: Post[]; current: number; total: number }
+export async function getStaticPaths() {
+  const chunks = pages(await publishedPosts(), siteConfig.postsPerPage);
+  return chunks.slice(1).map((posts, index) => ({
+    params: { page: String(index + 2) },
+    props: { posts, current: index + 2, total: chunks.length },
+  }));
+}
+const { posts, current, total } = Astro.props;
+---
+<BaseLayout title={ui.pageTitle(current)}>
+  <h1 class="sr-only">{ui.postListPage(current)}</h1>
+  <PostList posts={posts} />
+  <Pagination basePath="/" current={current} total={total} />
+</BaseLayout>

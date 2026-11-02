@@ -1,0 +1,11 @@
+---
+import { siteConfig } from '../config/site.config';
+import { getUi } from '../i18n/ui';
+const ui = getUi(siteConfig.lang);
+---
+<footer class="card">
+  <div class="copyright">
+    <p>Copyright © {new Date().getFullYear()} {siteConfig.author}</p>
+    <p>{ui.poweredBy}</p>
+  </div>
+</footer>
