@@ -4,6 +4,10 @@
 
 An Astro static blog theme based on [hexo-theme-aero](https://github.com/5h1nnN/hexo-theme-aero). It retains the Aero glass panels, a two-column desktop layout, and a mobile sidebar. It includes posts, archives, tags, three color schemes, and a music player.
 
+## Download the theme package
+
+Open [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest) and download `astro-theme-aero-v1.0.0-theme.tar.gz` (use the matching version for later releases). This author package contains configurable theme source, default assets, examples, and usage guides. GitHub’s automatic “Source code” archives are full repository snapshots with developer materials; select the asset ending in `-theme.tar.gz`. Extract it, enter `astro-theme-aero/`, then follow the installation steps below. Use `SHA256SUMS.txt` from the same Release to verify download integrity.
+
 ## Quick start
 
 Node.js 22.22 or later is recommended to satisfy the current locked dependencies. In the theme directory, run:
@@ -87,7 +91,7 @@ Run a persistent publisher in Container Manager with cron, timezone, Cloudflare 
 
 Run `npm run export` in the theme root. It checks and builds the project, then writes two `.tar.gz` files to `release/` with the package version and short Git commit hash in their names. Uncommitted changes add `-dirty`:
 
-- `*-source.tar.gz` contains theme source, default assets, Chinese/English usage guides, author examples, production build/publishing tools, project configuration, README, and license. Tests, acceptance materials, and developer maintenance documents are excluded; the archived `package.json` has no test commands. Extract it, enter `astro-theme-aero/`, and run `npm ci`.
+- `*-theme.tar.gz` contains theme source, default assets, Chinese/English usage guides, author examples, production build/publishing tools, project configuration, README, and license. Tests, acceptance materials, and developer maintenance documents are excluded; the archived `package.json` has no test commands. Extract it, enter `astro-theme-aero/`, and run `npm ci`.
 - `*-site.tar.gz` contains the built site for the current settings and posts. Extract its contents directly into the document root of a static host; it has no outer `dist/` directory.
 
 The source archive enumerates tracked files and unignored new files only within the author-delivery allowlist. Uncommitted posts and assets can be included, and a tracked file can still be included after an ignore rule is added; review source contents before sharing. Dependencies, caches, build output, release archives, Git history, and local handoff notes are outside the source delivery scope. Export requires Git, Node.js, npm, and `tar`. The `release/` directory is ignored by Git.

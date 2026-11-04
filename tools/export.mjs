@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -10,6 +11,27 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const release = join(root, 'release');
 const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const sourceFiles = new Set(releaseFiles);
+const args = process.argv.slice(2);
+if (args.length > 1 || (args.length && args[0] !== '--release')) throw new Error('Usage: node tools/export.mjs [--release]');
+const releaseMode = args[0] === '--release';
+
+function gitText(args) {
+  const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+  if (result.error || result.status !== 0) throw new Error(`Could not read Git ${args[0]}; release export requires an existing version tag at HEAD`);
+  return result.stdout.trim();
+}
+
+function checkedReleaseRevision() {
+  if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z]+(?:[.-][0-9A-Za-z]+)*)?$/.test(packageJson.version)) throw new Error('Invalid package release version');
+  if (gitText(['status', '--porcelain', '--untracked-files=normal'])) throw new Error('Release export requires a clean working tree');
+  const revision = gitText(['rev-parse', 'HEAD']);
+  const tagged = gitText(['rev-parse', '--verify', `refs/tags/v${packageJson.version}^{commit}`]);
+  if (revision !== tagged) throw new Error(`Version tag v${packageJson.version} must point to HEAD`);
+  return revision;
+}
+
+// Fail before checking/building when a release is not reproducible from its tag.
+const releaseRevision = releaseMode ? checkedReleaseRevision() : undefined;
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, { cwd: root, stdio: 'inherit', shell: process.platform === 'win32' && command === 'npm', ...options });
@@ -48,6 +70,7 @@ function archive(stage, name, member) {
     rmSync(pending, { force: true });
   }
   console.log(target);
+  return target;
 }
 
 const cache = join(root, '.astro');
@@ -91,10 +114,15 @@ try {
   if (hash.status !== 0) throw new Error('Could not read Git revision');
   const status = spawnSync('git', ['status', '--porcelain', '--untracked-files=normal'], { cwd: root, encoding: 'utf8' });
   if (status.status !== 0) throw new Error('Could not read Git status');
-  const version = `${packageJson.name}-v${packageJson.version}-${hash.stdout.trim()}${status.stdout.trim() ? '-dirty' : ''}`;
+  if (releaseMode && checkedReleaseRevision() !== releaseRevision) throw new Error('Git revision changed during release export');
+  const version = `${packageJson.name}-v${packageJson.version}${releaseMode ? '' : `-${hash.stdout.trim()}${status.stdout.trim() ? '-dirty' : ''}`}`;
   mkdirSync(release, { recursive: true });
-  archive(temp, `${version}-source.tar.gz`, basename(stageSource));
+  const theme = archive(temp, `${version}-theme.tar.gz`, basename(stageSource));
   archive(stageSite, `${version}-site.tar.gz`, '.');
+  if (releaseMode) {
+    const checksum = createHash('sha256').update(readFileSync(theme)).digest('hex');
+    writeFileSync(join(release, 'SHA256SUMS.txt'), `${checksum}  ${basename(theme)}\n`);
+  }
 } finally {
   if (temp === cache || !inside(cache, temp)) throw new Error(`Refusing export cleanup outside cache: ${temp}`);
   rmSync(temp, { recursive: true, force: true });

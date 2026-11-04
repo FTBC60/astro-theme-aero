@@ -1,0 +1,104 @@
+name: Publish theme package
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to build (for example v1.0.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: theme-release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.1
+          cache: npm
+      - name: Match the tag to the package version
+        id: version
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const { version } = JSON.parse(readFileSync('package.json', 'utf8'));
+          const tag = process.env.RELEASE_TAG;
+          if (!/^v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(tag) || tag !== `v${version}`) throw new Error('Tag must match package.json version');
+          appendFileSync(process.env.GITHUB_OUTPUT, `tag=${tag}\n`);
+          NODE
+      - run: npm ci --no-audit --no-fund
+      - run: npm run test:release
+      - run: npm run export:release
+      - run: node .github/scripts/verify-theme.mjs
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: author-theme-package
+          path: |
+            release/*-theme.tar.gz
+            release/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: author-theme-package
+          path: release
+      - name: Publish the verified author theme package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          cd release
+          sha256sum --check SHA256SUMS.txt
+          cat > release-notes.md <<'NOTES'
+          **博客作者请下载下方的 `*-theme.tar.gz` 主题包。**
+          **Blog authors: download the `*-theme.tar.gz` theme package below.**
+
+          GitHub 自动附带的 “Source code” 是完整仓库快照，包含开发资料，不是面向博客作者的主题包。
+          GitHub's automatic “Source code” archives are full repository snapshots with developer materials.
+
+          解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
+          Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
+
+          Included features: build-time Markdown and math rendering; explicit Obsidian note publication and referenced attachments; single-file HTML tools; archives/tags, Chinese/English UI, Aero themes, persistent music playback, and isolated scheduled publishing.
+
+          The theme package follows ADR-0013: production theme/tools, default assets, author examples and guides; no tests, CI files or developer maintenance records. Verify the download with `SHA256SUMS.txt`.
+          NOTES
+          flags=(--verify-tag --title "Astro Theme Aero ${RELEASE_TAG}" --notes-file release-notes.md)
+          if [[ "$RELEASE_TAG" == *-* ]]; then flags+=(--prerelease); fi
+          if gh release view "$RELEASE_TAG" --json tagName >/dev/null 2>&1; then
+            echo 'A release already exists for this tag; refusing to overwrite published assets.' >&2
+            exit 1
+          fi
+          gh release create "$RELEASE_TAG" ./*-theme.tar.gz SHA256SUMS.txt "${flags[@]}"

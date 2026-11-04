@@ -94,3 +94,16 @@ GitHub keeps developer materials; author archives exclude them and strip test co
 [阶段 C 本地验收](validation-docs/embedded-tools-phase-c-2026-11-03.md)补齐 7 轮工具专属 Publisher 构建、真实导出、125 条本地路由记录、双浏览器权限/文件/音乐/键盘/滚轮检查及触屏失败对照。内容与发布回归 28 项通过；Chrome 方向轻点和 iframe 内手指滚动仍未通过，Windows WebKit 的真实文章矩阵通过。复现使用 `embedded-tools/phase-c.mjs --sample <当前2048.html路径>`；不执行 NAS 或云端部署，不将物理手机未验项目记为通过。
 
 [阶段 D 实测记录](validation-docs/embedded-tools-phase-d-2026-11-03.md)已完成 NAS 备份/同步、只读挂载与工具链核对、4 轮真实发布和 76 条线上检查，另有初末各 16 条外部复查及 5 组标准 Chrome 线上交互。临时文章/工具/辅助脚本已清理，站点回到 45 个文件。随后补记 iPhone Chrome 棋盘及内外滚动的用户实机通过反馈；桌面 Chromium 模拟失败作为不同环境记录保留。私有会话仅留在忽略的开发产物中，普通测试不自动执行这些部署。
+
+## 正式版本发布 / Tagged releases
+
+`npm run test:release` 串行运行全部自动测试，避免真实构建共享 Vite 缓存时的并发冲突。版本更新同时修改 `package.json` 和锁文件，不改动依赖版本。
+
+1. 验证并提交改动到公开仓库 `main`。
+2. 创建与 package 版本完全一致的标签，例如 `v1.0.0`，并推送该标签。
+3. `Publish theme package` 工作流执行测试、`npm run export:release`、作者包范围与校验和检查，再自动创建 Release。只有发布 job 获得 `contents: write`；构建 job 为只读。
+4. 从 Release 下载 `*-theme.tar.gz` 和 `SHA256SUMS.txt`，不要将 GitHub 自动生成的仓库快照当作作者包。
+
+`npm run export` 保留带提交哈希和可选 `dirty` 标记的本地主题包与站点包。`export:release` 要求干净工作区及准确指向 HEAD 的版本标签，输出不含哈希的版本文件名，并生成仅针对主题包的校验文件。CI 仅上传主题包和校验文件，站点包仍可本地生成。`.github/` 保持仓库专用，不进入作者包或 Publisher 镜像。
+
+可在 Actions 页面手动运行工作流，输入已存在的版本标签，以重试尚未创建 Release 的失败任务。已发布版本不自动覆盖附件；需要修正交付物时创建新版本。依赖或 package 文件变化后，Publisher 镜像须从主题使用的同一份仓库或主题包重建，保持现有完整文件一致性检查。

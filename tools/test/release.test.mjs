@@ -44,9 +44,9 @@ for (const external of [false, true]) {
     const notes = external ? join(workspace, 'outside-notes') : join(root, '笔记');
     const env = { ...process.env, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: join(workspace, 'empty-gitconfig') };
     const git = (...args) => execFileSync('git', ['-C', root, ...args], { env });
-    const runExport = async () => {
+    const runExport = async (args = []) => {
       try {
-        return await execute(process.execPath, [join(root, 'tools/export.mjs')], { cwd: root, env, timeout: 120000, maxBuffer: 8 * 1024 * 1024 });
+        return await execute(process.execPath, [join(root, 'tools/export.mjs'), ...args], { cwd: root, env, timeout: 120000, maxBuffer: 8 * 1024 * 1024 });
       } catch (error) { throw new Error(`${error.message}\n${error.stdout || ''}\n${error.stderr || ''}`); }
     };
     try {
@@ -70,6 +70,7 @@ for (const external of [false, true]) {
       await put(join(root, 'examples/vault/developer-only.md'), 'legacy test sample');
       await put(join(root, 'tools/test/secret-fixture.txt'), 'test input');
       await put(join(root, 'tools/unlisted-tool.mjs'), '// developer-only script');
+      await put(join(root, '.github/workflows/developer-only.yml'), 'name: repository-only');
       const notesConfig = `export const contentConfig = { notesDir: ${JSON.stringify(external ? notes : './笔记')} };\n`;
       await put(join(root, 'src/config/content.config.ts'), notesConfig);
       await put(join(notes, 'day.md'), '---\ntitle: Published note\ndate: "2026-10-29"\npublish: true\ncover: ./cover.svg\n---\nA formula: $x^2$.\n\n[download](./document.txt)');
@@ -107,9 +108,9 @@ for (const external of [false, true]) {
       const before = { public: await fingerprint(join(root, 'public')), notes: await fingerprint(notes) };
 
       await runExport();
-      const releases = await readdir(join(root, 'release'));
+      let releases = await readdir(join(root, 'release'));
       const siteArchive = releases.find((name) => name.endsWith('-site.tar.gz'));
-      const sourceArchive = releases.find((name) => name.endsWith('-source.tar.gz'));
+      const sourceArchive = releases.find((name) => name.endsWith('-theme.tar.gz'));
       assert(siteArchive && sourceArchive);
       const exported = join(workspace, 'exported-site');
       await mkdir(exported);
@@ -121,7 +122,7 @@ for (const external of [false, true]) {
       for (const name of ['tools/deploy.mjs', 'tools/export.mjs', 'tools/scheduler.mjs', 'tools/lib/publisher.mjs']) {
         assert(members.includes(`${packageName}/${name}`), name);
       }
-      for (const name of ['tools/test/', 'docs/adr/', 'docs/architecture/', 'docs/validation/', 'examples/vault/', 'tools/unlisted-tool.mjs']) {
+      for (const name of ['.github/', 'tools/test/', 'docs/adr/', 'docs/architecture/', 'docs/validation/', 'examples/vault/', 'tools/unlisted-tool.mjs']) {
         assert(!members.some((member) => member.startsWith(`${packageName}/${name}`)), name);
       }
       const source = join(workspace, 'exported-source');
@@ -162,6 +163,29 @@ for (const external of [false, true]) {
       assert.deepEqual(await readdir(join(dataDir, 'runs')), []);
 
       await rename(join(workspace, 'git-metadata'), join(root, '.git'));
+      if (!external) {
+        await assert.rejects(runExport(['--invalid']), /Usage:/);
+        await assert.rejects(runExport(['--release']), /clean working tree/);
+        git('add', '--all');
+        git('-c', 'user.name=Release Test', '-c', 'user.email=release-test@example.invalid', 'commit', '--quiet', '-m', 'clean release fixture');
+        await assert.rejects(runExport(['--release']), /existing version tag/);
+        const tag = `v${authorPackage.version}`;
+        git('tag', tag, 'HEAD^');
+        await assert.rejects(runExport(['--release']), /must point to HEAD/);
+        git('tag', '-d', tag);
+        git('tag', tag);
+        await runExport(['--release']);
+        const releaseTheme = `${packageName}-${tag}-theme.tar.gz`;
+        assert((await readdir(join(root, 'release'))).includes(releaseTheme));
+        const checksum = await readFile(join(root, 'release/SHA256SUMS.txt'), 'utf8');
+        assert.match(checksum, new RegExp(`^[a-f0-9]{64}  ${releaseTheme.replaceAll('.', '\\.')}\\n$`));
+        const verify = () => execute(process.execPath, [join(project, '.github/scripts/verify-theme.mjs')], { cwd: root, env });
+        await verify();
+        await put(join(root, 'release/SHA256SUMS.txt'), 'incorrect checksum');
+        await assert.rejects(verify(), /AssertionError/);
+        await put(join(root, 'release/SHA256SUMS.txt'), checksum);
+        releases = await readdir(join(root, 'release'));
+      }
       await put(join(root, 'src/config/content.config.ts'), "export const contentConfig = { notesDir: './missing-notes' };\n");
       await assert.rejects(runExport(), /Cannot read notesDir/);
       assert.deepEqual(await readdir(join(root, 'release')), releases);

@@ -4,6 +4,10 @@
 
 Welcome to Aero! This Astro blog theme brings the classic Aero look to your site. Choose a language below to get started.
 
+博客作者请从 [Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest) 下载 `*-theme.tar.gz` 主题包。GitHub 自动附带的 “Source code” 是包含开发资料的仓库快照。
+
+Blog authors: download the `*-theme.tar.gz` theme package from [Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest). GitHub's automatic “Source code” archives are repository snapshots with developer materials.
+
 - [简体中文文档](docs/zh-CN/README.md)
 - [English documentation](docs/en/README.md)
 

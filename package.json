@@ -1,6 +1,6 @@
 {
   "name": "astro-theme-aero",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,9 @@
     "deploy:dry-run": "node tools/deploy.mjs --dry-run",
     "deploy:build": "node tools/deploy.mjs --build-only",
     "test:publisher": "node --test tools/test/publisher.test.mjs tools/test/notes-snapshot.test.mjs",
-    "test:page-images": "node --test tools/test/page-images.test.mjs"
+    "test:page-images": "node --test tools/test/page-images.test.mjs",
+    "export:release": "node tools/export.mjs --release",
+    "test:release": "node --test --test-concurrency=1 tools/test/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.3",

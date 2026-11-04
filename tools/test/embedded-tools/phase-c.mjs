@@ -193,7 +193,7 @@ try {
     await writeFile(join(output, 'export.log'), await execute(process.execPath, [join(theme, 'tools/export.mjs')]));
     const releases = await readdir(join(theme, 'release'));
     const siteArchive = releases.find((name) => name.endsWith('-site.tar.gz'));
-    const sourceArchive = releases.find((name) => name.endsWith('-source.tar.gz'));
+    const sourceArchive = releases.find((name) => name.endsWith('-theme.tar.gz'));
     assert(siteArchive && sourceArchive);
     const exported = join(output, 'exported-site'); await mkdir(exported);
     await execute('tar', ['-xzf', join(theme, 'release', siteArchive), '-C', exported]);
