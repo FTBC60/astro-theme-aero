@@ -24,6 +24,16 @@
 
 ## 验证范围
 
+### 单文件 HTML 工具接入（2026-11-03）
+
+`remarkNoteAssets` 将图片节点中精确的小写 `tool:` 前缀识别为工具，校验非空标题，再使用 `resolveNoteAsset(..., 'tool')`。引用式图片先复用现有 definition 解析。普通图片、链接与封面继续走原路径。
+
+`tool` 是附件解析 interface 的一种用途约束：仅接受相对本地 `.html`，拒绝查询、片段和当前上传链路不接受的字面百分号输出路径；源路径与真实目标都必须是 HTML 文件。路径根、共享输出、符号链接和冲突检查继续集中在现有 resolver。它不创建新的资源种类字段、存储清单或注册系统；附件计划版本和 `{source, target}` 格式保持不变。
+
+工具生成包含部署 base 的 iframe，固定 `sandbox="allow-scripts allow-downloads"`、懒加载、无 referrer。属性值由现有转义函数处理。HTML 按原字节复制；开发 middleware 仍先匹配计划，只为匹配的 HTML 资源返回正确 MIME，不扫描或加工 HTML。正文样式为宽度 100%、高度 480px；没有新增客户端生命周期脚本。
+
+该接入只承载作者审查过的自包含工具，直接 HTML 访问不继承 iframe sandbox，移动兼容性仍有待验项。设计取舍见 [ADR-0014](../adr/0014-static-embedded-tools.md)，阶段 B 的实际 Markdown/2048 检查见[实现验证](../../tools/test/validation-docs/embedded-tools-phase-b-2026-11-03.md)。
+
 `tools/test/content.test.mjs` 在相同 interface 上验证：正常空结果、封面与附件完整性、配套 remark 缺席、渲染结果串用、失败批次保留旧结果、计划版本与来源校验、损坏计划、整批输出冲突及撤稿清理。
 
 真实 Astro 构建覆盖公式、高亮、中文路径、引用式图片、封面、共享附件、文章互链与部署 base，同时验证移除 remark、integration 与 loader 配置不同笔记根时的失败行为。真实 dev 验证附件修改、撤稿、目录切换和删除笔记后的旧资源清理。资源选择与 Publisher 的回归测试另行验证导出及隔离构建接入；NAS 和线上验收需在更新后的实际环境中执行。
@@ -35,3 +45,9 @@
 2026-10-30 第二阶段本地验收：新增[完整 Vault 合成样本](../../tools/test/vault/)与[验收指南](../../tools/test/validation-docs/zh-CN/VAULT-VALIDATION.md)。`tools/test/publication.test.mjs` 通过真实 Publisher 的四轮 `build-only` 验证外部混合 Vault、中文/空格路径、同目录 PDF、子目录笔记、封面/互链、共享附件更新、撤稿及删除最后一篇文章；逐轮核对输入指纹、附件字节、完整文章产物清单和 HTML 链接。内容与发布筛选共 18 项测试通过；样本 PDF 通过严格解析和正文提取。本次保持附件实现与 URL 规则不变，不调用 Wrangler，也未执行该组样本的 NAS／线上 URL 验收。
 
 2026-10-31 用户反馈第二阶段改动在 NAS 单次发布正常；记录已补入 [ADR 0007](../adr/0007-notes-directory-and-attachments.md)。该反馈不代替验收指南中逐项的线上资源、撤稿 URL 和手机同步检查。
+
+2026-11-03 前端工具[阶段 C 本地验收](../../tools/test/validation-docs/embedded-tools-phase-c-2026-11-03.md)：内容与发布 28 项通过，真实 Publisher 的 7 轮构建及导出核对工具所属副本、HTML 单独更新、普通链接保留和最终撤稿；本地工具 URL 检查通过。没有改变编译接口或清单格式。移动输入仍有未通过项，NAS 和线上未执行。
+
+2026-11-03 随后完成[阶段 D NAS/Worker 验收](../../tools/test/validation-docs/embedded-tools-phase-d-2026-11-03.md)：四轮真实发布核对原字节交付、HTML 单独更新、撤稿所属副本与共享副本保留，最终临时工具和全部记录别名清除。只读挂载和工具链一致性通过；原有 Vault 未变。移动输入限制、手机同步及本轮定时触发仍待另验。
+
+同日用户补充 iPhone Chrome 的棋盘操作及 iframe 内外滚动正常，已在阶段 D 中作为用户实机反馈单列。桌面 Chromium 模拟失败不外推为该手机不可滚动，也不因此改写原始自动化结果；本次只更新验收说明。

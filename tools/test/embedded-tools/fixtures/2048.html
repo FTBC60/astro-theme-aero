@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>2048</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; color: #62574e; background: #faf8f3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 16px; }
+    main { width: 100%; max-width: 400px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    h1 { font-size: 44px; letter-spacing: -2px; line-height: 1; margin: 0 0 6px; }
+    .subtitle { font-size: 13px; margin: 0; color: #796d60; }
+    .score-box { min-width: 92px; padding: 8px 14px; border-radius: 8px; background: #887562; color: #fff; text-align: center; overflow-wrap: anywhere; }
+    .score-label { display: block; font-size: 12px; margin-bottom: 2px; }
+    #score { font-size: 25px; font-weight: 750; }
+    button, input { font: inherit; }
+    button { border: 0; border-radius: 6px; min-height: 40px; padding: 8px 13px; background: #887562; color: #fff; font-size: 14px; font-weight: 650; cursor: pointer; touch-action: manipulation; }
+    button:hover:not(:disabled) { background: #705d4c; }
+    button:disabled { opacity: .45; cursor: default; }
+    :focus-visible { outline: 3px solid #17669b; outline-offset: 3px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+    .controls small { margin-left: auto; font-size: 12px; }
+    #board { --gap: clamp(6px, 2vw, 10px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); gap: var(--gap); padding: var(--gap); width: 100%; aspect-ratio: 1; position: relative; border-radius: 10px; background: #bbada0; touch-action: none; user-select: none; -webkit-user-select: none; }
+    .tile { display: flex; align-items: center; justify-content: center; min-width: 0; border-radius: 5px; background: #cdc1b4; font-size: clamp(20px, 7vw, 36px); line-height: 1; font-weight: 750; color: #685e54; }
+    .tile[data-value="2"] { background: #eee4da; }
+    .tile[data-value="4"] { background: #ede0c8; }
+    .tile[data-value="8"] { background: #f2b179; color: #34291e; }
+    .tile[data-value="16"] { background: #f59563; color: #34291e; }
+    .tile[data-value="32"] { background: #f67c5f; color: #34291e; }
+    .tile[data-value="64"] { background: #f65e3b; color: #2c2119; }
+    .tile.large { background: #edcc61; color: #4a3d20; font-size: clamp(17px, 5.4vw, 28px); }
+    .tile.huge { background: #66584c; color: #fff7dc; font-size: clamp(14px, 4.4vw, 23px); }
+    .tile.new { animation: appear .16s ease-out; }
+    .tile.merged { animation: pop .16s ease-out; }
+    .tile sup { font-size: .6em; align-self: center; margin-top: -12px; }
+    @keyframes appear { from { transform: scale(.65); opacity: .3; } to { transform: scale(1); opacity: 1; } }
+    @keyframes pop { 50% { transform: scale(1.08); } }
+    #overlay { position: absolute; inset: 0; border-radius: inherit; background: rgba(250, 248, 243, .94); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 16px; gap: 12px; }
+    #overlay[hidden] { display: none; }
+    #overlay h2 { margin: 0; font-size: clamp(24px, 8vw, 36px); }
+    #overlay p { margin: 0; font-size: 14px; }
+    .overlay-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .directions { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+    .directions button { min-width: 44px; font-size: 19px; padding: 4px 10px; }
+    .hint { font-size: 12px; line-height: 1.65; margin: 10px 0 0; color: #766a5e; overflow-wrap: anywhere; }
+    #status { min-height: 1.65em; font-size: 13px; line-height: 1.65; margin: 8px 0; overflow-wrap: anywhere; }
+    #status.error { color: #a12320; }
+    details { border-top: 1px solid #ddd4c9; padding-top: 10px; margin-top: 12px; }
+    summary { cursor: pointer; font-size: 14px; font-weight: 650; padding: 3px 0; }
+    .save-help { font-size: 12px; line-height: 1.65; margin: 10px 0; }
+    .save-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
+    @media (max-width: 320px) { body { padding: 10px; } h1 { font-size: 37px; } button { padding: 8px 10px; } }
+    @media (prefers-reduced-motion: reduce) { .tile.new, .tile.merged { animation: none; } }
+  </style>
+</head>
+<body>
+  <main aria-label="2048 小游戏">
+    <header>
+      <div><h1>2048</h1><p class="subtitle">合并相同数字</p></div>
+      <div class="score-box"><span class="score-label">得分</span><span id="score">0</span></div>
+    </header>
+    <div class="controls">
+      <button type="button" id="undo-btn" disabled>撤销</button>
+      <button type="button" id="restart-btn">新游戏</button>
+      <small>可撤销最近 5 步</small>
+    </div>
+    <div id="board" tabindex="0" role="group" aria-label="2048 棋盘" aria-describedby="instructions">
+      <div id="overlay" hidden>
+        <h2 id="overlay-title"></h2>
+        <p id="overlay-message"></p>
+        <div class="overlay-actions">
+          <button type="button" id="continue-btn">继续挑战</button>
+          <button type="button" id="retry-btn">新游戏</button>
+        </div>
+      </div>
+    </div>
+    <div class="directions" role="group" aria-label="移动方向">
+      <button type="button" data-direction="left" aria-label="向左移动">←</button>
+      <button type="button" data-direction="up" aria-label="向上移动">↑</button>
+      <button type="button" data-direction="down" aria-label="向下移动">↓</button>
+      <button type="button" data-direction="right" aria-label="向右移动">→</button>
+    </div>
+    <p class="hint" id="instructions">点击或按 Tab 聚焦棋盘后，用方向键或 WASD 移动；也可滑动棋盘或使用方向按钮。无效移动不生成方块。</p>
+    <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="hint" id="storage-status"></p>
+    <details id="save-panel">
+      <summary>存档：导入 / 导出 JSON 文件</summary>
+      <p class="save-help">导出 JSON 文件即可保存当前棋盘、得分与撤销历史。之后选择该文件恢复游戏，也支持原版 JSON 存档。</p>
+      <div class="save-actions">
+        <button type="button" id="export-btn">导出 JSON 文件</button>
+        <button type="button" id="import-btn" aria-describedby="import-help">导入 JSON 文件</button>
+      </div>
+      <p class="save-help" id="import-help">读取本地 JSON 文件（最大 64 KiB，仅前端读取，不会上传）</p>
+      <input type="file" id="import-input" accept=".json,application/json" hidden>
+    </details>
+    <noscript><p>请允许此页面运行 JavaScript 后再开始游戏。</p></noscript>
+  </main>
+  <!-- The engine is inline so this file has no build step or runtime dependency.
+       Tests exercise this same script, not a separate copy of the rules. -->
+  <script id="game-engine">
+    const Game2048 = (() => {
+      'use strict';
+      const SIZE = 4;
+      const MAX_HISTORY = 5;
+      const MAX_TEXT = 65536;
+      const empty = () => Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
+      const clone = (board) => board.map((row) => row.slice());
+      const equal = (a, b) => a.every((row, r) => row.every((value, c) => value === b[r][c]));
+      const hasWon = (board) => board.some((row) => row.some((value) => value >= 2048));
+      function hasMoves(board) {
+        return board.some((row, r) => row.some((value, c) => value === 0
+          || (c + 1 < SIZE && value === row[c + 1])
+          || (r + 1 < SIZE && value === board[r + 1][c])));
+      }
+      function snapshot(state) {
+        return { board: clone(state.board), score: state.score, wonAcknowledged: state.wonAcknowledged };
+      }
+      function moveBoard(board, direction) {
+        if (!['left', 'right', 'up', 'down'].includes(direction)) throw new Error('未知移动方向。');
+        const next = empty();
+        const merged = [];
+        let gained = 0;
+        for (let line = 0; line < SIZE; line++) {
+          const positions = Array.from({ length: SIZE }, (_, i) => {
+            const index = direction === 'right' || direction === 'down' ? SIZE - 1 - i : i;
+            return direction === 'left' || direction === 'right' ? [line, index] : [index, line];
+          });
+          const values = positions.map(([r, c]) => board[r][c]).filter((value) => value !== 0);
+          let out = 0;
+          for (let i = 0; i < values.length; i++) {
+            let value = values[i];
+            const [r, c] = positions[out++];
+            if (value === values[i + 1]) {
+              value *= 2;
+              if (!Number.isSafeInteger(value)) throw new Error('方块数值超出安全整数范围。');
+              gained += value;
+              merged.push(r * SIZE + c);
+              i++;
+            }
+            next[r][c] = value;
+          }
+        }
+        return { board: next, gained, changed: !equal(board, next), merged };
+      }
+      function addTile(board, random = Math.random) {
+        const next = clone(board);
+        const cells = [];
+        next.forEach((row, r) => row.forEach((value, c) => { if (!value) cells.push([r, c]); }));
+        if (!cells.length) return { board: next, added: -1 };
+        const [r, c] = cells[Math.floor(random() * cells.length)];
+        next[r][c] = random() < .9 ? 2 : 4;
+        return { board: next, added: r * SIZE + c };
+      }
+      function newGame(random = Math.random) {
+        const board = addTile(addTile(empty(), random).board, random).board;
+        return { board, score: 0, history: [], wonAcknowledged: false };
+      }
+      function turn(state, direction, random = Math.random) {
+        if (!hasMoves(state.board) || (hasWon(state.board) && !state.wonAcknowledged)) return { state, merged: [], added: -1 };
+        const result = moveBoard(state.board, direction);
+        if (!result.changed) return { state, merged: [], added: -1 };
+        const score = state.score + result.gained;
+        if (!Number.isSafeInteger(score)) throw new Error('得分超出安全整数范围。');
+        const spawned = addTile(result.board, random);
+        return {
+          state: { board: spawned.board, score, history: [...state.history, snapshot(state)].slice(-MAX_HISTORY), wonAcknowledged: state.wonAcknowledged },
+          merged: result.merged, added: spawned.added,
+        };
+      }
+      function undo(state) {
+        if (!state.history.length) return state;
+        return { ...snapshot(state.history.at(-1)), history: state.history.slice(0, -1).map(snapshot) };
+      }
+      function checkedSnapshot(data) {
+        if (!data || typeof data !== 'object' || !Array.isArray(data.board) || data.board.length !== SIZE) throw new Error('棋盘必须有 4 行。');
+        const board = data.board.map((row) => {
+          if (!Array.isArray(row) || row.length !== SIZE) throw new Error('棋盘每行必须有 4 个格子。');
+          return row.map((tile) => {
+            // Legacy saves use null / { value, id, ... }; new saves use numbers.
+            const value = tile === null ? 0 : typeof tile === 'object' && !Array.isArray(tile) ? tile.value : tile;
+            if (!Number.isSafeInteger(value) || value < 0 || (value !== 0 && (value < 2 || 2 ** Math.round(Math.log2(value)) !== value))) throw new Error('方块只能是空格或安全整数范围内的 2 的幂。');
+            return value;
+          });
+        });
+        if (!board.some((row) => row.some(Boolean))) throw new Error('存档棋盘不能完全为空。');
+        const score = data.score === undefined ? 0 : data.score;
+        if (!Number.isSafeInteger(score) || score < 0) throw new Error('得分必须是非负安全整数。');
+        if (data.wonAcknowledged !== undefined && typeof data.wonAcknowledged !== 'boolean') throw new Error('胜利状态格式不正确。');
+        return { board, score, wonAcknowledged: hasWon(board) && data.wonAcknowledged === true };
+      }
+      function parseSave(text) {
+        if (typeof text !== 'string' || text.length > MAX_TEXT) throw new Error('存档内容过大，最多 65536 个字符。');
+        let data;
+        try { data = JSON.parse(text); } catch { throw new Error('无法解析 JSON，请粘贴完整存档。'); }
+        const current = checkedSnapshot(data);
+        const modern = data.format === 'aero-2048' && data.version === 1;
+        if (!modern && (data.format !== undefined || data.version !== undefined)) throw new Error('不支持此存档格式或版本。');
+        const rawHistory = data.history === undefined ? [] : data.history;
+        if (!Array.isArray(rawHistory) || rawHistory.length > (modern ? MAX_HISTORY : MAX_HISTORY + 1)) throw new Error('撤销历史格式或长度不正确。');
+        const history = rawHistory.map(checkedSnapshot);
+        if (!modern && history.length) {
+          const last = history.at(-1);
+          if (last.score !== current.score || !equal(last.board, current.board)) throw new Error('旧版存档的历史与当前棋盘不一致。');
+          history.pop();
+        }
+        return { ...current, history };
+      }
+      function serialize(state) {
+        return JSON.stringify({ format: 'aero-2048', version: 1, ...snapshot(state), history: state.history.map(snapshot) });
+      }
+      return { empty, clone, equal, hasWon, hasMoves, moveBoard, newGame, turn, undo, parseSave, serialize };
+    })();
+  </script>
+  <script id="game-ui">
+    (() => {
+      'use strict';
+      const $ = (id) => document.getElementById(id);
+      const board = $('board');
+      const status = $('status');
+      const cells = Array.from({ length: 16 }, () => {
+        const cell = document.createElement('div');
+        cell.className = 'tile';
+        cell.setAttribute('aria-hidden', 'true');
+        board.insertBefore(cell, $('overlay'));
+        return cell;
+      });
+      const KEY = 'aero_2048_save_v1';
+      let storage;
+      let state;
+      let importTicket = 0;
+      let gesture;
+      function say(message, error = false) {
+        status.textContent = message;
+        status.classList.toggle('error', error);
+      }
+      function storageMessage() {
+        $('storage-status').textContent = storage
+          ? '此浏览器已启用自动保存；也可在下方导出 JSON 文件备份。'
+          : '当前环境无法自动保存。离开页面会丢失进度，请在下方导出 JSON 文件保存。';
+      }
+      function persist() {
+        if (storage) {
+          try { storage.setItem(KEY, Game2048.serialize(state)); }
+          catch { storage = undefined; }
+        }
+        storageMessage();
+      }
+      function render({ merged = [], added = -1 } = {}) {
+        $('score').textContent = String(state.score);
+        $('undo-btn').disabled = state.history.length === 0;
+        cells.forEach((cell, index) => {
+          const value = state.board[Math.floor(index / 4)][index % 4];
+          cell.className = 'tile' + (value >= 16384 ? ' huge' : value >= 128 ? ' large' : '');
+          cell.dataset.value = String(value);
+          cell.replaceChildren();
+          if (value >= 16384) {
+            const power = document.createElement('sup');
+            power.textContent = String(Math.log2(value));
+            cell.append('2', power);
+            cell.title = String(value);
+          } else {
+            cell.textContent = value ? String(value) : '';
+            cell.removeAttribute('title');
+          }
+          if (index === added || merged.includes(index)) {
+            void cell.offsetWidth;
+            cell.classList.add(index === added ? 'new' : 'merged');
+          }
+        });
+        const over = !Game2048.hasMoves(state.board);
+        const won = Game2048.hasWon(state.board) && !state.wonAcknowledged;
+        $('overlay').hidden = !(over || won);
+        $('overlay-title').textContent = over ? '没有可移动的格子了' : '达成 2048！';
+        $('overlay-message').textContent = over ? '可以撤销上一步，或开始新游戏。' : '做得好，继续挑战更大的数字吧。';
+        $('continue-btn').hidden = over;
+        document.querySelectorAll('[data-direction]').forEach((button) => { button.disabled = over || won; });
+        board.setAttribute('aria-label', '2048 棋盘。' + state.board.map((row, r) => `第 ${r + 1} 行：${row.map((value) => value || '空').join('、')}`).join('。'));
+      }
+      function focusBoard() { board.focus({ preventScroll: true }); }
+      function move(direction) {
+        try {
+          const result = Game2048.turn(state, direction);
+          if (result.state === state) return;
+          importTicket++;
+          state = result.state;
+          render(result);
+          persist();
+          say(!Game2048.hasMoves(state.board) ? '游戏结束。可以撤销或重新开始。'
+            : Game2048.hasWon(state.board) && !state.wonAcknowledged ? '已达成 2048，点击继续挑战。'
+              : `得分 ${state.score}。还可撤销 ${state.history.length} 步。`);
+        } catch (error) { say(error.message, true); }
+      }
+      function restart() {
+        importTicket++;
+        state = Game2048.newGame();
+        render(); persist(); say('新游戏已开始。'); focusBoard();
+      }
+      function importText(text) {
+        // Validate the entire save before changing the running game.
+        try {
+          const candidate = Game2048.parseSave(text);
+          state = candidate;
+          render(); persist(); say('存档已导入。'); focusBoard();
+        } catch (error) { say(`导入失败：${error.message} 当前游戏未改变。`, true); }
+      }
+      try {
+        storage = window.localStorage;
+        const saved = storage.getItem(KEY);
+        if (saved) {
+          try { state = Game2048.parseSave(saved); say('已恢复自动存档。'); }
+          catch { say('自动存档无效，已开始新游戏。可在下方导入其他 JSON 存档。', true); }
+        }
+      } catch { storage = undefined; }
+      if (!state) state = Game2048.newGame();
+      render(); persist();
+      $('restart-btn').addEventListener('click', restart);
+      $('retry-btn').addEventListener('click', restart);
+      $('undo-btn').addEventListener('click', () => {
+        importTicket++;
+        state = Game2048.undo(state);
+        render(); persist(); say('已撤销一步。'); focusBoard();
+      });
+      $('continue-btn').addEventListener('click', () => {
+        importTicket++;
+        state = { ...state, wonAcknowledged: true };
+        render(); persist(); say('继续挑战！'); focusBoard();
+      });
+      document.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => {
+        move(button.dataset.direction); focusBoard();
+      }));
+      const keys = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down', a: 'left', d: 'right', w: 'up', s: 'down' };
+      board.addEventListener('keydown', (event) => {
+        if (event.target !== board || event.altKey || event.ctrlKey || event.metaKey) return;
+        const direction = keys[event.key] || keys[event.key.toLowerCase()];
+        if (!direction) return;
+        event.preventDefault(); move(direction);
+      });
+      board.addEventListener('pointerdown', (event) => {
+        if (!event.isPrimary) { gesture = undefined; return; }
+        if (event.button !== 0 || event.target.closest('button') || !$('overlay').hidden) return;
+        focusBoard();
+        gesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
+        board.setPointerCapture(event.pointerId);
+      });
+      board.addEventListener('pointerup', (event) => {
+        if (!gesture || gesture.id !== event.pointerId) return;
+        const dx = event.clientX - gesture.x;
+        const dy = event.clientY - gesture.y;
+        gesture = undefined;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+        move(Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 'right' : 'left' : dy > 0 ? 'down' : 'up');
+      });
+      for (const name of ['pointercancel', 'lostpointercapture']) board.addEventListener(name, () => { gesture = undefined; });
+      $('export-btn').addEventListener('click', () => {
+        const blob = new Blob([Game2048.serialize(state)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `2048_${state.score}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        say('已请求导出 JSON 文件，请保存到本地。');
+      });
+      $('import-btn').addEventListener('click', () => $('import-input').click());
+      $('import-input').addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        const ticket = ++importTicket;
+        event.target.value = '';
+        if (!file) return;
+        if (file.size > 65536) { say('文件过大，最多 64 KiB。当前游戏未改变。', true); return; }
+        say('正在读取 JSON 文件…');
+        try {
+          const text = await file.text();
+          if (ticket === importTicket) importText(text);
+        } catch { if (ticket === importTicket) say('无法读取文件。当前游戏未改变。', true); }
+      });
+    })();
+  </script>
+</body>
+</html>

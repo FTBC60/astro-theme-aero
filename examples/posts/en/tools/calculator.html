@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Addition calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 20px; color: #182b38; background: #fff; font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 420px; margin: auto; }
+    h1 { margin-top: 0; font-size: 22px; }
+    label { display: block; margin: 10px 0; }
+    input { display: block; width: 100%; min-width: 0; padding: 8px; font: inherit; }
+    button { margin: 5px 8px 5px 0; padding: 8px 12px; font: inherit; }
+    :focus-visible { outline: 3px solid #0874ae; outline-offset: 2px; }
+    output { display: block; margin-top: 12px; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Addition calculator</h1>
+    <label for="first">First number<input id="first" type="number" step="any" value="2"></label>
+    <label for="second">Second number<input id="second" type="number" step="any" value="3"></label>
+    <button id="calculate" type="button">Calculate</button>
+    <button id="export" type="button">Export JSON</button>
+    <output id="result" aria-live="polite">Calculate or export a result.</output>
+  </main>
+  <script>
+    const first = document.getElementById('first');
+    const second = document.getElementById('second');
+    const result = document.getElementById('result');
+    function calculate() {
+      const a = first.valueAsNumber, b = second.valueAsNumber, sum = a + b;
+      if (![a, b, sum].every(Number.isFinite)) { result.textContent = 'Enter two valid numbers.'; return; }
+      result.textContent = `${a} + ${b} = ${sum}`;
+      return { first: a, second: b, sum };
+    }
+    document.getElementById('calculate').addEventListener('click', calculate);
+    document.getElementById('export').addEventListener('click', () => {
+      const value = calculate();
+      if (!value) return;
+      const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
+      const link = document.createElement('a');
+      link.href = url; link.download = 'calculation.json';
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  </script>
+</body>
+</html>

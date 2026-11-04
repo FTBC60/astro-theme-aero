@@ -1,0 +1,5155 @@
+{
+  "clientDate": "2026-11-03",
+  "baseline": "ffd0518",
+  "generated": "2026-11-03T10:44:01.278Z",
+  "purpose": "Phase A manual iframe technical verification; tool Markdown compilation and production delivery are not implemented.",
+  "platform": "win32",
+  "node": "v24.22.1",
+  "astro": "7.3.8",
+  "wrangler": "4.152.0",
+  "compatibilityDate": "2026-10-25",
+  "htmlHandling": "force-trailing-slash",
+  "notFoundHandling": "none",
+  "sample": {
+    "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+    "bytes": 21662
+  },
+  "browser": [
+    {
+      "file": "local-root-no-adapter-browser.json",
+      "label": "local",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "direct iframe: user file chooser, two downloads and JSON round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "dual permission still denies parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": true,
+                "cookie": true,
+                "storage": true,
+                "topNavigation": true
+              }
+            },
+            {
+              "name": "scripts-only control runs but blocks JSON download",
+              "status": "pass",
+              "detail": {
+                "downloadBlocked": true
+              }
+            },
+            {
+              "name": "ClientRouter home → top tool without full reload; audio identity retained",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>",
+                "audioIdentity": true,
+                "playing": true
+              }
+            },
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "pass",
+              "detail": {
+                "initialFrames": [
+                  "<test-url>",
+                  "<test-url>"
+                ],
+                "loadedUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "leave/re-enter and history back/forward initialise a fresh game",
+              "status": "pass",
+              "detail": {
+                "oldFrameDetached": true,
+                "restoredScore": 0
+              }
+            },
+            {
+              "name": "shared encoded path works through navigation",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "keyboard can enter and leave iframe in both directions",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "returned": true,
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "390px and 280px layout with 480px iframe; inner scroll reaches export",
+              "status": "pass",
+              "detail": [
+                {
+                  "viewport": 390,
+                  "width": 350,
+                  "content": 350,
+                  "height": 480,
+                  "scroll": 387
+                },
+                {
+                  "viewport": 280,
+                  "width": 240,
+                  "content": 240,
+                  "height": 480,
+                  "scroll": 364
+                }
+              ]
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 170
+              }
+            }
+          ],
+          "errors": []
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "results": [
+            {
+              "name": "direct iframe: user file chooser, two downloads and JSON round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "dual permission still denies parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": true,
+                "cookie": true,
+                "storage": true,
+                "topNavigation": true
+              }
+            },
+            {
+              "name": "scripts-only control runs but blocks JSON download",
+              "status": "pass",
+              "detail": {
+                "downloadBlocked": true
+              }
+            },
+            {
+              "name": "ClientRouter home → top tool without full reload; audio identity retained",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>",
+                "audioIdentity": true,
+                "playing": true
+              }
+            },
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "fail",
+              "error": "page.evaluate: Target page, context or browser has been closed"
+            },
+            {
+              "name": "leave/re-enter and history back/forward initialise a fresh game",
+              "status": "fail",
+              "error": "page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"<test-url>\", waiting until \"load\"\u001b[22m\n"
+            },
+            {
+              "name": "shared encoded path works through navigation",
+              "status": "fail",
+              "error": "page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"<test-url>\", waiting until \"load\"\u001b[22m\n"
+            },
+            {
+              "name": "keyboard can enter and leave iframe in both directions",
+              "status": "fail",
+              "error": "page.goto: Page crashed\nCall log:\n\u001b[2m  - navigating to \"<test-url>\", waiting until \"load\"\u001b[22m\n"
+            },
+            {
+              "name": "390px and 280px layout with 480px iframe; inner scroll reaches export",
+              "status": "fail",
+              "error": "page.setViewportSize: Target crashed "
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "fail",
+              "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   \"/127.0.0.1:18865/preflight/top/' from frame with URL '<test-url>'. The frame attempting navigation of the top-level window is sandboxed, but the 'allow-top-navigation-by-user-activation' flag is not set and navigation is not triggered by user activation.\\n\"\n+ ]\n- []\n"
+            }
+          ],
+          "errors": [
+            "/127.0.0.1:18865/preflight/top/' from frame with URL '<test-url>'. The frame attempting navigation of the top-level window is sandboxed, but the 'allow-top-navigation-by-user-activation' flag is not set and navigation is not triggered by user activation.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "cloud-root-no-adapter-browser.json",
+      "label": "cloud",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "direct iframe: user file chooser, two downloads and JSON round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "dual permission still denies parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": true,
+                "cookie": true,
+                "storage": true,
+                "topNavigation": true
+              }
+            },
+            {
+              "name": "scripts-only control runs but blocks JSON download",
+              "status": "pass",
+              "detail": {
+                "downloadBlocked": true
+              }
+            },
+            {
+              "name": "ClientRouter home → top tool without full reload; audio identity retained",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>",
+                "audioIdentity": true,
+                "playing": true
+              }
+            },
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "pass",
+              "detail": {
+                "initialFrames": [
+                  "<test-url>",
+                  ""
+                ],
+                "loadedUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "leave/re-enter and history back/forward initialise a fresh game",
+              "status": "pass",
+              "detail": {
+                "oldFrameDetached": true,
+                "restoredScore": 0
+              }
+            },
+            {
+              "name": "shared encoded path works through navigation",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "keyboard can enter and leave iframe in both directions",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "returned": true,
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "390px and 280px layout with 480px iframe; inner scroll reaches export",
+              "status": "pass",
+              "detail": [
+                {
+                  "viewport": 390,
+                  "width": 350,
+                  "content": 350,
+                  "height": 480,
+                  "scroll": 387
+                },
+                {
+                  "viewport": 280,
+                  "width": 240,
+                  "content": 240,
+                  "height": 480,
+                  "scroll": 364
+                }
+              ]
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 171
+              }
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "cloud-blog-no-adapter-browser.json",
+      "label": "cloud",
+      "base": "/blog",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "direct iframe: user file chooser, two downloads and JSON round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "dual permission still denies parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": true,
+                "cookie": true,
+                "storage": true,
+                "topNavigation": true
+              }
+            },
+            {
+              "name": "scripts-only control runs but blocks JSON download",
+              "status": "pass",
+              "detail": {
+                "downloadBlocked": true
+              }
+            },
+            {
+              "name": "ClientRouter home → top tool without full reload; audio identity retained",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>",
+                "audioIdentity": true,
+                "playing": true
+              }
+            },
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "pass",
+              "detail": {
+                "initialFrames": [
+                  "<test-url>",
+                  ""
+                ],
+                "loadedUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "leave/re-enter and history back/forward initialise a fresh game",
+              "status": "pass",
+              "detail": {
+                "oldFrameDetached": true,
+                "restoredScore": 0
+              }
+            },
+            {
+              "name": "shared encoded path works through navigation",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "keyboard can enter and leave iframe in both directions",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "returned": true,
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "390px and 280px layout with 480px iframe; inner scroll reaches export",
+              "status": "pass",
+              "detail": [
+                {
+                  "viewport": 390,
+                  "width": 350,
+                  "content": 350,
+                  "height": 480,
+                  "scroll": 387
+                },
+                {
+                  "viewport": 280,
+                  "width": 240,
+                  "content": 240,
+                  "height": 480,
+                  "scroll": 364
+                }
+              ]
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 172
+              }
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "cloud-webkit-subset-root-no-adapter-browser.json",
+      "label": "cloud-webkit-subset",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "results": [
+            {
+              "name": "direct iframe: user file chooser, two downloads and JSON round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "dual permission still denies parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": true,
+                "cookie": true,
+                "storage": true,
+                "topNavigation": true
+              }
+            },
+            {
+              "name": "scripts-only control runs but blocks JSON download",
+              "status": "pass",
+              "detail": {
+                "downloadBlocked": true
+              }
+            },
+            {
+              "name": "ClientRouter home → top tool without full reload; audio identity retained",
+              "status": "pass",
+              "detail": {
+                "frameUrl": "<test-url>",
+                "audioIdentity": true,
+                "playing": true
+              }
+            },
+            {
+              "name": "keyboard can enter and leave iframe in both directions",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "returned": true,
+                "frameUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "390px and 280px layout with 480px iframe; inner scroll reaches export",
+              "status": "pass",
+              "detail": [
+                {
+                  "viewport": 390,
+                  "width": 350,
+                  "content": 350,
+                  "height": 480,
+                  "scroll": 387
+                },
+                {
+                  "viewport": 280,
+                  "width": 240,
+                  "content": 240,
+                  "height": 480,
+                  "scroll": 364
+                }
+              ]
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 92
+              }
+            }
+          ],
+          "errors": [],
+          "securityDiagnostics": [
+            "/<test-host>/preflight/top/' from frame with URL '<test-url>'. The frame attempting navigation of the top-level window is sandboxed, but the 'allow-top-navigation-by-user-activation' flag is not set and navigation is not triggered by user activation.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "cloud-extra-root-no-adapter-browser.json",
+      "label": "cloud-extra",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "fail",
+              "error": "Expected values to be strictly equal:\n\n'0' !== '4'\n"
+            },
+            {
+              "name": "direct HTML URL has normal origin storage; iframe sandbox is not inherited",
+              "status": "pass",
+              "detail": {
+                "directStorageAccessible": true,
+                "finalUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 16
+              }
+            }
+          ],
+          "errors": []
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "pass",
+              "detail": {
+                "emulation": true,
+                "physicalPhone": false,
+                "score": 4
+              }
+            },
+            {
+              "name": "direct HTML URL has normal origin storage; iframe sandbox is not inherited",
+              "status": "pass",
+              "detail": {
+                "directStorageAccessible": true,
+                "finalUrl": "<test-url>"
+              }
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 14
+              }
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "cloud-touch-repeat-root-no-adapter-browser.json",
+      "label": "cloud-touch-repeat",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "fail",
+              "error": "frame.waitForFunction: Timeout 3000ms exceeded."
+            },
+            {
+              "name": "no uncaught page errors or external HTTP requests",
+              "status": "pass",
+              "detail": {
+                "requests": 14
+              }
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "cloud-touch-settled-root-no-adapter-browser.json",
+      "label": "cloud-touch-settled",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "fail",
+              "error": "frame.waitForFunction: Timeout 3000ms exceeded."
+            }
+          ],
+          "errors": [],
+          "touchDiagnostics": {
+            "events": [
+              {
+                "type": "pointerdown",
+                "target": "left"
+              },
+              {
+                "type": "touchstart",
+                "target": "left"
+              },
+              {
+                "type": "pointerup",
+                "target": "left"
+              },
+              {
+                "type": "touchend",
+                "target": "left"
+              },
+              {
+                "type": "click",
+                "target": "DIV"
+              }
+            ],
+            "scroll": 226,
+            "score": "0",
+            "tiles": [
+              "2",
+              "2",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "cloud-touch-tall-root-no-adapter-browser.json",
+      "label": "cloud-touch-tall",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "fail",
+              "error": "frame.waitForFunction: Timeout 3000ms exceeded."
+            }
+          ],
+          "errors": [],
+          "touchDiagnostics": {
+            "events": [
+              {
+                "type": "pointerdown",
+                "target": "left"
+              },
+              {
+                "type": "touchstart",
+                "target": "left"
+              },
+              {
+                "type": "pointerup",
+                "target": "left"
+              },
+              {
+                "type": "touchend",
+                "target": "left"
+              },
+              {
+                "type": "click",
+                "target": "board"
+              }
+            ],
+            "scroll": 0,
+            "score": "0",
+            "tiles": [
+              "2",
+              "2",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "cloud-touch-standalone-root-no-adapter-browser.json",
+      "label": "cloud-touch-standalone",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "pass",
+              "detail": {
+                "emulation": true,
+                "physicalPhone": false,
+                "score": 4,
+                "height": "480",
+                "settledBeforeTouch": false
+              }
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "cloud-touch-bundled-root-no-adapter-browser.json",
+      "label": "cloud-touch-bundled",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.62.1",
+      "engines": [
+        {
+          "engine": "chromium",
+          "version": "148.0.7778.179",
+          "results": [
+            {
+              "name": "touch emulation can operate direction buttons and reach file export",
+              "status": "fail",
+              "error": "frame.waitForFunction: Timeout 3000ms exceeded."
+            }
+          ],
+          "errors": [],
+          "touchDiagnostics": {
+            "events": [
+              {
+                "type": "pointerdown",
+                "target": "left"
+              },
+              {
+                "type": "touchstart",
+                "target": "left"
+              },
+              {
+                "type": "pointerup",
+                "target": "left"
+              },
+              {
+                "type": "touchend",
+                "target": "left"
+              },
+              {
+                "type": "click",
+                "target": "DIV"
+              }
+            ],
+            "scroll": 226,
+            "score": "0",
+            "tiles": [
+              "2",
+              "2",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "local-webkit-isolated-root-no-adapter-browser.json",
+      "label": "local-webkit-isolated",
+      "base": "",
+      "mode": "no-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "results": [
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "fail",
+              "error": "page.evaluate: Target page, context or browser has been closed"
+            }
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "local-webkit-adapter-root-minimal-adapter-browser.json",
+      "label": "local-webkit-adapter",
+      "base": "",
+      "mode": "minimal-adapter",
+      "playwright": "1.65.0-alpha-2026-10-30",
+      "engines": [
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "results": [
+            {
+              "name": "ClientRouter below-fold lazy iframe initialises after scroll",
+              "status": "fail",
+              "error": "page.evaluate: Target page, context or browser has been closed"
+            }
+          ],
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "routing": [
+    {
+      "file": "local-initial-routing.json",
+      "phase": "initial",
+      "routes": [
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%25%23/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        }
+      ],
+      "collisions": [
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html; charset=utf-8",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        }
+      ]
+    },
+    {
+      "file": "cloud-initial-routing.json",
+      "phase": "initial",
+      "routes": [
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21662,
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "marker": null,
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "5e0a78a78e5f37994bd0f8990bc58db0f2aefe5514067a6bd697668ddfab5d82",
+          "marker": "PHASE_A_ENCODED_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        }
+      ],
+      "collisions": [
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        }
+      ]
+    },
+    {
+      "file": "cloud-update-routing.json",
+      "phase": "update",
+      "routes": [
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "MISS",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/2048/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 21690,
+          "sha256": "ae19594bb005cba28bfaa260ef3fbed320511c422b27223d590174d4188c52cb",
+          "marker": "PHASE_A_UPDATE_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 393,
+          "sha256": "3a4ed0ca1ac935e6ee70c66ed06a134f22609a911dc9c49a5d6ea8261175b77a",
+          "marker": "PHASE_A_ENCODED_V2",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        }
+      ],
+      "collisions": [
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "MISS"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        }
+      ]
+    },
+    {
+      "file": "cloud-withdraw-routing.json",
+      "phase": "withdraw",
+      "routes": [
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048.html",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "game",
+          "start": "/posts/preflight-day/2048/index.html",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/2048/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "shared",
+          "start": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "encoded",
+          "start": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "uppercase",
+          "start": "/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/",
+          "name": "index",
+          "start": "/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "game",
+          "start": "/blog/posts/preflight-day/2048/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/2048/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "shared",
+          "start": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/preflight-day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "encoded",
+          "start": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER.HTML",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER.HTML",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "2d265c01fdafa11ce2d54be0a0f3cc784681f3689dd978ae42347858d754961d",
+          "marker": "PHASE_A_UPPER_V1",
+          "cache": "HIT",
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "uppercase",
+          "start": "/blog/posts/routing/UPPER/index.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/UPPER/index.html",
+          "status": 404,
+          "type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "marker": null,
+          "cache": null,
+          "statusOfCheck": "observation"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/",
+          "redirects": [],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        },
+        {
+          "base": "/blog",
+          "name": "index",
+          "start": "/blog/posts/routing/folder/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/routing/folder/"
+            }
+          ],
+          "finalPath": "/blog/posts/routing/folder/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 391,
+          "sha256": "7661895105070a4bdac2e653fda9f5bbd09a6bd90595038ca139ce18dc93f3f3",
+          "marker": "PHASE_A_INDEX_V1",
+          "cache": "HIT",
+          "statusOfCheck": "pass"
+        }
+      ],
+      "collisions": [
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "collision",
+          "start": "/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/",
+          "name": "page-collision",
+          "start": "/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 390,
+          "sha256": "e5665fa25f1d036a45ffc911d9accc60e72dae9278128c2d0fa77be4eb7b25c0",
+          "marker": "PHASE_A_FLAT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "collision",
+          "start": "/blog/posts/collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 392,
+          "sha256": "4f2a7c996ac76650b3f868d1a445436ee4a12589c0da1d893873b29db793f7f0",
+          "marker": "PHASE_A_FOLDER_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool.html",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool.html",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 396,
+          "sha256": "d407b07550163dc0c43e73e70166329da05431c8256fa19c6118c08967d7eb16",
+          "marker": "PHASE_A_ATTACHMENT_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/",
+          "redirects": [],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        },
+        {
+          "base": "/blog",
+          "name": "page-collision",
+          "start": "/blog/posts/page-collision/tool/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/blog/posts/page-collision/tool/"
+            }
+          ],
+          "finalPath": "/blog/posts/page-collision/tool/",
+          "status": 200,
+          "type": "text/html",
+          "bytes": 408,
+          "sha256": "31cdf325a080f87988b8550b94eb7767cd8e6e43b16124eba365ea092a0df710",
+          "marker": "PHASE_A_ARTICLE_V1",
+          "cache": "HIT"
+        }
+      ]
+    }
+  ],
+  "filenameUpload": [
+    {
+      "label": "ascii",
+      "status": 0,
+      "apiCode": null
+    },
+    {
+      "label": "unicode-space",
+      "status": 0,
+      "apiCode": null
+    },
+    {
+      "label": "percent",
+      "status": 1,
+      "apiCode": 10304
+    },
+    {
+      "label": "hash",
+      "status": 0,
+      "apiCode": null
+    }
+  ],
+  "cloudDeploymentCount": 3,
+  "cleanup": [
+    {
+      "target": "main-test-worker",
+      "status": 0
+    },
+    {
+      "target": "filename-test-worker",
+      "status": 0
+    }
+  ],
+  "webkitDiagnostic": [
+    {
+      "name": "lazy-native",
+      "browser": "27.2",
+      "fallback": false,
+      "target": "lazy",
+      "status": "fail",
+      "events": [
+        "page-crash"
+      ],
+      "error": "page.waitForFunction: Timeout 8000ms exceeded."
+    },
+    {
+      "name": "long-page-no-iframe",
+      "browser": "27.2",
+      "fallback": false,
+      "target": "no-frame",
+      "status": "fail",
+      "events": [
+        "page-crash"
+      ],
+      "error": "page.waitForFunction: Target page, context or browser has been closed"
+    },
+    {
+      "name": "lazy-fallback-control",
+      "browser": "27.2",
+      "fallback": true,
+      "target": "lazy",
+      "status": "fail",
+      "events": [],
+      "error": "page.waitForFunction: Timeout 8000ms exceeded."
+    }
+  ]
+}

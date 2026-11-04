@@ -136,15 +136,22 @@ export function remarkNoteAssets() {
           node.type = node.type === 'imageReference' ? 'image' : 'link';
           node.url = definition.url;
           node.title = definition.title;
+        } else if (node.type === 'imageReference' && node.alt?.startsWith('tool:')) {
+          throw new Error(`Missing tool reference definition "${node.identifier}" in ${note.file}`);
         }
       }
       if (node.type === 'image' || node.type === 'link') {
-        node.url = await resolveNoteAsset(node.url, note, assets, node.type);
+        const tool = node.type === 'image' && node.alt?.startsWith('tool:');
+        const title = tool ? node.alt.slice(5).trim() : '';
+        if (tool && !title) throw new Error(`Tool name must not be empty in ${note.file}`);
+        node.url = await resolveNoteAsset(node.url, note, assets, tool ? 'tool' : node.type);
         if (node.type === 'image') {
-          // Incoming images must not resolve against the previous ClientRouter page.
+          // Images and frames must not resolve against the previous ClientRouter page.
           node.url = publishedAssetUrl(node.url, note);
           node.type = 'html';
-          node.value = `<img src="${escapeHtml(node.url)}" alt="${escapeHtml(node.alt || '')}"${node.title ? ` title="${escapeHtml(node.title)}"` : ''} loading="lazy">`;
+          node.value = tool
+            ? `<iframe src="${escapeHtml(node.url)}" title="${escapeHtml(title)}" sandbox="allow-scripts allow-downloads" loading="lazy" referrerpolicy="no-referrer" class="aero-embedded-tool"></iframe>`
+            : `<img src="${escapeHtml(node.url)}" alt="${escapeHtml(node.alt || '')}"${node.title ? ` title="${escapeHtml(node.title)}"` : ''} loading="lazy">`;
           delete node.children;
         }
       }

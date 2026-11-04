@@ -39,6 +39,9 @@ const encodedPath = (path) => path.split('/').map(encodeURIComponent).join('/');
 
 /** Resolve only referenced files, retaining subdirectories and isolating shared assets. */
 export async function resolveNoteAsset(url, note, assets, kind = 'attachment') {
+  if (kind === 'tool' && (typeof url !== 'string' || !url || /^(?:[a-z][a-z\d+.-]*:|\/|#|\?)/i.test(url) || /[?#]/.test(url))) {
+    throw new Error(`Invalid tool reference "${url}" in ${note.file}: use a relative local .html file without a query or fragment`);
+  }
   if (!url || url.startsWith('#') || url.startsWith('?') || url.startsWith('//') || /^[a-z][a-z\d+.-]*:/i.test(url)) return url;
   const base = note.base.replace(/\/$/, '');
   if (url.startsWith('/')) return base && !url.startsWith(`${base}/`) ? `${base}${url}` : url;
@@ -46,12 +49,18 @@ export async function resolveNoteAsset(url, note, assets, kind = 'attachment') {
   let decoded;
   try { decoded = decodeURIComponent(path); } catch { throw new Error(`Invalid attachment URL "${url}" in ${note.file}`); }
   if (/[\\\u0000-\u001f]/.test(decoded) || isAbsolute(decoded)) throw new Error(`Invalid attachment path "${url}" in ${note.file}`);
+  if (kind === 'tool' && extname(decoded).toLowerCase() !== '.html') {
+    throw new Error(`Invalid tool reference "${url}" in ${note.file}: target must be a .html file`);
+  }
   const sourcePath = resolve(dirname(note.file), decoded);
   if (!inside(note.root, sourcePath)) throw new Error(`Attachment escapes notesDir: "${url}" in ${note.file}`);
   let source;
   try { source = await realpath(sourcePath); } catch { throw new Error(`Missing attachment "${url}" in ${note.file}`); }
   if (!inside(note.root, source)) throw new Error(`Attachment escapes notesDir: "${url}" in ${note.file}`);
   if (!(await stat(source)).isFile()) throw new Error(`Attachment is not a file: "${url}" in ${note.file}`);
+  if (kind === 'tool' && extname(source).toLowerCase() !== '.html') {
+    throw new Error(`Invalid tool reference "${url}" in ${note.file}: resolved target must be a .html file`);
+  }
   if (extname(sourcePath) === '.md' && kind === 'link') {
     const path = relative(note.root, sourcePath);
     if (path.split(sep).some((part) => part.startsWith('.'))) throw new Error(`Link targets a hidden note outside the loaded collection: "${url}"`);
@@ -70,6 +79,9 @@ export async function resolveNoteAsset(url, note, assets, kind = 'attachment') {
     : `_attachments/${relative(note.root, source)}`;
   const output = local.split(sep).join('/');
   const target = `posts/${note.id}/${output}`;
+  if (kind === 'tool' && output.includes('%')) {
+    throw new Error(`Invalid tool reference "${url}" in ${note.file}: literal % in the output path is unsupported by the current publisher; rename the file or folder`);
+  }
   assets.push({ source, target });
   return `./${encodedPath(output)}${suffix}`;
 }

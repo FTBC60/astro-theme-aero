@@ -84,3 +84,13 @@ GitHub keeps developer materials; author archives exclude them and strip test co
 - [歌单浮层 / Playlist panel](../../docs/architecture/playlist-panel.md)
 
 历史验收的日期、版本和限制保留；路径按当前结构更新不表示重新执行了历史 NAS 或线上验收。原始会话、凭据、私人地址、原始日志和临时运维脚本不随仓库公开。
+
+## 前端工具阶段 A / Embedded tools preflight
+
+[实验脚本与复现](embedded-tools/README.md)只在隔离副本中验证手写 iframe、现有 ClientRouter 与静态资源路由，不实现正式 Markdown 工具编译。[2026-11-03 结果](validation-docs/embedded-tools-phase-a-2026-11-03.md)保留 Chrome/Cloudflare 通过项、WebKit 长页与 Chrome 触屏模拟的未通过项。云端命令显式创建临时 Worker，不进入普通测试分组；本次资源已清理。实体手机、稳定 Safari、NAS 和正式工具接入仍需后续验证。
+
+[阶段 B 实现验证](validation-docs/embedded-tools-phase-b-2026-11-03.md)另用当前传入的 2048、真正的 Markdown 文章和 dev/build 检查最小适配。`content.test.mjs` 已包含工具编译、权限、路径、去重和 dev HTML 回归；`embedded-tools/phase-b.mjs --sample <当前2048.html路径>` 执行浏览器接入检查，不上传云端。阶段 A 的历史结果不因阶段 B 完成而改写。
+
+[阶段 C 本地验收](validation-docs/embedded-tools-phase-c-2026-11-03.md)补齐 7 轮工具专属 Publisher 构建、真实导出、125 条本地路由记录、双浏览器权限/文件/音乐/键盘/滚轮检查及触屏失败对照。内容与发布回归 28 项通过；Chrome 方向轻点和 iframe 内手指滚动仍未通过，Windows WebKit 的真实文章矩阵通过。复现使用 `embedded-tools/phase-c.mjs --sample <当前2048.html路径>`；不执行 NAS 或云端部署，不将物理手机未验项目记为通过。
+
+[阶段 D 实测记录](validation-docs/embedded-tools-phase-d-2026-11-03.md)已完成 NAS 备份/同步、只读挂载与工具链核对、4 轮真实发布和 76 条线上检查，另有初末各 16 条外部复查及 5 组标准 Chrome 线上交互。临时文章/工具/辅助脚本已清理，站点回到 45 个文件。随后补记 iPhone Chrome 棋盘及内外滚动的用户实机通过反馈；桌面 Chromium 模拟失败作为不同环境记录保留。私有会话仅留在忽略的开发产物中，普通测试不自动执行这些部署。

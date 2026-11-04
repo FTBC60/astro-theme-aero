@@ -100,6 +100,113 @@ test('attachment resolution, Markdown references, covers and output conflicts', 
   } finally { assert(inside(cache, root)); await rm(root, { recursive: true, force: true }); }
 });
 
+test('tools compile with fixed permissions, stable URLs and the existing attachment plan', async () => compilationFixture(async ({ root, settings, note, render }) => {
+  await put(join(root, 'day/day.md'), '');
+  await put(join(root, 'day/工具 & 图#.HTML'), '<!doctype html><script>const tool = true;</script>');
+  await put(join(root, '共享/计算 器.html'), '<!doctype html><p>shared</p>');
+  for (const base of ['/', '/blog/']) {
+    const compilation = createNoteCompilation({ ...settings, base });
+    const result = await compilation.compile({ ...note, id: '日记/day', file: join(root, 'day/day.md'), body: '![tool: A <B> "quoted" & result](./工具%20%26%20图%23.HTML)\n\n![tool: Shared][calculator]\n\n[calculator]: ../共享/计算%20器.html\n\n[ordinary HTML link](./工具%20%26%20图%23.HTML)\n\n![ordinary HTML image](./工具%20%26%20图%23.HTML)' }, render);
+    const html = result.rendered.html;
+    assert.equal((html.match(/<iframe /g) || []).length, 2);
+    assert(html.includes(`src="${base}posts/%E6%97%A5%E8%AE%B0/day/%E5%B7%A5%E5%85%B7%20%26%20%E5%9B%BE%23.HTML"`));
+    assert(html.includes(`src="${base}posts/%E6%97%A5%E8%AE%B0/day/_attachments/%E5%85%B1%E4%BA%AB/%E8%AE%A1%E7%AE%97%20%E5%99%A8.html"`));
+    // Astro may normalise named entities to hex entities; quotes must remain
+    // inside the single title attribute, without changing the name's text.
+    assert.match(html, /title="A (?:<B>|&lt;B&gt;) (?:&#x22;|&quot;)quoted(?:&#x22;|&quot;) (?:&#x26;|&amp;) result"/);
+    assert.equal((html.match(/sandbox="allow-scripts allow-downloads"/g) || []).length, 2);
+    assert.equal((html.match(/referrerpolicy="no-referrer"/g) || []).length, 2);
+    assert.match(html, /class="aero-embedded-tool"/);
+    assert.doesNotMatch(html, /allow-same-origin|allow-forms|allow-popups|allow-top-navigation|transition:persist/);
+    assert.match(html, /<a href="\.\/.+\.HTML">ordinary HTML link<\/a>/);
+    assert.match(html, /<img[^>]+alt="ordinary HTML image"/);
+    await compilation.writePlan();
+    const { assets } = await compilation.readPlan();
+    assert.deepEqual(assets.map(({ target }) => target), ['posts/日记/day/工具 & 图#.HTML', 'posts/日记/day/_attachments/共享/计算 器.html']);
+    assert(assets.every((asset) => Object.keys(asset).sort().join(',') === 'source,target'), 'No new manifest schema or tool registry');
+  }
+}));
+
+test('invalid explicit tool references fail compilation rather than becoming images', async () => compilationFixture(async ({ root, settings, note, render }) => {
+  await put(join(root, 'tool.html'), '<!doctype html><p>tool</p>');
+  await put(join(root, 'tool.txt'), 'not HTML');
+  await put(join(root, 'percent%tool.html'), '<!doctype html>');
+  await put(join(root, 'percent%folder/tool.html'), '<!doctype html>');
+  await mkdir(join(root, 'directory.html'));
+  const invalid = [
+    'https://example.com/tool.html', '//example.com/tool.html', '/tool.html',
+    'data:text/html,test', 'blob:https://example.com/tool.html',
+    'tool.html?x=1', 'tool.html#part', 'tool.txt', 'missing.html',
+    '../outside.html', '%2e%2e/outside.html', '%2Foutside.html', 'directory.html',
+    'percent%25tool.html', 'percent%25folder/tool.html', 'broken%zz.html',
+  ];
+  for (const url of invalid) {
+    const compilation = createNoteCompilation(settings);
+    await assert.rejects(compilation.compile({ ...note, body: `![tool: Invalid](${url})` }, render), /Invalid tool|Invalid attachment|Missing attachment|escapes notesDir|not a file/);
+    await assert.rejects(compilation.writePlan(), /Cannot save an incomplete/);
+  }
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool:   ](tool.html)' }, render), /Tool name must not be empty/);
+  // The percent restriction is deliberately scoped to executable tool references.
+  const ordinary = await createNoteCompilation(settings).compile({ ...note, body: '[file](percent%25tool.html)' }, render);
+  assert.match(ordinary.rendered.html, /<a href=/);
+}));
+
+test('tool references retain article ownership and disappear with their final reference', async () => compilationFixture(async ({ root, settings, note, render }) => {
+  await put(join(root, 'tool.html'), '<!doctype html><p>shared tool</p>');
+  const first = createNoteCompilation(settings);
+  await first.compile({ ...note, body: '![tool: First](tool.html)\n\n![tool: Again](tool.html)\n\n[file](tool.html)' }, render);
+  await first.compile({ ...note, id: 'other', file: join(root, 'other.md'), body: '![tool: Other](tool.html)' }, render);
+  await first.writePlan();
+  assert.deepEqual((await first.readPlan()).assets.map(({ target }) => target), ['posts/day/tool.html', 'posts/other/tool.html']);
+  const linkOnly = createNoteCompilation(settings);
+  const linked = await linkOnly.compile({ ...note, body: '[file](tool.html)' }, render);
+  assert.doesNotMatch(linked.rendered.html, /iframe/);
+  await linkOnly.writePlan();
+  assert.deepEqual((await linkOnly.readPlan()).assets.map(({ target }) => target), ['posts/day/tool.html']);
+  const removed = createNoteCompilation(settings);
+  await removed.compile(note, render); await removed.writePlan();
+  assert.deepEqual((await removed.readPlan()).assets, []);
+}));
+
+test('unpublished tool inputs are skipped before tool validation and publication', async () => compilationFixture(async ({ root, settings }) => {
+  await put(join(root, 'private.md'), '---\npublish: false\n---\n![tool: Invalid](https://example.com/tool.html)');
+  await put(join(root, 'day.md'), '---\ntitle: Public\ndate: "2026-11-03"\npublish: true\n---\n![tool: Public](tool.html)');
+  await put(join(root, 'tool.html'), '<!doctype html><p>public</p>');
+  await put(join(root, 'unused.html'), '<!doctype html><p>private</p>');
+  const stored = [];
+  await notesLoader('.').load({ config: { root: pathToFileURL(root + '/'), cacheDir: settings.cacheDir, base: settings.base }, parseData: async ({ data }) => data, renderMarkdown: await markdownRenderer(), generateDigest: () => 'test', store: { clear() {}, set(entry) { stored.push(entry); } } });
+  assert.deepEqual(stored.map(({ id }) => id), ['day']);
+  assert.deepEqual((await createNoteCompilation(settings).readPlan()).assets.map(({ target }) => target), ['posts/day/tool.html']);
+}));
+
+test('tool symlinks cannot escape notesDir or change the resolved file type', async (t) => compilationFixture(async ({ root, settings, note, render }) => {
+  await put(join(root, 'code.txt'), 'code');
+  try {
+    await symlink(join(root, 'code.txt'), join(root, 'alias.html'));
+    await symlink(join(project, 'tools/test/embedded-tools/fixtures/2048.html'), join(root, 'outside.html'));
+  } catch (error) { if (error.code === 'EPERM') { t.skip('Symlinks are unavailable in this environment'); return; } throw error; }
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool: Alias](alias.html)' }, render), /resolved target must be a .html file/);
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool: Outside](outside.html)' }, render), /escapes notesDir/);
+}));
+
+test('tool outputs reject article collisions and preserve the previous complete plan', async () => compilationFixture(async ({ root, settings, note, render }) => {
+  await put(join(root, 'game.html'), '<!doctype html><p>game</p>');
+  await put(join(root, 'index.html'), '<!doctype html><p>colliding tool</p>');
+  const previous = createNoteCompilation(settings);
+  await previous.compile({ ...note, body: '![tool: Valid](game.html)' }, render);
+  await previous.writePlan();
+  const before = await previous.readPlan();
+  const ownPage = createNoteCompilation(settings);
+  await assert.rejects(ownPage.compile({ ...note, body: '![tool: Collision](index.html)' }, render), /collision/);
+  await assert.rejects(ownPage.writePlan(), /Cannot save an incomplete/);
+  assert.deepEqual(await previous.readPlan(), before);
+  const nestedPage = createNoteCompilation(settings);
+  await nestedPage.compile({ ...note, body: '![tool: Valid](game.html)' }, render);
+  await nestedPage.compile({ ...note, id: 'day/game.html', file: join(root, 'other.md') }, render);
+  await assert.rejects(nestedPage.writePlan(), /collision/);
+  assert.deepEqual(await previous.readPlan(), before);
+}));
+
 test('compilation distinguishes a completed empty result from missing remark handling', async () => compilationFixture(async ({ settings, note, render }) => {
   const compilation = createNoteCompilation(settings);
   const result = await compilation.compile(note, render);
@@ -233,12 +340,15 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     await writeFile(config, (await readFile(config, 'utf8')).replace("output: 'static',", "output: 'static', base: '/blog/',"));
     const notes = join(root, 'vault/Notes');
     const daily = join(notes, 'day/day.md');
-    const original = '---\ntitle: 测试日记\ndate: "2026-10-02"\npublish: true\nslug: "2026-10-02"\ncover: ./图%20片.png\n---\n\n![图片](./图%20片.png)\n\n[下载](docs/report.pdf#page=1)\n\n![参考][photo]\n\n[photo]: ./图%20片.png\n\n[共享](../shared/shared.txt)\n\n[另一篇](../second.md#heading)\n\n$a^2$\n\n```js\nconst x = 1;\n```';
+    const original = '---\ntitle: 测试日记\ndate: "2026-10-02"\npublish: true\nslug: "2026-10-02"\ncover: ./图%20片.png\n---\n\n![图片](./图%20片.png)\n\n[下载](docs/report.pdf#page=1)\n\n![参考][photo]\n\n[photo]: ./图%20片.png\n\n[共享](../shared/shared.txt)\n\n[另一篇](../second.md#heading)\n\n$a^2$\n\n```js\nconst x = 1;\n```\n\n![tool: Embedded tool](tool.html)';
+    const tool = '<!doctype html><meta charset="utf-8"><p>工具原字节</p><script>const answer = 42;</script>';
     await put(daily, original);
     await put(join(notes, 'day/图 片.png'), png);
     await put(join(notes, 'day/docs/report.pdf'), 'PDF');
     await put(join(notes, 'shared/shared.txt'), 'first');
     await put(join(notes, 'day/unused.txt'), 'DO_NOT_PUBLISH');
+    await put(join(notes, 'day/tool.html'), tool);
+    await put(join(notes, 'day/unreferenced.html'), 'DO_NOT_PUBLISH_HTML');
     await put(join(notes, 'second.md'), '---\ntitle: 第二篇\ndate: "2026-10-03"\npublish: true\nslug: 中文/第二篇\n---\nSecond');
     await put(join(notes, 'private.md'), '---\ntitle: PRIVATE_NOTE\ndate: "2026-10-01"\npublish: false\n---\n![missing](missing.png)');
     await configure('./vault/Notes');
@@ -247,12 +357,15 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     assert.deepEqual(await readFile(join(output, '图 片.png')), png);
     assert.equal(await readFile(join(output, 'docs/report.pdf'), 'utf8'), 'PDF');
     assert.equal(await exists(join(output, 'unused.txt')), false);
+    assert.equal(await exists(join(output, 'unreferenced.html')), false);
+    assert.deepEqual(await readFile(join(output, 'tool.html')), Buffer.from(tool));
     const html = await readFile(join(output, 'index.html'), 'utf8');
     assert.match(html, /src="\/blog\/posts\/2026-10-02\/%E5%9B%BE%20%E7%89%87.png"/);
     assert.match(html, /href="\.\/docs\/report.pdf#page=1"/);
     assert.match(html, /href="\/blog\/posts\/%E4%B8%AD%E6%96%87\/%E7%AC%AC%E4%BA%8C%E7%AF%87\/#heading"/);
     assert.match(html, /mjx-container/);
     assert.match(html, /astro-code/);
+    assert.match(html, /<iframe src="\/blog\/posts\/2026-10-02\/tool.html"[^>]+sandbox="allow-scripts allow-downloads"/);
     const home = await readFile(join(root, 'dist/index.html'), 'utf8');
     assert.match(home, /src="\/blog\/posts\/2026-10-02\/%E5%9B%BE%20%E7%89%87.png"/);
     assert(!home.includes('/blog/blog/') && !home.includes('PRIVATE_NOTE') && !home.includes('Welcome to Aero'));
@@ -284,6 +397,7 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     await put(daily, original.replace('publish: true', 'publish: "true"'));
     build();
     assert.equal(await exists(join(output, 'index.html')), false, 'A string publish value does not opt a note into publication');
+    assert.equal(await exists(join(output, 'tool.html')), false, 'Withdrawing the article removes its tool');
     await put(daily, original);
     await put(join(notes, 'duplicate.md'), '---\ntitle: Duplicate\ndate: "2026-10-01"\npublish: true\nslug: "2026-10-02"\n---\nDuplicate');
     build(/Duplicate note ID/);
@@ -299,6 +413,7 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     assert(await exists(join(root, 'dist/posts/replacement/index.html')));
     assert.equal(await exists(join(output, 'index.html')), false);
     assert.equal(await exists(join(output, '图 片.png')), false);
+    assert.equal(await exists(join(output, 'tool.html')), false);
     await put(join(alternate, 'replacement.md'), '---\ntitle: Replacement\ndate: "2026-10-04"\npublish: false\n---\nReplacement body');
     build();
     assert.equal(await exists(join(root, 'dist/posts/replacement/index.html')), false);
@@ -328,10 +443,13 @@ test('dev serves referenced attachments and refreshes after edits and withdrawal
     await writeFile(config, (await readFile(config, 'utf8')).replace("output: 'static',", "output: 'static', base: '/blog/',"));
     await put(join(root, 'src/config/content.config.ts'), "export const contentConfig = { notesDir: './notes' };");
     const file = join(root, 'notes/day.md');
-    const markdown = '---\ntitle: Dev Note\ndate: "2026-10-02"\npublish: true\ncover: ./photo.png\n---\n![photo](photo.png)\n[download](document.txt)';
+    const markdown = '---\ntitle: Dev Note\ndate: "2026-10-02"\npublish: true\ncover: ./photo.png\n---\n![photo](photo.png)\n[download](document.txt)\n\n![tool: Dev tool](tool.html)';
+    const tool = '<!doctype html><meta charset="utf-8"><p>开发工具</p><script>const count = 1;</script>';
     await put(file, markdown);
     await put(join(root, 'notes/photo.png'), png);
     await put(join(root, 'notes/document.txt'), 'first');
+    await put(join(root, 'notes/tool.html'), tool);
+    await put(join(root, 'notes/unreferenced.html'), 'UNREFERENCED_HTML');
     const socket = createServer();
     await new Promise((done) => socket.listen(0, '127.0.0.1', done));
     const port = socket.address().port;
@@ -346,17 +464,29 @@ test('dev serves referenced attachments and refreshes after edits and withdrawal
     assert.equal(image.status, 200, log);
     assert.deepEqual(Buffer.from(await image.arrayBuffer()), png);
     assert.equal(await (await get('document.txt')).text(), 'first');
+    const toolResponse = await get('tool.html');
+    assert.equal(toolResponse.status, 200);
+    assert.match(toolResponse.headers.get('content-type'), /^text\/html; charset=utf-8$/);
+    assert.deepEqual(Buffer.from(await toolResponse.arrayBuffer()), Buffer.from(tool));
+    const head = await fetch(url + 'tool.html', { method: 'HEAD' });
+    assert.equal(head.status, 200);
+    assert.equal(Number(head.headers.get('content-length')), Buffer.byteLength(tool));
+    assert.equal((await head.arrayBuffer()).byteLength, 0);
+    assert.equal((await get('unreferenced.html')).status, 404);
+    await put(join(root, 'notes/tool.html'), tool + '<!-- updated -->');
+    await waitFor(async () => (await (await get('tool.html')).text()) === tool + '<!-- updated -->');
     await put(join(root, 'notes/document.txt'), 'updated');
     await waitFor(async () => (await (await get('document.txt')).text()) === 'updated');
     await put(file, markdown.replace('Dev Note', 'Edited Note'));
     await waitFor(async () => (await (await get()).text()).includes('Edited Note'));
     await put(file, markdown.replace('publish: true', 'publish: false'));
-    await waitFor(async () => (await get()).status === 404 && (await get('photo.png')).status === 404);
+    await waitFor(async () => (await get()).status === 404 && (await get('photo.png')).status === 404 && (await get('tool.html')).status === 404);
     await put(file, markdown);
     await waitFor(async () => (await get()).status === 200 && (await get('photo.png')).status === 200);
     await put(join(root, 'other-notes/new.md'), markdown.replace('Dev Note', 'New directory'));
     await put(join(root, 'other-notes/photo.png'), png);
     await put(join(root, 'other-notes/document.txt'), 'new directory attachment');
+    await put(join(root, 'other-notes/tool.html'), tool);
     await put(join(root, 'src/config/content.config.ts'), "export const contentConfig = { notesDir: './other-notes' };");
     const replacement = `http://127.0.0.1:${port}/blog/posts/new/`;
     const getReplacement = (path = '') => fetch(replacement + path, { signal: AbortSignal.timeout(2000) });

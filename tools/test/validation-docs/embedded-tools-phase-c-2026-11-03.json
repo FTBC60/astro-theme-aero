@@ -1,0 +1,4753 @@
+{
+  "date": "2026-11-03",
+  "timezone": "America/Los_Angeles",
+  "status": "local core passed; original desktop Chromium emulation failures retained; subsequent iPhone Chrome board/scroll scenarios passed by user report",
+  "cloudWrites": false,
+  "nasChanges": false,
+  "sample": {
+    "source": "workspace-root/2048/2048.html",
+    "bytes": 21662,
+    "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+    "originalUnchanged": true
+  },
+  "environment": {
+    "node": "v24.22.1",
+    "astro": "7.3.8",
+    "wrangler": "4.152.0",
+    "chrome": "148.0.7778.179",
+    "chromePlaywright": "1.62.1",
+    "webkit": "27.2",
+    "webkitPlaywright": "1.65.0-alpha-2026-10-30",
+    "os": "Windows",
+    "headless": true
+  },
+  "regression": {
+    "contentAndPublication": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "astroCheck": {
+      "files": 73,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "defaultBuild": {
+      "pages": 8,
+      "status": "pass"
+    }
+  },
+  "pipeline": {
+    "checks": [
+      {
+        "name": "root Publisher build-only: real compiled tools and exact bytes",
+        "status": "pass"
+      },
+      {
+        "name": "base Publisher build-only: encoded shared URLs and independent ownership",
+        "status": "pass"
+      },
+      {
+        "name": "real site/source archives include tools and exclude unpublished inputs",
+        "status": "pass",
+        "detail": {
+          "siteFiles": 40,
+          "sourceExamplesIncluded": true
+        }
+      },
+      {
+        "name": "local static routing: root/base, encoded names, aliases and article collisions",
+        "status": "pass",
+        "detail": {
+          "assertions": 66
+        }
+      },
+      {
+        "name": "HTML-only Publisher update refreshes every article copy",
+        "status": "pass"
+      },
+      {
+        "name": "removing only iframe keeps ordinary HTML link; final reference removes only that copy",
+        "status": "pass"
+      },
+      {
+        "name": "withdrawal removes its owned tools while the other article still works",
+        "status": "pass"
+      },
+      {
+        "name": "deleting the last published notes removes every article and tool alias",
+        "status": "pass"
+      }
+    ],
+    "publisher": [
+      {
+        "label": "initial-root",
+        "base": "/",
+        "files": 40,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "initial-blog",
+        "base": "/blog/",
+        "files": 40,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "html-only-update",
+        "base": "/blog/",
+        "files": 40,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "link-only",
+        "base": "/blog/",
+        "files": 40,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "final-local-reference-removed",
+        "base": "/blog/",
+        "files": 39,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "withdraw-day",
+        "base": "/blog/",
+        "files": 35,
+        "status": "built",
+        "unchangedInputs": true
+      },
+      {
+        "label": "no-public-notes",
+        "base": "/blog/",
+        "files": 17,
+        "status": "built",
+        "unchangedInputs": true
+      }
+    ],
+    "routes": [
+      {
+        "phase": "initial",
+        "rows": [
+          {
+            "path": "/posts/day/2048.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/2048",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/2048/",
+            "redirects": [],
+            "finalPath": "/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/2048/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/2048/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "redirects": [],
+            "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/folder/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/folder",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/folder/",
+            "redirects": [],
+            "finalPath": "/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/folder/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/collision/tool.html",
+            "redirects": [],
+            "finalPath": "/posts/collision/tool.html",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "7c2f230259af0c474e0b7fe5c09319883d77fe5ccb75083d356906285b64ee91",
+            "marker": "PHASE_C_FLAT",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/collision/tool/",
+            "redirects": [],
+            "finalPath": "/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/collision/tool",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/collision/tool/"
+              }
+            ],
+            "finalPath": "/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/collision/tool/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/collision/tool/"
+              }
+            ],
+            "finalPath": "/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/page-collision/tool.html",
+            "redirects": [],
+            "finalPath": "/posts/page-collision/tool.html",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "0824cdb045029af81bf39aff1e152bb0d33ba699be6f9fc8e02ba710d29ee482",
+            "marker": "PHASE_C_ATTACHMENT",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/page-collision/tool/",
+            "redirects": [],
+            "finalPath": "/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "66edf919526cf0dcacb7950cc1edab35da370a2be9ac136555605f86c47b4a3f",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/page-collision/tool",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/page-collision/tool/"
+              }
+            ],
+            "finalPath": "/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "66edf919526cf0dcacb7950cc1edab35da370a2be9ac136555605f86c47b4a3f",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/page-collision/tool/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/posts/page-collision/tool/"
+              }
+            ],
+            "finalPath": "/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "66edf919526cf0dcacb7950cc1edab35da370a2be9ac136555605f86c47b4a3f",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/posts/routing/UPPER.HTML",
+            "redirects": [],
+            "finalPath": "/posts/routing/UPPER.HTML",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "d8abfcf04685f3ed8af22efcb930390f97004a696c31dc7d52a95327f64de57c",
+            "marker": "PHASE_C_UPPER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "39e0277b57440cf2a2dda1869cb526b926921b36892092ea5470f082a4ae8de5",
+            "marker": "PHASE_C_ENCODED",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/routing/folder/"
+              }
+            ],
+            "finalPath": "/blog/posts/routing/folder/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "1eddb547a8a12ffabd8b117aa4c0f641be9ae28e86c71bcbacb8264f1c0d156b",
+            "marker": "PHASE_C_INDEX",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/collision/tool.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/collision/tool.html",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "7c2f230259af0c474e0b7fe5c09319883d77fe5ccb75083d356906285b64ee91",
+            "marker": "PHASE_C_FLAT",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/collision/tool/",
+            "redirects": [],
+            "finalPath": "/blog/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/collision/tool",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/collision/tool/"
+              }
+            ],
+            "finalPath": "/blog/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/collision/tool/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/collision/tool/"
+              }
+            ],
+            "finalPath": "/blog/posts/collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "288476ec283590350bb6baef3713f1baff946157fe4d00ba6fd56616cb9aef80",
+            "marker": "PHASE_C_FOLDER",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/page-collision/tool.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/page-collision/tool.html",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "0824cdb045029af81bf39aff1e152bb0d33ba699be6f9fc8e02ba710d29ee482",
+            "marker": "PHASE_C_ATTACHMENT",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/page-collision/tool/",
+            "redirects": [],
+            "finalPath": "/blog/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "68a02f19ac099f81cfbf2673b2c96b6f1a0a2b07d6e15d31c55351d7d37f14e8",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/page-collision/tool",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/page-collision/tool/"
+              }
+            ],
+            "finalPath": "/blog/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "68a02f19ac099f81cfbf2673b2c96b6f1a0a2b07d6e15d31c55351d7d37f14e8",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/page-collision/tool/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/page-collision/tool/"
+              }
+            ],
+            "finalPath": "/blog/posts/page-collision/tool/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "68a02f19ac099f81cfbf2673b2c96b6f1a0a2b07d6e15d31c55351d7d37f14e8",
+            "marker": "PHASE_C_ARTICLE",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER.HTML",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER.HTML",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "d8abfcf04685f3ed8af22efcb930390f97004a696c31dc7d52a95327f64de57c",
+            "marker": "PHASE_C_UPPER",
+            "statusOfCheck": "pass"
+          }
+        ]
+      },
+      {
+        "phase": "update",
+        "rows": [
+          {
+            "path": "/blog/posts/day/2048.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/2048/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          }
+        ]
+      },
+      {
+        "phase": "withdraw",
+        "rows": [
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [
+              {
+                "status": 307,
+                "location": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+              }
+            ],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 200,
+            "mime": "text/html; charset=utf-8",
+            "sha256": "8385d9310ccb467b87f9ea6507bff662ce5c0ceb08888604c8221a306f41ab17",
+            "marker": "PHASE_C_UPDATE",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          }
+        ]
+      },
+      {
+        "phase": "empty",
+        "rows": [
+          {
+            "path": "/blog/posts/day/2048.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/2048/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/2048/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/2048.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/day/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/day/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/second/_attachments/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/second/_attachments/共享工具/计算 器#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/%E5%B7%A5%E5%85%B7%20%E7%A9%BA%E6%A0%BC%23/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/工具 空格#.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/folder/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/folder",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/folder/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/folder/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/folder/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/folder/index.html",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER.HTML",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER.HTML",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/UPPER.HTML",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/UPPER.HTML",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER/",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER/",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/UPPER.HTML",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER/index",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER/index",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/UPPER.HTML",
+            "statusOfCheck": "pass"
+          },
+          {
+            "path": "/blog/posts/routing/UPPER/index.html",
+            "redirects": [],
+            "finalPath": "/blog/posts/routing/UPPER/index.html",
+            "status": 404,
+            "mime": null,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "target": "posts/routing/UPPER.HTML",
+            "statusOfCheck": "pass"
+          }
+        ]
+      }
+    ],
+    "recordedRouteAssertions": 125,
+    "archives": [
+      {
+        "name": "astro-theme-aero-v0.1.0-3287400-site.tar.gz",
+        "bytes": 1713318,
+        "sha256": "e6128df53241711db7a82faa2111f34e7d09ac0d8b8061ddbddd092f24264ec6"
+      },
+      {
+        "name": "astro-theme-aero-v0.1.0-3287400-source.tar.gz",
+        "bytes": 169486,
+        "sha256": "968efee7bc3ffe32fb485354775239344045744a7317d617bbc17707df23a3bb"
+      }
+    ]
+  },
+  "browsers": {
+    "chromium": {
+      "general": {
+        "passed": 16,
+        "failed": 2
+      },
+      "wheel": {
+        "passed": 2,
+        "failed": 0
+      },
+      "gestures": {
+        "passed": 0,
+        "failed": 2
+      },
+      "reports": [
+        {
+          "engine": "chromium",
+          "node": "v24.22.1",
+          "playwright": "1.62.1",
+          "physicalPhone": false,
+          "lifecycleAdapter": false,
+          "checks": [
+            {
+              "base": "/",
+              "name": "direct article: current sample, original sandbox, title and real file round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "cancelledSelection": "empty FileList, native dialog dismissal not automated",
+                "previousStatus": "已请求导出 JSON 文件，请保存到本地。",
+                "invalidAndOversizePreserveGame": true,
+                "finalFramePath": "/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": "SecurityError",
+                "parentCookie": "SecurityError",
+                "cookie": "SecurityError",
+                "parentStorage": "SecurityError",
+                "storage": "SecurityError",
+                "topNavigation": "SecurityError"
+              }
+            },
+            {
+              "base": "/",
+              "name": "ClientRouter entry, history and fresh tool coexist with uninterrupted music",
+              "status": "pass",
+              "detail": {
+                "sameDocument": true,
+                "swaps": 5,
+                "oldFrameDetached": true,
+                "reinitialisedScore": 0,
+                "sameAudioStillPlaying": true
+              }
+            },
+            {
+              "base": "/",
+              "name": "long article: native transition then below-fold lazy tool loads on scroll",
+              "status": "pass",
+              "detail": {
+                "initialIframeTop": 4327,
+                "initialFrames": [
+                  "/posts/lazy/",
+                  ""
+                ],
+                "loadedPath": "/posts/lazy/day/2048/"
+              }
+            },
+            {
+              "base": "/",
+              "name": "keyboard Tab and Shift+Tab cross iframe; Enter and Space operate controls",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "backwards": true,
+                "visibleFocus": {
+                  "width": "3px",
+                  "style": "solid"
+                },
+                "enterAndSpaceScore": 4
+              }
+            },
+            {
+              "base": "/",
+              "name": "390px and 280px article and tool have no horizontal overflow; inner scroll reaches files",
+              "status": "pass",
+              "detail": [
+                {
+                  "width": 390,
+                  "outer": {
+                    "viewport": 390,
+                    "content": 390
+                  },
+                  "inner": {
+                    "viewport": 308,
+                    "content": 308,
+                    "scroll": 347,
+                    "height": 478
+                  }
+                },
+                {
+                  "width": 280,
+                  "outer": {
+                    "viewport": 280,
+                    "content": 280
+                  },
+                  "inner": {
+                    "viewport": 198,
+                    "content": 199,
+                    "scroll": 437,
+                    "height": 478
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/",
+              "name": "calculator input labels, keyboard calculation, focus and JSON export",
+              "status": "pass",
+              "detail": [
+                {
+                  "lang": "zh",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "第一个数字"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "第二个数字"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                },
+                {
+                  "lang": "en",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "First number"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "Second number"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/",
+              "name": "touch: actual direction tap, inner scrolling and outer scrolling",
+              "status": "fail",
+              "error": "{\"score\":\"0\",\"events\":[{\"type\":\"pointerdown\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"touchstart\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"pointerup\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"touchend\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186}],\"scroll\":186}\n\n'0' !== '4'\n",
+              "errors": [],
+              "external": []
+            },
+            {
+              "base": "/",
+              "name": "direct HTML has normal origin storage and does not inherit iframe isolation",
+              "status": "pass",
+              "detail": {
+                "storageAccessible": true,
+                "inheritedSandbox": false,
+                "finalPath": "/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "direct article: current sample, original sandbox, title and real file round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "cancelledSelection": "empty FileList, native dialog dismissal not automated",
+                "previousStatus": "已请求导出 JSON 文件，请保存到本地。",
+                "invalidAndOversizePreserveGame": true,
+                "finalFramePath": "/blog/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": "SecurityError",
+                "parentCookie": "SecurityError",
+                "cookie": "SecurityError",
+                "parentStorage": "SecurityError",
+                "storage": "SecurityError",
+                "topNavigation": "SecurityError"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "ClientRouter entry, history and fresh tool coexist with uninterrupted music",
+              "status": "pass",
+              "detail": {
+                "sameDocument": true,
+                "swaps": 5,
+                "oldFrameDetached": true,
+                "reinitialisedScore": 0,
+                "sameAudioStillPlaying": true
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "long article: native transition then below-fold lazy tool loads on scroll",
+              "status": "pass",
+              "detail": {
+                "initialIframeTop": 4327,
+                "initialFrames": [
+                  "/blog/posts/lazy/",
+                  ""
+                ],
+                "loadedPath": "/blog/posts/lazy/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "keyboard Tab and Shift+Tab cross iframe; Enter and Space operate controls",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "backwards": true,
+                "visibleFocus": {
+                  "width": "3px",
+                  "style": "solid"
+                },
+                "enterAndSpaceScore": 4
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "390px and 280px article and tool have no horizontal overflow; inner scroll reaches files",
+              "status": "pass",
+              "detail": [
+                {
+                  "width": 390,
+                  "outer": {
+                    "viewport": 390,
+                    "content": 390
+                  },
+                  "inner": {
+                    "viewport": 308,
+                    "content": 308,
+                    "scroll": 347,
+                    "height": 478
+                  }
+                },
+                {
+                  "width": 280,
+                  "outer": {
+                    "viewport": 280,
+                    "content": 280
+                  },
+                  "inner": {
+                    "viewport": 198,
+                    "content": 199,
+                    "scroll": 437,
+                    "height": 478
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/blog/",
+              "name": "calculator input labels, keyboard calculation, focus and JSON export",
+              "status": "pass",
+              "detail": [
+                {
+                  "lang": "zh",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "第一个数字"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "第二个数字"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                },
+                {
+                  "lang": "en",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "First number"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "Second number"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/blog/",
+              "name": "touch: actual direction tap, inner scrolling and outer scrolling",
+              "status": "fail",
+              "error": "{\"score\":\"0\",\"events\":[{\"type\":\"pointerdown\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"touchstart\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"pointerup\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186},{\"type\":\"touchend\",\"target\":\"left\",\"x\":75,\"y\":270,\"scroll\":186}],\"scroll\":186}\n\n'0' !== '4'\n",
+              "errors": [],
+              "external": []
+            },
+            {
+              "base": "/blog/",
+              "name": "direct HTML has normal origin storage and does not inherit iframe isolation",
+              "status": "pass",
+              "detail": {
+                "storageAccessible": true,
+                "inheritedSandbox": false,
+                "finalPath": "/blog/posts/day/2048/"
+              }
+            }
+          ],
+          "diagnostics": [
+            {
+              "base": "/",
+              "name": "touch",
+              "score": "0",
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchstart",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "pointerup",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchend",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                }
+              ],
+              "scroll": 186
+            },
+            {
+              "base": "/blog/",
+              "name": "touch",
+              "score": "0",
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchstart",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "pointerup",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchend",
+                  "target": "left",
+                  "x": 75,
+                  "y": 270,
+                  "scroll": 186
+                }
+              ],
+              "scroll": 186
+            }
+          ],
+          "browser": "148.0.7778.179"
+        },
+        {
+          "engine": "chromium",
+          "node": "v24.22.1",
+          "playwright": "1.62.1",
+          "physicalPhone": false,
+          "lifecycleAdapter": false,
+          "checks": [
+            {
+              "base": "/",
+              "name": "mouse wheel scrolls inside the tool and outside in the article",
+              "status": "pass",
+              "detail": {
+                "innerBefore": 451,
+                "innerAfter": 291,
+                "outerBefore": 0,
+                "outerAfter": 180
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "mouse wheel scrolls inside the tool and outside in the article",
+              "status": "pass",
+              "detail": {
+                "innerBefore": 451,
+                "innerAfter": 291,
+                "outerBefore": 0,
+                "outerAfter": 180
+              }
+            }
+          ],
+          "diagnostics": [],
+          "browser": "148.0.7778.179"
+        },
+        {
+          "engine": "chromium",
+          "node": "v24.22.1",
+          "playwright": "1.62.1",
+          "physicalPhone": false,
+          "lifecycleAdapter": false,
+          "checks": [
+            {
+              "base": "/",
+              "name": "touch gestures: board swipe, internal scroll, boundary handoff and outer scroll",
+              "status": "fail",
+              "error": "[{\"name\":\"board swipe\",\"status\":\"pass\",\"score\":\"4\"},{\"name\":\"internal finger scroll\",\"status\":\"fail\",\"before\":347,\"after\":347},{\"name\":\"boundary handoff\",\"status\":\"pass\",\"before\":0,\"after\":53},{\"name\":\"outside finger scroll\",\"status\":\"pass\",\"before\":53,\"after\":191}]",
+              "errors": [],
+              "external": []
+            },
+            {
+              "base": "/blog/",
+              "name": "touch gestures: board swipe, internal scroll, boundary handoff and outer scroll",
+              "status": "fail",
+              "error": "[{\"name\":\"board swipe\",\"status\":\"pass\",\"score\":\"4\"},{\"name\":\"internal finger scroll\",\"status\":\"fail\",\"before\":347,\"after\":347},{\"name\":\"boundary handoff\",\"status\":\"pass\",\"before\":0,\"after\":53},{\"name\":\"outside finger scroll\",\"status\":\"pass\",\"before\":53,\"after\":158}]",
+              "errors": [],
+              "external": []
+            }
+          ],
+          "diagnostics": [
+            {
+              "base": "/",
+              "name": "touch gestures",
+              "box": {
+                "x": 40,
+                "y": 324,
+                "width": 310,
+                "height": 480
+              },
+              "before": 347,
+              "after": 347,
+              "hit": {
+                "tag": "<main aria-label=\"2048 小游戏\">\n    <header>\n      <div><h1>2048</h1><p class=\"subtitle\">合并相同数字</p></div>\n      <div class=\"score-box\"><span class=\"score-label\">得分</span><span id=\"score\">4</span></div>\n    </header>\n    <di",
+                "scroll": 347,
+                "height": 825,
+                "viewport": 478
+              },
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "MAIN",
+                  "y": 263,
+                  "prevented": false
+                },
+                {
+                  "type": "touchstart",
+                  "target": "MAIN",
+                  "y": 263,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 285.5,
+                  "prevented": false
+                },
+                {
+                  "type": "pointercancel",
+                  "target": "MAIN",
+                  "y": 0,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 296.75,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 308,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 319.25,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 330.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 341.75,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 353,
+                  "prevented": false
+                },
+                {
+                  "type": "touchend",
+                  "target": "MAIN",
+                  "y": 353,
+                  "prevented": false
+                },
+                {
+                  "type": "pointerdown",
+                  "target": "SUMMARY",
+                  "y": 311,
+                  "prevented": false
+                },
+                {
+                  "type": "touchstart",
+                  "target": "SUMMARY",
+                  "y": 311,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 286,
+                  "prevented": false
+                },
+                {
+                  "type": "pointercancel",
+                  "target": "SUMMARY",
+                  "y": 0,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 283.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 274,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 270.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 262,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 257.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 250,
+                  "prevented": false
+                },
+                {
+                  "type": "touchend",
+                  "target": "SUMMARY",
+                  "y": 257,
+                  "prevented": false
+                }
+              ],
+              "stages": [
+                {
+                  "name": "board swipe",
+                  "status": "pass",
+                  "score": "4"
+                },
+                {
+                  "name": "internal finger scroll",
+                  "status": "fail",
+                  "before": 347,
+                  "after": 347
+                },
+                {
+                  "name": "boundary handoff",
+                  "status": "pass",
+                  "before": 0,
+                  "after": 53
+                },
+                {
+                  "name": "outside finger scroll",
+                  "status": "pass",
+                  "before": 53,
+                  "after": 191
+                }
+              ]
+            },
+            {
+              "base": "/blog/",
+              "name": "touch gestures",
+              "box": {
+                "x": 40,
+                "y": 324,
+                "width": 310,
+                "height": 480
+              },
+              "before": 347,
+              "after": 347,
+              "hit": {
+                "tag": "<main aria-label=\"2048 小游戏\">\n    <header>\n      <div><h1>2048</h1><p class=\"subtitle\">合并相同数字</p></div>\n      <div class=\"score-box\"><span class=\"score-label\">得分</span><span id=\"score\">4</span></div>\n    </header>\n    <di",
+                "scroll": 347,
+                "height": 825,
+                "viewport": 478
+              },
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "MAIN",
+                  "y": 263,
+                  "prevented": false
+                },
+                {
+                  "type": "touchstart",
+                  "target": "MAIN",
+                  "y": 263,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 285.5,
+                  "prevented": false
+                },
+                {
+                  "type": "pointercancel",
+                  "target": "MAIN",
+                  "y": 0,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 296.75,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 308,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 319.25,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 330.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 341.75,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "MAIN",
+                  "y": 353,
+                  "prevented": false
+                },
+                {
+                  "type": "touchend",
+                  "target": "MAIN",
+                  "y": 353,
+                  "prevented": false
+                },
+                {
+                  "type": "pointerdown",
+                  "target": "SUMMARY",
+                  "y": 311,
+                  "prevented": false
+                },
+                {
+                  "type": "touchstart",
+                  "target": "SUMMARY",
+                  "y": 311,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 286,
+                  "prevented": false
+                },
+                {
+                  "type": "pointercancel",
+                  "target": "SUMMARY",
+                  "y": 0,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 283.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 274,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 270.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 262,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 257.5,
+                  "prevented": false
+                },
+                {
+                  "type": "touchmove",
+                  "target": "SUMMARY",
+                  "y": 250,
+                  "prevented": false
+                },
+                {
+                  "type": "touchend",
+                  "target": "SUMMARY",
+                  "y": 257,
+                  "prevented": false
+                }
+              ],
+              "stages": [
+                {
+                  "name": "board swipe",
+                  "status": "pass",
+                  "score": "4"
+                },
+                {
+                  "name": "internal finger scroll",
+                  "status": "fail",
+                  "before": 347,
+                  "after": 347
+                },
+                {
+                  "name": "boundary handoff",
+                  "status": "pass",
+                  "before": 0,
+                  "after": 53
+                },
+                {
+                  "name": "outside finger scroll",
+                  "status": "pass",
+                  "before": 53,
+                  "after": 158
+                }
+              ]
+            }
+          ],
+          "browser": "148.0.7778.179"
+        }
+      ]
+    },
+    "webkit": {
+      "general": {
+        "passed": 18,
+        "failed": 0
+      },
+      "wheel": {
+        "passed": 2,
+        "failed": 0
+      },
+      "reports": [
+        {
+          "engine": "webkit",
+          "node": "v24.22.1",
+          "playwright": "1.65.0-alpha-2026-10-30",
+          "physicalPhone": false,
+          "lifecycleAdapter": false,
+          "checks": [
+            {
+              "base": "/",
+              "name": "direct article: current sample, original sandbox, title and real file round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "cancelledSelection": "empty FileList, native dialog dismissal not automated",
+                "previousStatus": "已请求导出 JSON 文件，请保存到本地。",
+                "invalidAndOversizePreserveGame": true,
+                "finalFramePath": "/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": "SecurityError",
+                "parentCookie": "SecurityError",
+                "cookie": "SecurityError",
+                "parentStorage": "SecurityError",
+                "storage": "SecurityError",
+                "topNavigation": "SecurityError"
+              }
+            },
+            {
+              "base": "/",
+              "name": "ClientRouter entry, history and fresh tool coexist with uninterrupted music",
+              "status": "pass",
+              "detail": {
+                "sameDocument": true,
+                "swaps": 5,
+                "oldFrameDetached": true,
+                "reinitialisedScore": 0,
+                "sameAudioStillPlaying": true
+              }
+            },
+            {
+              "base": "/",
+              "name": "long article: native transition then below-fold lazy tool loads on scroll",
+              "status": "pass",
+              "detail": {
+                "initialIframeTop": 4327,
+                "initialFrames": [
+                  "/posts/lazy/",
+                  ""
+                ],
+                "loadedPath": "/posts/lazy/day/2048/"
+              }
+            },
+            {
+              "base": "/",
+              "name": "keyboard Tab and Shift+Tab cross iframe; Enter and Space operate controls",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "backwards": true,
+                "visibleFocus": {
+                  "width": "3px",
+                  "style": "solid"
+                },
+                "enterAndSpaceScore": 4
+              }
+            },
+            {
+              "base": "/",
+              "name": "390px and 280px article and tool have no horizontal overflow; inner scroll reaches files",
+              "status": "pass",
+              "detail": [
+                {
+                  "width": 390,
+                  "outer": {
+                    "viewport": 390,
+                    "content": 390
+                  },
+                  "inner": {
+                    "viewport": 308,
+                    "content": 308,
+                    "scroll": 347,
+                    "height": 478
+                  }
+                },
+                {
+                  "width": 280,
+                  "outer": {
+                    "viewport": 280,
+                    "content": 280
+                  },
+                  "inner": {
+                    "viewport": 198,
+                    "content": 199,
+                    "scroll": 437,
+                    "height": 478
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/",
+              "name": "calculator input labels, keyboard calculation, focus and JSON export",
+              "status": "pass",
+              "detail": [
+                {
+                  "lang": "zh",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "第一个数字"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "第二个数字"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                },
+                {
+                  "lang": "en",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "First number"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "Second number"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/",
+              "name": "touch: actual direction tap, inner scrolling and outer scrolling",
+              "status": "pass",
+              "detail": {
+                "score": 4,
+                "innerScroll": 347,
+                "physicalPhone": false,
+                "nativeDragProbe": false
+              }
+            },
+            {
+              "base": "/",
+              "name": "direct HTML has normal origin storage and does not inherit iframe isolation",
+              "status": "pass",
+              "detail": {
+                "storageAccessible": true,
+                "inheritedSandbox": false,
+                "finalPath": "/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "direct article: current sample, original sandbox, title and real file round trip",
+              "status": "pass",
+              "detail": {
+                "downloads": [
+                  "2048_12.json",
+                  "2048_12.json"
+                ],
+                "cancelledSelection": "empty FileList, native dialog dismissal not automated",
+                "previousStatus": "已请求导出 JSON 文件，请保存到本地。",
+                "invalidAndOversizePreserveGame": true,
+                "finalFramePath": "/blog/posts/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "status": "pass",
+              "detail": {
+                "parentDOM": "SecurityError",
+                "parentCookie": "SecurityError",
+                "cookie": "SecurityError",
+                "parentStorage": "SecurityError",
+                "storage": "SecurityError",
+                "topNavigation": "SecurityError"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "ClientRouter entry, history and fresh tool coexist with uninterrupted music",
+              "status": "pass",
+              "detail": {
+                "sameDocument": true,
+                "swaps": 5,
+                "oldFrameDetached": true,
+                "reinitialisedScore": 0,
+                "sameAudioStillPlaying": true
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "long article: native transition then below-fold lazy tool loads on scroll",
+              "status": "pass",
+              "detail": {
+                "initialIframeTop": 4327,
+                "initialFrames": [
+                  "/blog/posts/lazy/",
+                  ""
+                ],
+                "loadedPath": "/blog/posts/lazy/day/2048/"
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "keyboard Tab and Shift+Tab cross iframe; Enter and Space operate controls",
+              "status": "pass",
+              "detail": {
+                "entered": true,
+                "exited": true,
+                "backwards": true,
+                "visibleFocus": {
+                  "width": "3px",
+                  "style": "solid"
+                },
+                "enterAndSpaceScore": 4
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "390px and 280px article and tool have no horizontal overflow; inner scroll reaches files",
+              "status": "pass",
+              "detail": [
+                {
+                  "width": 390,
+                  "outer": {
+                    "viewport": 390,
+                    "content": 390
+                  },
+                  "inner": {
+                    "viewport": 308,
+                    "content": 308,
+                    "scroll": 347,
+                    "height": 478
+                  }
+                },
+                {
+                  "width": 280,
+                  "outer": {
+                    "viewport": 280,
+                    "content": 280
+                  },
+                  "inner": {
+                    "viewport": 198,
+                    "content": 199,
+                    "scroll": 437,
+                    "height": 478
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/blog/",
+              "name": "calculator input labels, keyboard calculation, focus and JSON export",
+              "status": "pass",
+              "detail": [
+                {
+                  "lang": "zh",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "第一个数字"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "第二个数字"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                },
+                {
+                  "lang": "en",
+                  "labels": [
+                    {
+                      "id": "first",
+                      "labels": [
+                        "First number"
+                      ]
+                    },
+                    {
+                      "id": "second",
+                      "labels": [
+                        "Second number"
+                      ]
+                    }
+                  ],
+                  "value": {
+                    "first": 7,
+                    "second": 9,
+                    "sum": 16
+                  }
+                }
+              ]
+            },
+            {
+              "base": "/blog/",
+              "name": "touch: actual direction tap, inner scrolling and outer scrolling",
+              "status": "pass",
+              "detail": {
+                "score": 4,
+                "innerScroll": 347,
+                "physicalPhone": false,
+                "nativeDragProbe": false
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "direct HTML has normal origin storage and does not inherit iframe isolation",
+              "status": "pass",
+              "detail": {
+                "storageAccessible": true,
+                "inheritedSandbox": false,
+                "finalPath": "/blog/posts/day/2048/"
+              }
+            }
+          ],
+          "diagnostics": [
+            {
+              "base": "/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "security": "/127.0.0.1:18866/posts/day/' from frame with URL 'http://127.0.0.1:18866/posts/day/2048/'. The frame attempting navigation of the top-level window is sandboxed, but the 'allow-top-navigation-by-user-activation' flag is not set and navigation is not triggered by user activation.\n"
+            },
+            {
+              "base": "/",
+              "name": "touch",
+              "score": "4",
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchstart",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "pointerup",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchend",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "click",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                }
+              ],
+              "scroll": 186
+            },
+            {
+              "base": "/blog/",
+              "name": "real permission probes deny parent DOM, cookie, storage and top navigation",
+              "security": "/127.0.0.1:18866/blog/posts/day/' from frame with URL 'http://127.0.0.1:18866/blog/posts/day/2048/'. The frame attempting navigation of the top-level window is sandboxed, but the 'allow-top-navigation-by-user-activation' flag is not set and navigation is not triggered by user activation.\n"
+            },
+            {
+              "base": "/blog/",
+              "name": "touch",
+              "score": "4",
+              "events": [
+                {
+                  "type": "pointerdown",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchstart",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "pointerup",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "touchend",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                },
+                {
+                  "type": "click",
+                  "target": "left",
+                  "x": 76,
+                  "y": 271,
+                  "scroll": 186
+                }
+              ],
+              "scroll": 186
+            }
+          ],
+          "browser": "27.2"
+        },
+        {
+          "engine": "webkit",
+          "node": "v24.22.1",
+          "playwright": "1.65.0-alpha-2026-10-30",
+          "physicalPhone": false,
+          "lifecycleAdapter": false,
+          "checks": [
+            {
+              "base": "/",
+              "name": "mouse wheel scrolls inside the tool and outside in the article",
+              "status": "pass",
+              "detail": {
+                "innerBefore": 451,
+                "innerAfter": 291,
+                "outerBefore": 0,
+                "outerAfter": 180
+              }
+            },
+            {
+              "base": "/blog/",
+              "name": "mouse wheel scrolls inside the tool and outside in the article",
+              "status": "pass",
+              "detail": {
+                "innerBefore": 451,
+                "innerAfter": 291,
+                "outerBefore": 0,
+                "outerAfter": 180
+              }
+            }
+          ],
+          "diagnostics": [],
+          "browser": "27.2"
+        }
+      ]
+    }
+  },
+  "touchDiagnosis": [
+    {
+      "name": "touch-diagnostic.json",
+      "browser": "148.0.7778.179",
+      "created": "2026-11-03T18:41:57.055Z",
+      "cases": [
+        {
+          "name": "theme-original",
+          "theme": true,
+          "before": {
+            "x": 54,
+            "y": 251,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 186,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 908.8999999999069,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 909.1000000000931,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 909.1999999999534,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 909.3000000000466,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "theme-repeat",
+          "theme": true,
+          "before": {
+            "x": 54,
+            "y": 251,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 186,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 702.5,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 702.6999999999534,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 702.6999999999534,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 75,
+              "y": 270,
+              "time": 702.7999999998137,
+              "scroll": 186,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "plain-480",
+          "height": 480,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 650,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 650.1999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 650.3000000000466,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 650.3000000000466,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "board",
+              "x": 61,
+              "y": 230,
+              "time": 650.6000000000931,
+              "scroll": 208,
+              "hit": "<div id=\"board\" tabindex=\"0\" role=\"group\" aria-label=\"2048 棋盘。第 1 行：2、2、空、空。第 2 行：空、空、空、空。第 3 行：空、空、空、空。第 4 行：空、空、空、空\" aria-describedby=\"instructions\">\n      <div class=\"tile\" aria"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "plain-480-cdp",
+          "height": 480,
+          "cdp": true,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 667.7000000001863,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 667.9000000001397,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 731.8000000000466,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 731.9000000001397,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "board",
+              "x": 61,
+              "y": 230,
+              "time": 732.3000000000466,
+              "scroll": 208,
+              "hit": "<div id=\"board\" tabindex=\"0\" role=\"group\" aria-label=\"2048 棋盘。第 1 行：2、2、空、空。第 2 行：空、空、空、空。第 3 行：空、空、空、空。第 4 行：空、空、空、空\" aria-describedby=\"instructions\">\n      <div class=\"tile\" aria"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "plain-1000",
+          "height": 1000,
+          "before": {
+            "x": 65,
+            "y": 453,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 0,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 24,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 472,
+              "time": 628.1999999999534,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 472,
+              "time": 628.3000000000466,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 472,
+              "time": 628.3999999999069,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 472,
+              "time": 628.3999999999069,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 69,
+              "y": 471,
+              "time": 628.8999999999069,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "standalone",
+          "standalone": true,
+          "before": {
+            "x": 95,
+            "y": 513,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 0,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 117,
+              "y": 533,
+              "time": 584.0999999998603,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 117,
+              "y": 533,
+              "time": 584.3000000000466,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 117,
+              "y": 533,
+              "time": 584.3999999999069,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 117,
+              "y": 533,
+              "time": 584.3999999999069,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 117,
+              "y": 533,
+              "time": 585,
+              "scroll": 0,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-480",
+          "height": 480,
+          "simple": true,
+          "before": {
+            "x": 0,
+            "y": 434,
+            "width": 100,
+            "height": 44,
+            "innerScroll": 16,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 49,
+              "y": 455,
+              "time": 559.8000000000466,
+              "scroll": 16,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 49,
+              "y": 455,
+              "time": 560,
+              "scroll": 16,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 49,
+              "y": 455,
+              "time": 560.1999999999534,
+              "scroll": 16,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 49,
+              "y": 455,
+              "time": 560.1999999999534,
+              "scroll": 16,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 24,
+              "y": 438,
+              "time": 561,
+              "scroll": 16,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-1000",
+          "height": 1000,
+          "simple": true,
+          "before": {
+            "x": 0,
+            "y": 450,
+            "width": 100,
+            "height": 44,
+            "innerScroll": 0,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 24,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 49,
+              "y": 471,
+              "time": 562.1000000000931,
+              "scroll": 0,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 49,
+              "y": 471,
+              "time": 562.1999999999534,
+              "scroll": 0,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 49,
+              "y": 471,
+              "time": 562.3000000000466,
+              "scroll": 0,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 49,
+              "y": 471,
+              "time": 562.3000000000466,
+              "scroll": 0,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 24,
+              "y": 470,
+              "time": 562.6999999999534,
+              "scroll": 0,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "plain-480-no-sandbox-control",
+          "height": 480,
+          "noSandbox": true,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 87,
+              "y": 265,
+              "time": 612.3999999999069,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 87,
+              "y": 265,
+              "time": 612.5,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 87,
+              "y": 265,
+              "time": 612.6999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 87,
+              "y": 265,
+              "time": 612.6999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 87,
+              "y": 265,
+              "time": 613.2999999998137,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "touch-diagnostic-minimal.json",
+      "browser": "148.0.7778.179",
+      "created": "2026-11-03T18:43:10.683Z",
+      "cases": [
+        {
+          "name": "simple-small-480",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "before": {
+            "x": 65,
+            "y": 438,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 12,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 595.1000000000931,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 595.3000000000466,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 595.5,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 595.5,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 69,
+              "y": 441,
+              "time": 596.1000000000931,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-small-at-origin",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "padding": 0,
+          "before": {
+            "x": 65,
+            "y": 438,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 12,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 528.1000000000931,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 528.3999999999069,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 528.3999999999069,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 528.5,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 529.1000000000931,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-small-desktop-touch",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "desktop": true,
+          "before": {
+            "x": 65,
+            "y": 438,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 12,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 561.5999999998603,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 561.6999999999534,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 561.7999999998137,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 561.7999999998137,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 69,
+              "y": 441,
+              "time": 562.2999999998137,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-small-no-sandbox-control",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "noSandbox": true,
+          "before": {
+            "x": 65,
+            "y": 438,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 12,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 87,
+              "y": 458,
+              "time": 542.5,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 87,
+              "y": 458,
+              "time": 542.6999999999534,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 87,
+              "y": 458,
+              "time": 543,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 87,
+              "y": 458,
+              "time": 543,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 87,
+              "y": 458,
+              "time": 543.8000000000466,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "simple-small-mouse-control",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "mouse": true,
+          "before": {
+            "x": 65,
+            "y": 438,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 12,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 574,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 574.5,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 86,
+              "y": 457,
+              "time": 574.5999999998603,
+              "scroll": 12,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "touch-diagnostic-scrolled.json",
+      "browser": "148.0.7778.179",
+      "created": "2026-11-03T18:43:42.882Z",
+      "cases": [
+        {
+          "name": "minimal-scrolled",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "scroll": 208,
+          "before": {
+            "x": 65,
+            "y": 242,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 617.5999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 617.7999999998137,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 617.8999999999069,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 617.8999999999069,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 69,
+              "y": 245,
+              "time": 618.5999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "minimal-scrolled-at-origin",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "scroll": 208,
+          "padding": 0,
+          "before": {
+            "x": 65,
+            "y": 242,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 583.8000000000466,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 584,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 584.0999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 584.0999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 584.5999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "minimal-scrolled-desktop-touch",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "scroll": 208,
+          "desktop": true,
+          "before": {
+            "x": 65,
+            "y": 242,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 570.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 570.5999999998603,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 570.8000000000466,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 570.8999999999069,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 69,
+              "y": 245,
+              "time": 571.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "minimal-scrolled-no-sandbox-control",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "scroll": 208,
+          "noSandbox": true,
+          "before": {
+            "x": 65,
+            "y": 242,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 87,
+              "y": 262,
+              "time": 557.1000000000931,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 87,
+              "y": 262,
+              "time": 557.3000000000466,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 87,
+              "y": 262,
+              "time": 557.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 87,
+              "y": 262,
+              "time": 557.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "target",
+              "x": 87,
+              "y": 262,
+              "time": 558.3000000000466,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            }
+          ],
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "touch-diagnostic-hit-testing.json",
+      "browser": "148.0.7778.179",
+      "created": "2026-11-03T18:44:27.682Z",
+      "cases": [
+        {
+          "name": "focus-region",
+          "height": 480,
+          "simple": true,
+          "small": true,
+          "scroll": 208,
+          "focusRegion": true,
+          "before": {
+            "x": 65,
+            "y": 242,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 625.1999999999534,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 625.2999999998137,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 625.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "target",
+              "x": 86,
+              "y": 261,
+              "time": 625.5,
+              "scroll": 208,
+              "hit": "<button id=\"target\" onclick=\"document.getElementById('score').textContent='4'\">Button</button>"
+            },
+            {
+              "type": "click",
+              "target": "DIV",
+              "x": 61,
+              "y": 236,
+              "time": 626,
+              "scroll": 208,
+              "hit": "<div tabindex=\"0\" style=\"height:450px;touch-action:none\">Spacer</div>"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "sample-at-origin",
+          "height": 480,
+          "padding": 0,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 643.1999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 643.3999999999069,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 643.5,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 643.5999999998603,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 644.3000000000466,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "sample-desktop-touch",
+          "height": 480,
+          "desktop": true,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "0",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 635.6999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 635.9000000001397,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 636.1000000000931,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 636.1999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "board",
+              "x": 61,
+              "y": 230,
+              "time": 636.6000000000931,
+              "scroll": 208,
+              "hit": "<div id=\"board\" tabindex=\"0\" role=\"group\" aria-label=\"2048 棋盘。第 1 行：2、2、空、空。第 2 行：空、空、空、空。第 3 行：空、空、空、空。第 4 行：空、空、空、空\" aria-describedby=\"instructions\">\n      <div class=\"tile\" aria"
+            }
+          ],
+          "status": "fail"
+        },
+        {
+          "name": "sample-board-not-focusable",
+          "height": 480,
+          "unfocusBoard": true,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 639.8000000000466,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 640.0999999998603,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 640.1999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 640.1999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 69,
+              "y": 248,
+              "time": 640.6999999999534,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        },
+        {
+          "name": "sample-board-not-hit-testable",
+          "height": 480,
+          "noBoardHit": true,
+          "before": {
+            "x": 65,
+            "y": 245,
+            "width": 44,
+            "height": 40,
+            "innerScroll": 208,
+            "touchAction": "manipulation"
+          },
+          "outer": {
+            "scroll": 0,
+            "width": 390,
+            "scale": 1
+          },
+          "score": "4",
+          "events": [
+            {
+              "type": "pointerdown",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 645.9000000001397,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchstart",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 646,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "pointerup",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 646.1000000000931,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "touchend",
+              "target": "left",
+              "x": 86,
+              "y": 264,
+              "time": 646.1000000000931,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            },
+            {
+              "type": "click",
+              "target": "left",
+              "x": 69,
+              "y": 248,
+              "time": 646.6000000000931,
+              "scroll": 208,
+              "hit": "<button type=\"button\" data-direction=\"left\" aria-label=\"向左移动\">←</button>"
+            }
+          ],
+          "status": "pass"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Chrome emulated direction taps fail in both mounts",
+    "Chrome CDP finger drag does not scroll iframe internally; board swipe, boundary handoff and outside drag pass",
+    "Windows WebKit passed current compiled long pages; historical manual fixture crash is not established as fixed",
+    "No physical Android or iPhone, stable Safari or native WebKit drag validation",
+    "Empty FileList models cancellation; native chooser dismissal not automated",
+    "No NAS mount, scheduler, sync or live deployment validation",
+    "Direct HTML retains normal origin privileges; iframe sandbox is not inherited"
+  ],
+  "rawRuns": {
+    "pipeline": "run-G4GhAd",
+    "browser": "run-2UCZS0",
+    "initialBrowserHarness": "run-9KCUJe"
+  },
+  "originalRunStatus": "local core passed; mobile input acceptance incomplete",
+  "limitsScope": "Limits describe the original assistant-run Phase C checks; later user device evidence is recorded separately in followUpEvidence.",
+  "followUpEvidence": [
+    {
+      "date": "2026-11-03",
+      "source": "user report from direct operation during Phase D live deployment",
+      "verification": "user-reported real-device result; not an assistant-operated or automated test",
+      "environment": {
+        "deviceFamily": "iPhone",
+        "deviceModel": null,
+        "browser": "Chrome",
+        "engine": "WebKit, as stated by user",
+        "osVersion": null,
+        "browserVersion": null
+      },
+      "observations": [
+        {
+          "action": "Swipe within the 2048 board",
+          "result": "Tiles move in the swipe direction",
+          "status": "pass-user-reported"
+        },
+        {
+          "action": "After tapping another area such as Undo, swipe vertically in the iframe outside the board",
+          "result": "The embedded tool document scrolls",
+          "status": "pass-user-reported"
+        },
+        {
+          "action": "Swipe vertically outside the iframe",
+          "result": "The parent page scrolls throughout",
+          "status": "pass-user-reported"
+        }
+      ],
+      "notCovered": [
+        "Mobile JSON import/export and native chooser cancellation",
+        "All direction-button behaviours",
+        "Other devices, standalone Safari and version-specific compatibility"
+      ],
+      "sourceReview": {
+        "sampleSha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+        "boardTouchAction": "none",
+        "undoHandlerCallsFocusBoard": true,
+        "pointerGestureEndsOn": [
+          "pointerup",
+          "pointercancel",
+          "lostpointercapture"
+        ]
+      },
+      "interpretation": {
+        "regionalGestureHandling": "Consistent with the sample implementation and the reported observation",
+        "focusReleaseCause": "Unconfirmed; Undo explicitly calls focusBoard()",
+        "originalDesktopChromiumFailureCause": "Still unresolved; its recorded internal-scroll hit target was MAIN outside the board",
+        "automationResultsUnchanged": true,
+        "productionCodeChanged": false,
+        "newDeployment": false
+      },
+      "standards": [
+        "https://www.w3.org/TR/pointerevents3/#determining-supported-direct-manipulation-behavior",
+        "https://www.w3.org/TR/pointerevents3/#details-of-touch-action-values",
+        "https://www.w3.org/TR/pointerevents3/#implicit-release-of-pointer-capture"
+      ]
+    }
+  ]
+}

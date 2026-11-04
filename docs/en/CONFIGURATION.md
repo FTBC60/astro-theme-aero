@@ -191,6 +191,32 @@ In Obsidian, use attachments in the same folder as the note, paths relative to t
 
 When customizing Markdown in `astro.config.mjs`, keep `remarkNoteAssets` and the paired `noteAssets(contentConfig)` integration. Missing paired processing raises `Incomplete note compilation`, even for posts without attachments; fix the configuration and rerun checks and builds. Corrupt attachment caches or plans for a different notes directory or deployment base also fail explicitly. Rerun content sync or build to generate a new plan.
 
+### Embedded single-file HTML tools
+
+Place an author-reviewed, self-contained `.html` file beside the post and use the reserved lowercase `tool:` image marker:
+
+```md
+![tool: Addition calculator](./calculator.html)
+```
+
+Reference-style images work too:
+
+```md
+![tool: Addition calculator][calculator]
+
+[calculator]: ./calculator.html
+```
+
+Copy the complete [tool example directory](../../examples/posts/en/tools/). Its post defaults to `publish: false`; review the HTML before setting it to `true`. HTML is copied as an article attachment with its original bytes. Merely existing in the notes directory does not publish it. Dependencies such as JS, CSS, images and JSON are not scanned or copied; keep styles, scripts and fixed data inside the single file without external resources.
+
+The tool name must be nonempty and the target must be a local `.html` file relative to the current Markdown file; extension case is preserved and checked without case sensitivity. Remote/site-absolute URLs, queries and fragments are rejected. Encode a literal filename `#` as `%23`. The current publisher rejects literal `%` characters in tool output paths and asks you to rename the file/folder; normal URL encoding remains supported. Shared `../` tools must stay inside `notesDir` and use the existing per-post `_attachments/` copies. Invalid, missing, escaping or conflicting targets fail checks/builds. Ordinary images, HTML links and `cover` do not become tools automatically.
+
+The compiler generates a stable iframe URL containing the deployment base and post ID, such as `/blog/posts/tool-example/calculator.html`. Keep relative paths in source Markdown. The iframe fills the article width and has a 480px height with internal scrolling; the tool author must support narrow layouts and keyboard operation. Tools do not persist after leaving an article. Automatic height, parent communication and execution inside Obsidian are not provided.
+
+Frames always use `sandbox="allow-scripts allow-downloads"`, lazy loading and `referrerpolicy="no-referrer"`; HTML permission declarations are not read. Scripts and file exports are allowed, without same-origin, form submission, popup or top-navigation permissions. Tools should export from explicit buttons, although the download permission itself is not limited to user gestures or JSON. Import through a file chooser, without an upload service. Tools must validate file size/content and remain usable without persistent storage.
+
+Publish reviewed tools only. Frame isolation does not automatically protect direct HTML visits, prevent all networking or limit computation. Local builds, exports and desktop operation are verified. A user reports that board swipes, scrolling outside the board within the tool, and parent-page scrolling work in iPhone Chrome. In the 2048 sample, gestures that start on the board control the game; start a drag in the instructions or another area outside the board to scroll the tool. Desktop Chrome touch emulation still has tap/internal-scroll failures. Other devices, mobile file round trips and the standalone Safari app are not fully verified; check the intended environment.
+
 ### Math formulas
 
 Posts and the About page support LaTeX math. MathJax renders formulas during the build, so visitors do not need a MathJax script. Use `$...$` for inline math and a separate `$$...$$` block for display math:

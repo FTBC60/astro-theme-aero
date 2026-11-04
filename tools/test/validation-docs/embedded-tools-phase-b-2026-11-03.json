@@ -1,0 +1,44 @@
+{
+  "clientDate": "2026-11-03",
+  "sampleSha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+  "sampleBytes": 21662,
+  "node": "v24.22.1",
+  "results": [
+    "root real Markdown build, fixed iframe and exact HTML bytes",
+    "blog real Markdown build, fixed iframe and exact HTML bytes",
+    "dev serves only referenced HTML with correct MIME and original bytes",
+    "compiled iframe: client navigation, escaped title, 480px style and JSON round trip",
+    "compiled article history detaches old tool and reinitialises without runtime errors",
+    "both copyable calculator examples calculate, export JSON and reject empty input",
+    "HTML-only dev update and article withdrawal remove tool response"
+  ],
+  "cloudWrites": false,
+  "browser": "148.0.7778.179",
+  "astro": "7.3.8",
+  "regression": {
+    "content": {
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0
+    },
+    "resources": {
+      "passed": 7,
+      "failed": 0
+    },
+    "typeCheck": {
+      "files": 70,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "defaultBuild": {
+      "pages": 8,
+      "passed": true
+    }
+  },
+  "limits": [
+    "Phase A Chrome iframe touch-emulation failure not resolved",
+    "Phase A Windows WebKit long-page failure not resolved",
+    "No physical phone, stable Safari, NAS or cloud deployment in Phase B"
+  ]
+}

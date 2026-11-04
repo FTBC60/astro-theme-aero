@@ -19,6 +19,7 @@ These retrospective ADRs document the static theme and the earlier dynamic exper
 | [0011](0011-publication-before-validation.md) | 先筛选 YAML 布尔发布许可，再校验和编译文章 | 已采用；补充 0005 的完整 Vault 接入契约，用户反馈 NAS 发布测试正常 |
 | [0012](0012-obsidian-frontmatter-types.md) | YAML Core 保留日期形状的标题和 slug 字符串 | 已采用；兼容 Obsidian 属性重排，NAS 需更新镜像后另行复验 |
 | [0013](0013-delivery-scopes-and-test-isolation.md) | 分离 GitHub、作者源码包和 Publisher 镜像范围，集中测试资料 | 已采用；本地验收见测试说明，实际 Docker 构建与 Linux 调度待验 |
+| [0014](0014-static-embedded-tools.md) | 单文件 HTML 工具、固定脚本＋下载权限与文章附件归属 | 已采用；核心及 NAS/Worker 链路通过，iPhone Chrome 滚动获用户实机通过反馈，桌面模拟差异保留 |
 
 [变更追溯表](HISTORY.md)记录各阶段修改及提交，包括未单独立 ADR 的界面、归档和播放器修复。[恢复依据](SOURCES.md)记录本机会话文件、消息位置、证据边界和缺口。
 

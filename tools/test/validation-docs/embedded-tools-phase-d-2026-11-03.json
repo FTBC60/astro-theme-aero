@@ -1,0 +1,1968 @@
+{
+  "date": "2026-11-03",
+  "timezone": "America/Los_Angeles",
+  "status": "NAS-to-Worker publishing/update/withdrawal passed; iPhone Chrome board and scrolling passed by user report; desktop Chromium simulation discrepancies remain",
+  "backup": {
+    "files": 150,
+    "bytes": 5014898,
+    "excludedAudioFiles": 6,
+    "excludedAudioBytes": 124870296,
+    "sha256Verified": true,
+    "playlistAndArtworkIncluded": true
+  },
+  "sync": {
+    "files": [
+      {
+        "path": "src/lib/note-assets.mjs",
+        "before": "0e309821d3766951387c1f39831eef19a73c965c0e3fd5dae4c5fd01cebfbe13",
+        "after": "e6f2301dd0bd0460de56826aa03c5da216b8d866a02a1ceef5cb02cf36ac531f",
+        "bytes": 6301
+      },
+      {
+        "path": "src/lib/note-compilation.mjs",
+        "before": "16f39b8afd4120f046c9c4e054d58afceecbb8155527e34f469ceca6a15d2a5e",
+        "after": "cf7e6e6aa8c8ffbec2ddd5fe09a0143b2e5c21cc2e4c96c985824f831120415f",
+        "bytes": 8509
+      },
+      {
+        "path": "src/integrations/note-assets.mjs",
+        "before": "596e2a20470d8cd68635ea6462205c73e7dd8390a1786e18e591a987f1f6afd4",
+        "after": "63cd4d87d51b7dd7e051f7fd43e903307d3a3e72f871b2a35a1d6703f58d5c8b",
+        "bytes": 3993
+      },
+      {
+        "path": "src/styles/_partial/_markdown.scss",
+        "before": "d7944a911908c0655cf6dd725da19a951b438ad4b450f3186348a72164ce143f",
+        "after": "4e0fb97822ad5ce030ad61399cce6716b62c14ae9ae6c3f9d6284962c5c8240d",
+        "bytes": 2984
+      },
+      {
+        "path": "docs/zh-CN/CONFIGURATION.md",
+        "before": "b70343f5a0625838fb71f2e105ade9cc113759f33306d2a158c61387ab3ccedb",
+        "after": "99bf3a2bd692c1fce4c34fb8c86bbb4fc47c808fd6d63348de66b02e2561b87f",
+        "bytes": 20565
+      },
+      {
+        "path": "docs/en/CONFIGURATION.md",
+        "before": "b919d27073b819b44463a3df5edd384618c679b01493fab84a0b2ea431f69d45",
+        "after": "24850322a30c7cd7d78a752c3dfa3de61ebd07810e95c67ef99b9660c7e5e5c7",
+        "bytes": 21790
+      },
+      {
+        "path": "examples/posts/zh-CN/tools/index.md",
+        "before": null,
+        "after": "ba5895ad124cb9f34b4e0104279b7bacf63b950d51efa6ef89b340d640903a34",
+        "bytes": 403
+      },
+      {
+        "path": "examples/posts/zh-CN/tools/calculator.html",
+        "before": null,
+        "after": "555758172a3dce307e6bb6688b3837828309ac3177f3284b7380951bedc7079e",
+        "bytes": 2315
+      },
+      {
+        "path": "examples/posts/en/tools/index.md",
+        "before": null,
+        "after": "c39f2ac6ec77f5eea483e14c43017f47f4297842871dbfa99c00bb9553695df5",
+        "bytes": 445
+      },
+      {
+        "path": "examples/posts/en/tools/calculator.html",
+        "before": null,
+        "after": "dc3f573d0913b4c8e6f8808a71ac63acc2c066b43c62f787eac34e4c86698d9e",
+        "bytes": 2314
+      }
+    ],
+    "otherFilesUnchanged": 144,
+    "audioSizeAndMtimeUnchanged": true
+  },
+  "sample": {
+    "source": "workspace-root/2048/2048.html",
+    "bytes": 21662,
+    "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+    "originalUnchanged": true,
+    "updatedCopySha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428"
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "astro": "7.3.8",
+    "wrangler": "4.152.0",
+    "themeReadOnly": true,
+    "notesReadOnly": true,
+    "matchingFiles": 11
+  },
+  "validation": {
+    "initialBuildOnly": {
+      "status": "built",
+      "typeCheckFiles": 43,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0,
+      "pages": 11,
+      "siteFiles": 51
+    },
+    "publications": [
+      {
+        "phase": "initial",
+        "status": "pass",
+        "job": {
+          "id": "run-2026-11-03T21-29-06-220Z-5e5cd3eb",
+          "status": "published",
+          "mode": "deploy",
+          "startedAt": "2026-11-03T21:29:06.310Z",
+          "finishedAt": "2026-11-03T21:29:38.914Z",
+          "files": 51
+        },
+        "runtime": {
+          "node": "v24.22.1",
+          "astro": "7.3.8",
+          "wrangler": "4.152.0",
+          "themeReadOnly": true,
+          "notesReadOnly": true,
+          "matchingFiles": 11
+        },
+        "routes": 19,
+        "check": "Result (43 files): \n- 0 errors\n- 0 warnings\n- 0 hints",
+        "pages": "11 page(s) built",
+        "versionId": "<redacted:initial-deployment>"
+      },
+      {
+        "phase": "update",
+        "status": "pass",
+        "job": {
+          "id": "run-2026-11-03T21-47-49-146Z-03fc71ac",
+          "status": "published",
+          "mode": "deploy",
+          "startedAt": "2026-11-03T21:47:49.198Z",
+          "finishedAt": "2026-11-03T21:48:22.301Z",
+          "files": 51
+        },
+        "runtime": {
+          "node": "v24.22.1",
+          "astro": "7.3.8",
+          "wrangler": "4.152.0",
+          "themeReadOnly": true,
+          "notesReadOnly": true,
+          "matchingFiles": 11
+        },
+        "routes": 19,
+        "check": "Result (43 files): \n- 0 errors\n- 0 warnings\n- 0 hints",
+        "pages": "11 page(s) built",
+        "versionId": "<redacted:update-deployment>"
+      },
+      {
+        "phase": "withdraw",
+        "status": "pass",
+        "job": {
+          "id": "run-2026-11-03T21-48-39-270Z-795b9208",
+          "status": "published",
+          "mode": "deploy",
+          "startedAt": "2026-11-03T21:48:39.322Z",
+          "finishedAt": "2026-11-03T21:49:12.632Z",
+          "files": 48
+        },
+        "runtime": {
+          "node": "v24.22.1",
+          "astro": "7.3.8",
+          "wrangler": "4.152.0",
+          "themeReadOnly": true,
+          "notesReadOnly": true,
+          "matchingFiles": 11
+        },
+        "routes": 19,
+        "check": "Result (43 files): \n- 0 errors\n- 0 warnings\n- 0 hints",
+        "pages": "10 page(s) built",
+        "versionId": "<redacted:withdraw-deployment>"
+      },
+      {
+        "phase": "removed",
+        "status": "pass",
+        "job": {
+          "id": "run-2026-11-03T21-49-27-436Z-c8212037",
+          "status": "published",
+          "mode": "deploy",
+          "startedAt": "2026-11-03T21:49:27.504Z",
+          "finishedAt": "2026-11-03T21:49:59.362Z",
+          "files": 45
+        },
+        "runtime": {
+          "node": "v24.22.1",
+          "astro": "7.3.8",
+          "wrangler": "4.152.0",
+          "themeReadOnly": true,
+          "notesReadOnly": true,
+          "matchingFiles": 11
+        },
+        "routes": 19,
+        "check": "Result (43 files): \n- 0 errors\n- 0 warnings\n- 0 hints",
+        "pages": "8 page(s) built",
+        "versionId": "<redacted:removed-deployment>"
+      }
+    ],
+    "containerRouteAssertions": 76,
+    "externalRouteAssertions": {
+      "initial": 16,
+      "final": 16
+    },
+    "liveChromeGroups": 5,
+    "defaultDependenciesUnchanged": true,
+    "imageRebuilt": false
+  },
+  "stages": [
+    {
+      "phase": "initial",
+      "created": "2026-11-03T21:47:24.776Z",
+      "status": "pass",
+      "cloudWrites": false,
+      "checks": [
+        {
+          "name": "read-only mounts, matching toolchain, synced theme and original Vault inputs",
+          "status": "pass",
+          "originalFiles": 12
+        },
+        {
+          "name": "exact disposable source inventory and expected phase bytes",
+          "status": "pass"
+        },
+        {
+          "name": "candidate article/tool ownership, exact HTML bytes and exclusions",
+          "status": "pass",
+          "siteFiles": 51,
+          "survivingToolFiles": 3
+        }
+      ],
+      "routes": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "810d3da02ba514ae90ee0e4b19247c03736040d46c2d56fe734c5507d56db684",
+          "bytes": 8412,
+          "marker": true,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "0cd2f30786515ed956c380464ba02568a1e6a1aad252a3a8c9d0a3a2f02ce855",
+          "bytes": 7883,
+          "marker": true,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "redirects": [],
+          "finalPath": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "ea35ae74ec72015013645d81f439057f72577ea340722313553015f9720c2780",
+          "bytes": 7608,
+          "marker": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "runtime": {
+        "node": "v24.22.1",
+        "astro": "7.3.8",
+        "wrangler": "4.152.0",
+        "themeReadOnly": true,
+        "notesReadOnly": true,
+        "matchingFiles": 11
+      },
+      "job": {
+        "id": "run-2026-11-03T21-29-06-220Z-5e5cd3eb",
+        "status": "published",
+        "mode": "deploy",
+        "startedAt": "2026-11-03T21:29:06.310Z",
+        "finishedAt": "2026-11-03T21:29:38.914Z",
+        "files": 51
+      }
+    },
+    {
+      "phase": "update",
+      "created": "2026-11-03T21:48:28.994Z",
+      "status": "pass",
+      "cloudWrites": false,
+      "checks": [
+        {
+          "name": "read-only mounts, matching toolchain, synced theme and original Vault inputs",
+          "status": "pass",
+          "originalFiles": 12
+        },
+        {
+          "name": "exact disposable source inventory and expected phase bytes",
+          "status": "pass"
+        },
+        {
+          "name": "candidate article/tool ownership, exact HTML bytes and exclusions",
+          "status": "pass",
+          "siteFiles": 51,
+          "survivingToolFiles": 3
+        }
+      ],
+      "routes": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "810d3da02ba514ae90ee0e4b19247c03736040d46c2d56fe734c5507d56db684",
+          "bytes": 8412,
+          "marker": true,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "0cd2f30786515ed956c380464ba02568a1e6a1aad252a3a8c9d0a3a2f02ce855",
+          "bytes": 7883,
+          "marker": true,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "redirects": [],
+          "finalPath": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "ea35ae74ec72015013645d81f439057f72577ea340722313553015f9720c2780",
+          "bytes": 7608,
+          "marker": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "runtime": {
+        "node": "v24.22.1",
+        "astro": "7.3.8",
+        "wrangler": "4.152.0",
+        "themeReadOnly": true,
+        "notesReadOnly": true,
+        "matchingFiles": 11
+      },
+      "job": {
+        "id": "run-2026-11-03T21-47-49-146Z-03fc71ac",
+        "status": "published",
+        "mode": "deploy",
+        "startedAt": "2026-11-03T21:47:49.198Z",
+        "finishedAt": "2026-11-03T21:48:22.301Z",
+        "files": 51
+      }
+    },
+    {
+      "phase": "withdraw",
+      "created": "2026-11-03T21:49:19.103Z",
+      "status": "pass",
+      "cloudWrites": false,
+      "checks": [
+        {
+          "name": "read-only mounts, matching toolchain, synced theme and original Vault inputs",
+          "status": "pass",
+          "originalFiles": 12
+        },
+        {
+          "name": "exact disposable source inventory and expected phase bytes",
+          "status": "pass"
+        },
+        {
+          "name": "candidate article/tool ownership, exact HTML bytes and exclusions",
+          "status": "pass",
+          "siteFiles": 48,
+          "survivingToolFiles": 1
+        }
+      ],
+      "routes": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "c3d46fb6f6264f33cbbc560cfec366298e64c3b7827da60297321303f4c64428",
+          "bytes": 21694,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "0cd2f30786515ed956c380464ba02568a1e6a1aad252a3a8c9d0a3a2f02ce855",
+          "bytes": 7883,
+          "marker": true,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "redirects": [],
+          "finalPath": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "httpStatus": 200,
+          "mime": "text/html",
+          "sha256": "4072811f26fdd563bcb75135a9d1de199896855512b4e56e67cd4215c1620e09",
+          "bytes": 7400,
+          "marker": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "runtime": {
+        "node": "v24.22.1",
+        "astro": "7.3.8",
+        "wrangler": "4.152.0",
+        "themeReadOnly": true,
+        "notesReadOnly": true,
+        "matchingFiles": 11
+      },
+      "job": {
+        "id": "run-2026-11-03T21-48-39-270Z-795b9208",
+        "status": "published",
+        "mode": "deploy",
+        "startedAt": "2026-11-03T21:48:39.322Z",
+        "finishedAt": "2026-11-03T21:49:12.632Z",
+        "files": 48
+      }
+    },
+    {
+      "phase": "removed",
+      "created": "2026-11-03T21:50:05.888Z",
+      "status": "pass",
+      "cloudWrites": false,
+      "checks": [
+        {
+          "name": "read-only mounts, matching toolchain, synced theme and original Vault inputs",
+          "status": "pass",
+          "originalFiles": 12
+        },
+        {
+          "name": "exact disposable source inventory and expected phase bytes",
+          "status": "pass"
+        },
+        {
+          "name": "candidate article/tool ownership, exact HTML bytes and exclusions",
+          "status": "pass",
+          "siteFiles": 45,
+          "survivingToolFiles": 0
+        }
+      ],
+      "routes": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "redirects": [],
+          "finalPath": "/tags/%E4%B8%B4%E6%97%B6%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6/",
+          "httpStatus": 404,
+          "mime": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "marker": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "runtime": {
+        "node": "v24.22.1",
+        "astro": "7.3.8",
+        "wrangler": "4.152.0",
+        "themeReadOnly": true,
+        "notesReadOnly": true,
+        "matchingFiles": 11
+      },
+      "job": {
+        "id": "run-2026-11-03T21-49-27-436Z-c8212037",
+        "status": "published",
+        "mode": "deploy",
+        "startedAt": "2026-11-03T21:49:27.504Z",
+        "finishedAt": "2026-11-03T21:49:59.362Z",
+        "files": 45
+      }
+    }
+  ],
+  "externalProbes": {
+    "initial": {
+      "action": "probe",
+      "phase": "initial",
+      "created": "2026-11-03T21:35:20.233Z",
+      "checks": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/2048/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [
+            {
+              "status": 307,
+              "location": "https://worker.example/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+            }
+          ],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 200,
+          "type": "text/html",
+          "sha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+          "bytes": 21662,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "cloudWrites": false,
+      "origin": "https://worker.example",
+      "gate": {
+        "path": "/",
+        "redirects": [],
+        "finalPath": "/",
+        "status": 200,
+        "type": "text/html",
+        "sha256": "dbb706d5a01ab16ac361011ac1abdf902929b371daf1e11f099a374c23c36e2e",
+        "bytes": 9412,
+        "authBlocked": false
+      }
+    },
+    "final": {
+      "action": "probe",
+      "phase": "removed",
+      "created": "2026-11-03T21:51:38.359Z",
+      "checks": [
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/2048/index.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-shared-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/index.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        },
+        {
+          "path": "/posts/tool-validation-20261103-37b806/unused.html",
+          "redirects": [],
+          "finalPath": "/posts/tool-validation-20261103-37b806/unused.html",
+          "status": 404,
+          "type": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "authBlocked": false,
+          "statusOfCheck": "pass"
+        }
+      ],
+      "cloudWrites": false,
+      "origin": "https://worker.example",
+      "gate": {
+        "path": "/",
+        "redirects": [],
+        "finalPath": "/",
+        "status": 200,
+        "type": "text/html",
+        "sha256": "719d5fe78a668c726dc273fce43f23fe2c7b21f92032dcdf29e16eac137061bb",
+        "bytes": 8488,
+        "authBlocked": false
+      }
+    }
+  },
+  "liveBrowser": {
+    "created": "2026-11-03T21:40:46.098Z",
+    "browser": "148.0.7778.179",
+    "playwright": "1.62.1",
+    "cloudWrites": false,
+    "physicalPhone": false,
+    "checks": [
+      {
+        "name": "live article, fixed sandbox, both actual tools and storage fallback",
+        "status": "pass",
+        "detail": {
+          "framePaths": [
+            "/posts/tool-validation-20261103-37b806/2048/",
+            "/posts/tool-validation-20261103-37b806/_attachments/2026-11-03-%E5%B7%A5%E5%85%B7%E9%AA%8C%E6%94%B6-37b806/%E5%85%B1%E4%BA%AB%E5%B7%A5%E5%85%B7/%E8%AE%A1%E7%AE%97%20%E5%99%A8%23/"
+          ]
+        }
+      },
+      {
+        "name": "native file chooser, two JSON downloads, reimport and invalid-file preservation",
+        "status": "pass",
+        "detail": {
+          "downloads": [
+            "2048_12.json",
+            "2048_12.json"
+          ],
+          "roundTrip": true,
+          "invalidImportPreservesGame": true
+        }
+      },
+      {
+        "name": "live parent DOM, cookie, storage and top navigation remain denied",
+        "status": "pass",
+        "detail": {
+          "parentDOM": "SecurityError",
+          "cookie": "SecurityError",
+          "storage": "SecurityError",
+          "topNavigation": "SecurityError",
+          "referrer": ""
+        }
+      },
+      {
+        "name": "real ClientRouter/history reinitialisation with continuous original audio",
+        "status": "pass",
+        "detail": {
+          "sameAudio": true,
+          "stillPlaying": true,
+          "oldFrameDetached": true,
+          "reenteredScore": 0,
+          "swaps": 3
+        }
+      },
+      {
+        "name": "live narrow layout, keyboard activation and separately owned shared tool",
+        "status": "pass",
+        "detail": {
+          "outer": {
+            "width": 390,
+            "content": 390
+          },
+          "inner": {
+            "width": 308,
+            "content": 308
+          },
+          "keyboardScore": 4,
+          "sharedRoundTrip": true,
+          "physicalTouchNotCovered": true
+        }
+      }
+    ],
+    "pageErrors": [],
+    "externalToolRequests": []
+  },
+  "cleanup": {
+    "time": "2026-11-03T21:53:55.078Z",
+    "finalJob": "run-2026-11-03T21-49-27-436Z-c8212037",
+    "files": 45,
+    "unchangedOriginalNoteFiles": 12,
+    "unchangedOtherThemeFiles": 144,
+    "excludedAudioFilesSameSize": 6,
+    "tempAuxiliaryFilesRemoved": 8,
+    "runDirectoriesEmpty": true
+  },
+  "operation": {
+    "sshCommandsExecutedBy": "user",
+    "actualPublications": 4,
+    "auxiliaryProgramsDeploy": false,
+    "accessPolicyChangedBy": "user",
+    "temporarySourceDirectoryRemoved": true,
+    "productionAdaptationRetained": true
+  },
+  "remaining": [
+    "iPhone Chrome board/scroll scenarios have a user-reported pass; other mobile abilities, Android and standalone Safari remain unverified",
+    "Original desktop Chromium emulated direction tap/internal-scroll failures remain; not evidence of iPhone failure",
+    "This round did not wait for the scheduled task to trigger",
+    "Phone synchronisation and custom-domain interaction not separately verified",
+    "Static withdrawal does not revoke previously downloaded or in-memory documents"
+  ],
+  "rawArtifacts": ".astro/embedded-tools-phase-d/",
+  "finalHomepage": {
+    "originalArticles": 4,
+    "temporaryTools": 0,
+    "playControlReady": true
+  },
+  "followUpEvidence": [
+    {
+      "date": "2026-11-03",
+      "source": "user report from direct operation during Phase D live deployment",
+      "verification": "user-reported real-device result; not an assistant-operated or automated test",
+      "environment": {
+        "deviceFamily": "iPhone",
+        "deviceModel": null,
+        "browser": "Chrome",
+        "engine": "WebKit, as stated by user",
+        "osVersion": null,
+        "browserVersion": null
+      },
+      "observations": [
+        {
+          "action": "Swipe within the 2048 board",
+          "result": "Tiles move in the swipe direction",
+          "status": "pass-user-reported"
+        },
+        {
+          "action": "After tapping another area such as Undo, swipe vertically in the iframe outside the board",
+          "result": "The embedded tool document scrolls",
+          "status": "pass-user-reported"
+        },
+        {
+          "action": "Swipe vertically outside the iframe",
+          "result": "The parent page scrolls throughout",
+          "status": "pass-user-reported"
+        }
+      ],
+      "notCovered": [
+        "Mobile JSON import/export and native chooser cancellation",
+        "All direction-button behaviours",
+        "Other devices, standalone Safari and version-specific compatibility"
+      ],
+      "sourceReview": {
+        "sampleSha256": "e83f59faf0d6f0ae527e827d4298b3ebd9f8dd1711ff4ff3fb7ab9ecb86f42c7",
+        "boardTouchAction": "none",
+        "undoHandlerCallsFocusBoard": true,
+        "pointerGestureEndsOn": [
+          "pointerup",
+          "pointercancel",
+          "lostpointercapture"
+        ]
+      },
+      "interpretation": {
+        "regionalGestureHandling": "Consistent with the sample implementation and the reported observation",
+        "focusReleaseCause": "Unconfirmed; Undo explicitly calls focusBoard()",
+        "originalDesktopChromiumFailureCause": "Still unresolved; its recorded internal-scroll hit target was MAIN outside the board",
+        "automationResultsUnchanged": true,
+        "productionCodeChanged": false,
+        "newDeployment": false
+      },
+      "standards": [
+        "https://www.w3.org/TR/pointerevents3/#determining-supported-direct-manipulation-behavior",
+        "https://www.w3.org/TR/pointerevents3/#details-of-touch-action-values",
+        "https://www.w3.org/TR/pointerevents3/#implicit-release-of-pointer-capture"
+      ]
+    }
+  ]
+}
