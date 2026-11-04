@@ -142,6 +142,14 @@ test('invalid or missing deployment configuration stops before build or upload',
 }));
 
 test('real builds read changed theme config, styles and public assets without changing the toolchain', { timeout: 90000 }, async () => fixture(async (options) => {
+  // An unrelated parent project must never become the staged app's check root.
+  await put(join(options.root, '../tsconfig.json'), JSON.stringify({ include: ['outside.ts'] }));
+  await put(join(options.root, '../outside.ts'), 'const outside: string = 123;');
+  await put(join(options.root, 'tsconfig.json'), JSON.stringify({
+    extends: 'astro/tsconfigs/strict',
+    include: ['.astro/types.d.ts', 'src/**/*'],
+    exclude: ['dist', 'node_modules'],
+  }));
   await put(join(options.root, 'src/config/display.ts'), 'export const title = "First title";');
   await put(join(options.root, 'src/styles/theme.css'), 'body { color: #123456; }');
   await put(join(options.root, 'public/audio/playlist.json'), '[{"title":"First track"}]');
