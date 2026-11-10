@@ -362,7 +362,7 @@ test('Compose settings, cron format, timezone and pinned image configuration agr
   assert.equal(service.volumes[0].bind.create_host_path, false);
   assert.equal(service.environment.THEME_DIR, '/theme');
   assert.equal(service.volumes[0].target, '/theme');
-  assert.equal(service.volumes[1].target, '/theme/src/content/blog');
+  assert.equal(service.volumes[1].target, '/theme/src/content/posts');
   assert.equal(service.volumes[1].read_only, true);
   assert.deepEqual(scheduleConfig(service.environment), { schedule: '0 3 * * *', timezone: 'America/Los_Angeles' });
   assert.throws(() => scheduleConfig({ CRON_SCHEDULE: '* * * * *\necho stolen', TZ: 'UTC' }), /five-field/);

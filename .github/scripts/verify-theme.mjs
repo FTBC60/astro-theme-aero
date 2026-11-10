@@ -22,6 +22,13 @@ for (const member of members) {
 }
 for (const required of sourceFiles) assert(files.has(required), `Missing author file: ${required}`);
 for (const required of ['docs/en/README.md', 'docs/zh-CN/README.md', 'examples/posts/en/tools/calculator.html', 'examples/posts/zh-CN/tools/2048.html']) assert(files.has(required), `Missing author guide/example: ${required}`);
+for (const required of ['src/lib/tool-package.mjs', 'src/content/posts/welcome.md', 'src/content/posts/math.md']) assert(files.has(required), `Missing theme file: ${required}`);
+for (const language of ['en', 'zh-CN']) {
+  for (const example of ['timestamp.md', 'timestamp-linked.md', 'timestamp/index.html', 'timestamp/app.js', 'timestamp/style.css', 'timestamp/manifest.json']) {
+    const required = `examples/posts/${language}/tools/${example}`;
+    assert(files.has(required), `Missing tool package example: ${required}`);
+  }
+}
 const author = JSON.parse(tar('-xOf', archive, `${pkg.name}/package.json`));
 const expected = { ...pkg, scripts: Object.fromEntries(Object.entries(pkg.scripts).filter(([key]) => key !== 'test' && !key.startsWith('test:'))) };
 assert.deepEqual(author, expected, 'Only test commands may differ in the archived manifest');

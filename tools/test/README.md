@@ -13,6 +13,7 @@ This directory is included in the Git checkout, but excluded from author source 
 | `npm run test:resources` | 公开资源规则、源码/站点包、真实隔离发布构建 / public resource selection, source/site archives, isolated Publisher builds |
 | `npm run test:publisher` | 发布流程、快照、锁、失败处理、调度和配置 / publishing, snapshots, locking, failures, schedule and configuration |
 | `npm run test:page-images` | 固定 Markdown 页图片与部署前缀 / fixed-page images and deployment base |
+| `node --test tools/test/tool-packages.test.mjs` | 工具包清单、路径、归档内容、冲突和预览中间件 / tool manifests, paths, archive contents, collisions and dev middleware |
 
 全部分组按顺序执行，然后检查和构建：
 
@@ -24,6 +25,7 @@ npm run test:playlist
 npm run test:resources
 npm run test:publisher
 npm run test:page-images
+node --test tools/test/tool-packages.test.mjs
 npm run check
 npm run build
 ```
@@ -63,6 +65,8 @@ The script checks images, navigation/history, retained audio identity, mobile si
 
 ## 交付范围 / Delivery scope
 
+工具包阶段 B 的真实构建、浏览器和开发更新步骤见[本地验收记录](validation-docs/tool-packages-phase-b-2026-11-04.md)。该组测试只使用合成 Vault，实际 Publisher 调用限定为 `build-only`，不部署到云端。测试用浏览器和 CLI 不进入正式发布镜像。
+
 - GitHub：正式主题、作者示例/文档、测试与经检查的维护资料。
 - 作者源码包：正式主题、默认资源、作者示例/文档、正式工具及工程配置；排除本目录与 `docs/adr/`、`docs/architecture/` 等开发资料。仅打包副本的 `package.json` 移除测试命令。
 - Publisher 镜像：package 文件和正式工具；主题与笔记通过运行时只读挂载读取。本目录不进入 Docker 上下文或镜像。
@@ -72,6 +76,8 @@ GitHub keeps developer materials; author archives exclude them and strip test co
 `test:resources` verifies selected public resources before actual builds, archive contents, preserved inputs and cleanup. `test:publisher` verifies snapshot retries, fail-fast errors/cancellation, locks, state preservation and configuration. Container scheduling and read-only mounts still require an available Docker/Linux environment; `deploy:dry-run` is a separate Wrangler check.
 
 ## 开发决策与模块说明 / Decisions and modules
+
+工具下载的实际浏览器文件可通过 `python tools/test/embedded-tools/verify-downloads.py` 使用 Python 标准库独立校验。该脚本在 `package-integration.mjs` 和 `package-browser.ps1` 之后执行，并解压到合成夹具中新建的目录，路径记在 `download-verification.json`。通过本地 HTTP 服务打开该目录后，可用 Playwright CLI 执行 `tools/test/embedded-tools/extracted-browser.js` 验证运行。详见[下载归档验收](validation-docs/tool-downloads-2026-11-09.md)。
 
 - [架构决策索引 / Architecture decisions](../../docs/adr/README.md)
 - [交付范围与测试隔离 / Delivery scope and test isolation](../../docs/adr/0013-delivery-scopes-and-test-isolation.md)

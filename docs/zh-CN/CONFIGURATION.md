@@ -2,7 +2,7 @@
 
 **文档语言：** 简体中文 · [English](../en/CONFIGURATION.md)
 
-这份指南面向使用本主题建立博客的作者。四个主要配置文件都在 `src/config/`；文章默认写在 `src/content/blog/`，也可指定外部笔记目录，关于页写在 `src/pages/about.md`。
+这份指南面向使用本主题建立博客的作者。四个主要配置文件都在 `src/config/`；文章默认写在 `src/content/posts/`，也可指定外部笔记目录，关于页写在 `src/pages/about.md`。
 
 ## 准备站点与资源
 
@@ -86,11 +86,11 @@ navigation: [
 
 ## 笔记目录：`src/config/content.config.ts`
 
-`notesDir` 是唯一的笔记目录配置，默认值为 `./src/content/blog`。相对路径相对于主题根目录解析，不受启动命令所在目录影响；也可以填写绝对路径，例如 `/vault/Notes`。目录不存在、不是目录或不可读时，检查与构建会明确失败，不会回退到示例文章。
+`notesDir` 是唯一的笔记目录配置，默认值为 `./src/content/posts`。相对路径相对于主题根目录解析，不受启动命令所在目录影响；也可以填写绝对路径，例如 `/vault/Notes`。目录不存在、不是目录或不可读时，检查与构建会明确失败，不会回退到示例文章。
 
 ```ts
 export const contentConfig = {
-  notesDir: './src/content/blog',
+  notesDir: './src/content/posts',
 };
 ```
 
@@ -98,13 +98,13 @@ export const contentConfig = {
 
 Frontmatter 语法损坏时，本轮检查/构建失败并报告笔记路径，不静默跳过；开头的 `---` 或 `+++` 没有结束分隔符也视为不完整 Frontmatter。即使损坏文件原本是私人笔记，这条规则仍然适用。失败不会发布新站点，撤稿仍需等待下一次成功构建和部署。
 
-主题不会向笔记目录写入文件；附件清单和缓存写入 Astro 缓存目录，产物写入 `dist/`，因此笔记目录可以只读挂载。发布容器将主题只读挂载在 `/theme`，保留默认配置时，将 NAS 笔记目录挂载到 `/theme/src/content/blog:ro`；`/app` 仅存放工具和依赖。定时构建与部署容器的配置见[部署指南](DEPLOYMENT.md)。
+主题不会向笔记目录写入文件；附件清单和缓存写入 Astro 缓存目录，产物写入 `dist/`，因此笔记目录可以只读挂载。发布容器将主题只读挂载在 `/theme`，保留默认配置时，将 NAS 笔记目录挂载到 `/theme/src/content/posts:ro`；`/app` 仅存放工具和依赖。定时构建与部署容器的配置见[部署指南](DEPLOYMENT.md)。
 
 外部笔记目录不会自动收进主题源码发布包；迁移环境时需要单独准备笔记，并调整 `notesDir`。
 
 ## 写文章
 
-把 `.md` 文件放入 `notesDir` 指定的目录（默认 `src/content/blog/`）。默认的 `welcome.md` 是站点预览文章，发布自己的博客时可以编辑或删除。[中文模板](../../examples/posts/zh-CN/)和[英文模板](../../examples/posts/en/)不会自动发布；将模板复制进文章目录并设置 `publish: true` 后才会发布。文件名默认决定文章路径：`hello.md` 对应 `/posts/hello/`。
+把 `.md` 文件放入 `notesDir` 指定的目录（默认 `src/content/posts/`）。默认的 `welcome.md` 是站点预览文章，发布自己的博客时可以编辑或删除。[中文模板](../../examples/posts/zh-CN/)和[英文模板](../../examples/posts/en/)不会自动发布；将模板复制进文章目录并设置 `publish: true` 后才会发布。文件名默认决定文章路径：`hello.md` 对应 `/posts/hello/`。
 
 发布许可采用解析后的严格布尔判断：`publish: true`、`publish: True`、`publish: TRUE` 都允许发布；字段名必须是小写 `publish`。带引号的 `"true"`、`"True"`、`"TRUE"`，以及 `1`、`yes`、缺失开关或布尔假值都会跳过，不作为文章校验。旧的 `draft` 字段不再控制发布：原来使用 `draft: false` 或未写开关的文章，需要补上 `publish: true`；隐藏文章使用 `publish: false` 或省略该字段。已发布文章的 `title/date` 仍为必填且必须合法。此规则适用于博客文章，关于页仍独立构建。
 
@@ -187,31 +187,89 @@ Obsidian 建议使用“与当前文件相同目录”的附件位置、“相�
 
 自定义 `astro.config.mjs` 的 Markdown 配置时，请保留 `remarkNoteAssets` 及配套 `noteAssets(contentConfig)` integration。缺少配套处理时，即使文章没有附件，也会报 `Incomplete note compilation`，请修复配置后重新检查和构建。附件缓存损坏或与当前笔记目录、部署前缀不符时同样会报错，重新运行内容同步或构建即可生成新计划。
 
-### 嵌入单文件 HTML 工具
+### 嵌入 HTML 工具
 
-把作者审查过的自包含 `.html` 文件与文章放在同一目录，使用保留的小写 `tool:` 图片标记：
+把作者审查过的自包含 `.html` 文件与文章放在同一目录，使用保留的小写 `iframe:` 图片标记：
 
 ```md
-![tool: 加法计算器](./calculator.html)
+![iframe: 加法计算器](./calculator.html)
 ```
 
 也支持引用式写法：
 
 ```md
-![tool: 加法计算器][calculator]
+![iframe: 加法计算器][calculator]
 
 [calculator]: ./calculator.html
 ```
 
-可复制[工具示例文件夹](../../examples/posts/zh-CN/tools/)，其中文章默认 `publish: false`。检查 HTML 后再将该篇设为 `true`。HTML 作为文章附件按原字节复制；不会因为放入笔记目录就自动公开，也不扫描它引用的 JS、CSS、图片或 JSON。工具应将样式、脚本和固定数据放在单个文件内，不依赖远程资源。
+可复制[工具示例文件夹](../../examples/posts/zh-CN/tools/)，其中文章默认 `publish: false`。检查文件后再将该篇设为 `true`。没有清单时仍按原字节交付单个 HTML，样式、脚本和固定数据应自包含；放入笔记目录本身不会使工具公开。
 
-工具名称不能为空，目标必须是相对于当前 MD 的本地 `.html` 文件（扩展名大小写均可）。不接受远程或站点绝对地址、查询参数或片段；名称中的 `#` 写成 `%23`。当前发布链路不支持工具输出路径中的字面 `%`，会提示改名；这不影响正常的 URL 编码。`../` 共享工具须留在 `notesDir` 内，沿用当前文章 `_attachments/` 副本规则。非法目标、缺失文件、越界或冲突会阻止检查/构建。普通图片、普通 HTML 链接和 `cover` 不会自动变成工具。
+多文件工具使用 `index.html` 入口，并在同目录提供 `manifest.json`。参考[时间戳目录包示例](../../examples/posts/zh-CN/tools/timestamp.md)：
+
+```md
+![iframe: 时间戳转换](./timestamp/index.html)
+```
+
+```json
+{
+  "version": 1,
+  "download": true,
+  "files": ["index.html", "app.js", "style.css"]
+}
+```
+
+`iframe:` 引用与指向本地 `index.html` 的普通 Markdown 链接共用清单校验。主题只在入口同目录寻找 `manifest.json`。`version` 与 `files` 为必需字段，`download` 为可选布尔值，未知字段会报错。文件必须具体列出、存在且大小写准确，必须包含 `index.html`。不支持通配符、目录展开、绝对路径、`.`/`..` 路径段、反斜杠、盘符、控制字符或 `%`、`?`、`#`。路径是未经 URL 编码的相对文件名。包根及文件路径中的符号链接不受支持，`.md`、`.mdx` 和 `.astro` 不得作为包资源。
+
+入口同目录的 `manifest.json` 是保留的控制清单，不能列入自身的 `files`。直接引用与 `index.html` 同目录的该文件作为附件时会报错。子目录中的 `data/manifest.json` 等资源可以显式列入 `files`。其他目录没有相邻 `index.html` 的同名 JSON 按普通附件处理。
+
+有清单时入口名必须精确为 `index.html`；有清单却损坏、格式错误、版本不支持或文件缺失会阻止检查/构建，不回退到单文件。JSON 采用标准 `JSON.parse` 行为（同名键保留最后值），文件列表重复项会报错。工具包所有文件映射到入口的发布目录，保持包内相对路径；共享引用仍各归所属文章，更新、减项和撤稿在下一次成功构建/部署后生效。
+
+HTML 内用 `./app.js`、`./style.css` 等相对路径，不使用站点根路径。`index.html` 可适应目录规范地址，开发服务器支持已登记包入口的目录地址，以及 JS/MJS、CSS、JSON、WASM 的响应类型。控制清单保留在构建输入和下载归档中。内容同步会生成当前版本的附件计划，作者清单使用 `version: 1`。
+
+Astro 7 开发预览对隔离 iframe 的资源请求有额外检查。本集成仅提前服务已登记包目录中精确列入附件计划的静态文件；其他源码路径继续受原有保护。这不增加 CORS 许可，fetch/WASM 等能力仍按浏览器规则验证。
+
+主题不扫描 HTML/JS/WASM 依赖，不安装库，不编译工具，也不运行其业务测试。清单只保证所列文件可交付，完整运行依赖由作者独立测试。工具应携带本地依赖；在现有 sandbox 中，普通脚本加载与 fetch、模块脚本、WASM 请求的权限行为不同，多文件化不自动解决 CORS 或存储限制。
+
+iframe 标题必须非空，目标必须是相对于当前 MD 的本地 `.html` 文件（扩展名大小写均可）。iframe 引用不接受远程或站点绝对地址、查询参数或片段，名称中的 `#` 写成 `%23`。iframe 及目录包输出路径中的字面 `%` 会提示改名，正常 URL 编码仍受支持。`../` 共享工具须留在 `notesDir` 内，沿用当前文章 `_attachments/` 副本规则。非法目标、缺失文件、越界或冲突会阻止检查/构建。
 
 编译器生成包含部署前缀及文章 ID 的稳定 iframe 地址，例如 `/blog/posts/tool-example/calculator.html`，作者保留源 MD 中的相对写法即可。工具默认占满正文宽度、高 480px，内容可在内部滚动；工具作者仍需适配窄屏和键盘操作。离开文章后不保留工具状态，也不提供自动高度、父子通信或 Obsidian 内运行能力。
 
 iframe 固定使用 `sandbox="allow-scripts allow-downloads"`、懒加载和 `referrerpolicy="no-referrer"`，不读取 HTML 的权限声明。它允许脚本运行及文件导出，但不授予同源、表单提交、弹窗或顶层导航权限。工具应通过明确按钮导出；下载权限本身不限于用户点击或 JSON 格式。导入使用文件选择器读取用户选择的文件，不需要上传服务。工具应自行校验文件大小和内容，且在存储不可用时仍能操作。
 
 只发布经过审查的工具：iframe 的隔离不自动覆盖直接访问 HTML 的场景，也不保证禁止联网或限制计算资源。已验证本地构建、导出及桌面操作；用户在 iPhone Chrome 上实测 2048 棋盘滑动、工具非棋盘区域滚动及父页面滚动正常。棋盘区域会处理从该区域开始的游戏手势，滚动工具内容请从说明等非棋盘区域开始。桌面 Chrome 触屏模拟仍有点击/内部滚动失败；其他设备、手机文件往返和独立 Safari 尚未完整验收，请在目标环境复验。
+
+### 独立打开 HTML 工具
+
+文章只包含普通链接时，也会发布清单中的完整目录包。可复制[独立链接示例](../../examples/posts/zh-CN/tools/timestamp-linked.md)。
+
+```md
+[打开时间戳工具](./timestamp/index.html?mode=standalone#result)
+
+[**打开工具**][clock]
+
+[clock]: ./timestamp/index.html?mode=reference#result "时间戳转换"
+```
+
+普通链接中的查询参数、锚点、标题和行内格式会保留。清单识别使用文件路径。已复制到文章附件中的本地 HTML 链接通过 `target="_blank"`、`rel="noopener"` 和 `data-astro-reload` 在新标签页中原生打开，工具页面具有独立文档，并以站点的正常来源运行。浏览器设备授权由工具自身发起。
+
+普通链接中，只有 `index.html` 入口触发目录包识别。其他 HTML 文件、无清单的单 HTML 以及普通图片与封面继续按单个附件交付。站点绝对地址与远程链接使用原有 URL 处理规则。同一篇文章的 iframe 和普通链接引用同一个包时，共用发布副本。
+
+### 下载工具文件
+
+| 工具形式 | 设置 | 文章中的下载入口 |
+| --- | --- | --- |
+| 单 HTML | 无需清单 | 默认下载原 HTML |
+| 目录包 | `download: true` | 下载构建期生成的 ZIP |
+| 目录包 | `download: false` 或省略该字段 | 关闭下载入口 |
+
+iframe 的下载入口位于框架上方工具栏，普通链接的下载入口位于原链接旁。文件名和 URL 由主题生成，单 HTML 的下载地址使用文件路径，打开页面时使用的查询参数与锚点保留在原链接中。
+
+目录包 ZIP 位于工具目录同级，例如 `timestamp/index.html` 对应 `timestamp.zip`。归档根目录包含 `index.html`、`files` 所选文件和自动加入的 `manifest.json`，包内子目录及文件字节保留。入口控制清单无需列入 `files`。同篇重复引用共用归档，ZIP 路径参与文章、附件及公开文件的冲突检查。
+
+开启或关闭下载、修改文件或清单、移除引用及撤稿，会通过下一次成功构建更新归档。开发预览按请求读取已选择的文件，并使用相同 ZIP 生成代码。新增构建依赖随主题 package.json 与锁文件交付，更新主题时按部署指南同步构建 Publisher 镜像。
+
+`download: true` 表示提供按清单生成的分发包。工具作者负责说明本地运行方式，可将 `README.txt` 列入 `files`，介绍所需的本地 HTTP 服务。下载文案使用站点语言。
 
 ### 数学公式
 

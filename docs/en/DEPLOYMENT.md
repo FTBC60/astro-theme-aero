@@ -53,7 +53,7 @@ Changes need no image rebuild or container restart: publish once or wait for the
 
 To migrate, move the Compose `WORKER_NAME` value to `wrangler.json` as `name`, remove that environment variable, and rebuild the tool image once to install the new reader. Later deployment-setting changes need no rebuild.
 
-`notesDir` in the theme's `src/config/content.config.ts` remains the only notes setting. There is no `CONTENT_DIR` override. With the default `./src/content/blog`, mount notes at `/theme/src/content/blog`:
+`notesDir` in the theme's `src/config/content.config.ts` remains the only notes setting. There is no `CONTENT_DIR` override. With the default `./src/content/posts`, mount notes at `/theme/src/content/posts`:
 
 ```yaml
 volumes:
@@ -65,7 +65,7 @@ volumes:
       create_host_path: false
   - type: bind
     source: /volume1/Files/Vault/Notes
-    target: /theme/src/content/blog
+    target: /theme/src/content/posts
     read_only: true
     bind:
       create_host_path: false

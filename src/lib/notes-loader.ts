@@ -5,6 +5,8 @@ import type { Loader, LoaderContext } from 'astro/loaders';
 import { inside, noteId, resolveNotesDir } from './note-assets.mjs';
 import { createNoteCompilation } from './note-compilation.mjs';
 import { isPublishedNote, parseNoteFrontmatter } from './note-publication.mjs';
+import { siteConfig } from '../config/site.config.ts';
+import { getUi } from '../i18n/ui.ts';
 
 async function markdownFiles(directory: string): Promise<string[]> {
   const files: string[] = [];
@@ -25,7 +27,14 @@ export function notesLoader(notesDir: string): Loader {
       const sync = async () => {
         const entries = [];
         const ids = new Set<string>();
-        const compilation = createNoteCompilation({ root, base: context.config.base, cacheDir: context.config.cacheDir, integrations: context.config.integrations });
+        const ui = getUi(siteConfig.lang);
+        const compilation = createNoteCompilation({
+          root,
+          base: context.config.base,
+          cacheDir: context.config.cacheDir,
+          integrations: context.config.integrations,
+          downloadLabels: { html: ui.downloadHtml, zip: ui.downloadZip },
+        });
         for (const file of await markdownFiles(root)) {
           if (!inside(root, await realpath(file))) throw new Error(`Note escapes notesDir: ${file}`);
           const contents = await readFile(file, 'utf8');

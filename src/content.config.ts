@@ -3,7 +3,7 @@ import { contentConfig } from './config/content.config';
 import { notesLoader } from './lib/notes-loader';
 import { z } from 'astro/zod';
 
-const blog = defineCollection({
+const posts = defineCollection({
   loader: notesLoader(contentConfig.notesDir),
   schema: z.object({
     title: z.string().min(1),
@@ -17,4 +17,4 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+export const collections = { posts };

@@ -143,27 +143,27 @@ try {
   await put(join(theme, 'public/audio/fixture.wav'), wav);
   await put(join(theme, 'public/audio/playlist.json'), JSON.stringify([{ title: 'Synthetic local acceptance tone', src: '/audio/fixture.wav' }]));
   const front = (title, slug) => `---\ntitle: ${title}\ndate: "2026-11-03"\npublish: true\nslug: ${slug}\n---\n\n`;
-  const first = front('2048 local acceptance', 'day') + '<button type="button" id="before-tool">Before tool</button>\n\n![tool: 2048 " onload="unsafe](./2048.html)\n\n<button type="button" id="after-tool">After tool</button>\n\n[Download HTML](./2048.html)\n\n![tool: Repeat](./2048.html)\n\n![tool: Shared][shared]\n\n[shared]: ../共享工具/计算%20器%23.html\n\n![Ordinary image](./photo.svg)\n\n[Ordinary download](./report.txt)\n\n$x^2$\n\n```js\nconst unchanged = 42;\n```\n';
+  const first = front('2048 local acceptance', 'day') + '<button type="button" id="before-tool">Before tool</button>\n\n![iframe: 2048 " onload="unsafe](./2048.html)\n\n<button type="button" id="after-tool">After tool</button>\n\n[Download HTML](./2048.html)\n\n![iframe: Repeat](./2048.html)\n\n![iframe: Shared][shared]\n\n[shared]: ../共享工具/计算%20器%23.html\n\n![Ordinary image](./photo.svg)\n\n[Ordinary download](./report.txt)\n\n$x^2$\n\n```js\nconst unchanged = 42;\n```\n';
   await put(join(notes, 'day/index.md'), first);
   await put(join(notes, 'day/2048.html'), bytes);
   await put(join(notes, '共享工具/计算 器#.html'), bytes);
   await put(join(notes, 'day/photo.svg'), '<svg xmlns="http://www.w3.org/2000/svg"><text>ordinary image</text></svg>');
   await put(join(notes, 'day/report.txt'), 'ordinary download');
-  await put(join(notes, 'second/index.md'), front('Second owner', 'second') + '![tool: Shared](../共享工具/计算%20器%23.html)');
-  await put(join(notes, 'lazy.md'), front('Long lazy article', 'lazy') + Array.from({ length: 90 }, (_, i) => `Paragraph ${i}: local lazy-loading acceptance.`).join('\n\n') + '\n\n![tool: Lazy](./day/2048.html)');
+  await put(join(notes, 'second/index.md'), front('Second owner', 'second') + '![iframe: Shared](../共享工具/计算%20器%23.html)');
+  await put(join(notes, 'lazy.md'), front('Long lazy article', 'lazy') + Array.from({ length: 90 }, (_, i) => `Paragraph ${i}: local lazy-loading acceptance.`).join('\n\n') + '\n\n![iframe: Lazy](./day/2048.html)');
   for (const [lang, directory] of [['zh', 'zh-CN'], ['en', 'en']]) {
-    await put(join(notes, `calculator-${lang}/index.md`), front(`Calculator ${lang}`, `calculator-${lang}`) + '![tool: Calculator](./calculator.html)');
+    await put(join(notes, `calculator-${lang}/index.md`), front(`Calculator ${lang}`, `calculator-${lang}`) + '![iframe: Calculator](./calculator.html)');
     await copyFile(join(project, `examples/posts/${directory}/tools/calculator.html`), join(notes, `calculator-${lang}/calculator.html`));
   }
   await put(join(notes, 'day/unused.html'), '<!doctype html><p>PHASE_C_UNUSED</p>');
-  await put(join(notes, 'private/index.md'), '---\npublish: false\n---\n![tool: Invalid](https://example.invalid/private.html)');
+  await put(join(notes, 'private/index.md'), '---\npublish: false\n---\n![iframe: Invalid](https://example.invalid/private.html)');
   await put(join(notes, 'private/private.html'), '<!doctype html><p>PHASE_C_PRIVATE</p>');
   await put(join(notes, '.obsidian/private.json'), '{"private":true}');
   const marker = (name) => `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><p id="marker">PHASE_C_${name}</p><script>document.body.dataset.ready='yes'</script>`;
   for (const [path, name] of [['routing/工具 空格#.html', 'ENCODED'], ['routing/UPPER.HTML', 'UPPER'], ['routing/folder/index.html', 'INDEX'], ['collision/tool.html', 'FLAT'], ['collision/tool/index.html', 'FOLDER'], ['page-collision/tool.html', 'ATTACHMENT']]) await put(join(notes, path), marker(name));
-  await put(join(notes, 'routing/index.md'), front('Routing sample', 'routing') + '![tool: Encoded](./工具%20空格%23.html)\n\n![tool: Upper](./UPPER.HTML)\n\n![tool: Index](./folder/index.html)');
-  await put(join(notes, 'collision/index.md'), front('File collision routes', 'collision') + '![tool: Flat](./tool.html)\n\n![tool: Folder](./tool/index.html)');
-  await put(join(notes, 'page-collision/index.md'), front('Article collision routes', 'page-collision') + '![tool: Attachment](./tool.html)');
+  await put(join(notes, 'routing/index.md'), front('Routing sample', 'routing') + '![iframe: Encoded](./工具%20空格%23.html)\n\n![iframe: Upper](./UPPER.HTML)\n\n![iframe: Index](./folder/index.html)');
+  await put(join(notes, 'collision/index.md'), front('File collision routes', 'collision') + '![iframe: Flat](./tool.html)\n\n![iframe: Folder](./tool/index.html)');
+  await put(join(notes, 'page-collision/index.md'), front('Article collision routes', 'page-collision') + '![iframe: Attachment](./tool.html)');
   await put(join(notes, 'page-collision/article.md'), front('PHASE_C_ARTICLE', 'page-collision/tool') + 'PHASE_C_ARTICLE');
   const originalConfig = await readFile(join(theme, 'astro.config.mjs'), 'utf8');
   await check('root Publisher build-only: real compiled tools and exact bytes', async () => {
@@ -247,7 +247,7 @@ try {
     await expectFile(toolTargets[1], '共享工具/计算 器#.html'); await expectFile(toolTargets[2], '共享工具/计算 器#.html');
   });
   await check('withdrawal removes its owned tools while the other article still works', async () => {
-    await put(join(notes, 'day/index.md'), '---\npublish: false\n---\n![tool: Invalid](https://example.invalid/withdrawn.html)');
+    await put(join(notes, 'day/index.md'), '---\npublish: false\n---\n![iframe: Invalid](https://example.invalid/withdrawn.html)');
     await build('withdraw-day'); await missing('posts/day/index.html'); await missing(toolTargets[0]); await missing(toolTargets[1]);
     await expectFile(toolTargets[2], '共享工具/计算 器#.html');
     await removeWithin(combined, join(combined, 'blog')); await cp(site, join(combined, 'blog'), { recursive: true });

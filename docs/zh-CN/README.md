@@ -6,7 +6,7 @@
 
 ## 下载主题包
 
-前往 [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest)，下载 `astro-theme-aero-v1.0.0-theme.tar.gz`（后续版本使用对应版本号）。它是面向博客作者的主题包，包含可配置源码、默认资源、示例和中英文使用文档。GitHub 自动附带的 “Source code” 是完整仓库快照，包含开发资料，请选择名称以 `-theme.tar.gz` 结尾的附件。解压后进入 `astro-theme-aero/`，再执行下面的安装步骤。可用同一 Release 的 `SHA256SUMS.txt` 核对下载完整性。
+前往 [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest)，下载 `astro-theme-aero-v1.1.0-theme.tar.gz`（后续版本使用对应版本号）。它是面向博客作者的主题包，包含可配置源码、默认资源、示例和中英文使用文档。GitHub 自动附带的 “Source code” 是完整仓库快照，包含开发资料，请选择名称以 `-theme.tar.gz` 结尾的附件。解压后进入 `astro-theme-aero/`，再执行下面的安装步骤。可用同一 Release 的 `SHA256SUMS.txt` 核对下载完整性。
 
 ## 快速开始
 
@@ -22,7 +22,7 @@ npm run dev
 1. 在 `src/config/site.config.ts` 设置界面语言（`zh-CN` 或 `en`）、站点标题、作者、签名、头像、导航和每页文章数。
 2. 在 `src/config/theme.config.ts` 设置默认配色、壁纸及壁纸焦点。
 3. 在 `src/config/music.config.ts` 设置播放器，在 `public/audio/playlist.json` 编辑歌曲；不需要播放器时设为 `enabled: false`。
-4. 在 `src/config/content.config.ts` 设置笔记目录（默认 `./src/content/blog`），将文章放入该目录，在 frontmatter 中设置 `publish: true`，并编辑 `src/pages/about.md`。目录中的 `welcome.md` 只是预览文章，可以删除。可复制的文章模板见 [中文示例](../../examples/posts/zh-CN/)和[英文示例](../../examples/posts/en/)。
+4. 在 `src/config/content.config.ts` 设置笔记目录（默认 `./src/content/posts`），将文章放入该目录，在 frontmatter 中设置 `publish: true`，并编辑 `src/pages/about.md`。目录中的 `welcome.md` 只是预览文章，可以删除。可复制的文章模板见 [中文示例](../../examples/posts/zh-CN/)和[英文示例](../../examples/posts/en/)。
 
 四份配置文件的字段、图片与音频路径、文章 frontmatter 和发布检查，详见[配置指南](CONFIGURATION.md)。
 

@@ -6,7 +6,7 @@ status: accepted
 
 2026-10-25 的使用场景是手机编辑 Obsidian 笔记、同步到 NAS，再定时生成站点；笔记和附件需要一起管理。决定让主题读取可配置的笔记目录，并让 `notesDir` 成为唯一来源。用户明确取消额外的 `CONTENT_DIR`，避免环境变量与主题配置相互覆盖；容器通过只读挂载把真实目录放到配置对应的位置。
 
-`b3d5479` 新增 [content.config.ts](../../src/config/content.config.ts) 和 [notes-loader.ts](../../src/lib/notes-loader.ts)：默认 `./src/content/blog`，相对路径从主题根解析，支持绝对路径；无效或不可读目录报错，不能退回示例目录。同步时重建内容存储，避免切换目录或撤稿后残留旧文章。
+`b3d5479` 新增 [content.config.ts](../../src/config/content.config.ts) 和 [notes-loader.ts](../../src/lib/notes-loader.ts)：默认 `./src/content/posts`，相对路径从主题根解析，支持绝对路径；无效或不可读目录报错，不能退回示例目录。同步时重建内容存储，避免切换目录或撤稿后残留旧文章。
 
 [note-assets.mjs](../../src/lib/note-assets.mjs) 解析标准 Markdown 的本地图片、链接和封面，仅复制已发布文章实际引用的附件，保留文件名及必要子目录。文章互链转换为已发布文章 URL；缺失附件、目录越界、重复文章 ID 或输出冲突会阻止构建。原始 Markdown 不作为附件复制，未引用的整个 Vault 也不会被整目录发布。共享附件放在对应文章输出的 `_attachments/` 下。
 

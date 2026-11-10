@@ -44,7 +44,7 @@ test('raw HTML keeps external URLs, escaped attributes, comments and script cont
 });
 
 test('fixed-page handling leaves note compilation and source-image imports to their own pipelines', async () => {
-  const outside = await render('<img src="./attachment.png">', '../content/blog/day.md', '/blog/');
+  const outside = await render('<img src="./attachment.png">', '../content/posts/day.md', '/blog/');
   assert.match(outside.code, /src="\.\/attachment.png"/);
   const { metadata } = await render('![source](../../public/image/bg.jpg)');
   assert(metadata.localImagePaths.includes('../../public/image/bg.jpg'), fileURLToPath(root));

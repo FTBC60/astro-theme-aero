@@ -26,7 +26,7 @@
 
 ### 单文件 HTML 工具接入（2026-11-03）
 
-`remarkNoteAssets` 将图片节点中精确的小写 `tool:` 前缀识别为工具，校验非空标题，再使用 `resolveNoteAsset(..., 'tool')`。引用式图片先复用现有 definition 解析。普通图片、链接与封面继续走原路径。
+`remarkNoteAssets` 将图片节点中精确的小写 `iframe:` 前缀识别为工具，校验非空标题，再使用 `resolveNoteAsset(..., 'tool')`。引用式图片先复用现有 definition 解析。普通图片、链接与封面继续走原路径。
 
 `tool` 是附件解析 interface 的一种用途约束：仅接受相对本地 `.html`，拒绝查询、片段和当前上传链路不接受的字面百分号输出路径；源路径与真实目标都必须是 HTML 文件。路径根、共享输出、符号链接和冲突检查继续集中在现有 resolver。它不创建新的资源种类字段、存储清单或注册系统；附件计划版本和 `{source, target}` 格式保持不变。
 

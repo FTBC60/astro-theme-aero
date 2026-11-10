@@ -88,6 +88,38 @@
     background: #fff;
 }
 
+.post-content .aero-tool {
+    display: block;
+    margin: 1.5em 0;
+}
+
+.post-content .aero-tool-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .5em;
+    padding: .5em .75em;
+    border: 1px solid #dfe2e5;
+    background: rgba(255, 255, 255, .8);
+    overflow-wrap: anywhere;
+}
+
+.post-content .aero-tool .aero-embedded-tool {
+    margin: 0;
+    border-top: 0;
+}
+
+.post-content .aero-tool-download {
+    display: inline-block;
+    max-width: 100%;
+    padding: .15em .55em;
+    border: 1px solid #aebac4;
+    border-radius: 4px;
+    font-size: .875em;
+    overflow-wrap: anywhere;
+}
+
 .post-content table {
     width: 100%;
     border-collapse: collapse;

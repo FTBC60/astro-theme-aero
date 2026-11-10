@@ -66,7 +66,7 @@ The last run has an empty collection, so Astro emits empty-`blog` collection not
 
 ## NAS and live acceptance
 
-Copy `Notes/` to a separate test directory. Reuse the validated publisher image and Compose configuration in an isolated test project with separate work data. With the default `notesDir: './src/content/blog'`, keep the read-only notes target `/theme/src/content/blog` but point its host source to the test Vault. Give `/data` a separate directory and retain the read-only theme mount. Run the test project manually with:
+Copy `Notes/` to a separate test directory. Reuse the validated publisher image and Compose configuration in an isolated test project with separate work data. With the default `notesDir: './src/content/posts'`, keep the read-only notes target `/theme/src/content/posts` but point its host source to the test Vault. Give `/data` a separate directory and retain the read-only theme mount. Run the test project manually with:
 
 ```sh
 docker compose run --rm publisher once --build-only

@@ -2,7 +2,7 @@
 
 **Documentation language:** [简体中文](../zh-CN/CONFIGURATION.md) · English
 
-This guide is for authors using Aero to build a blog. The four main configuration files are in `src/config/`. Posts default to `src/content/blog/`, with an optional external notes directory, and the About page is `src/pages/about.md`.
+This guide is for authors using Aero to build a blog. The four main configuration files are in `src/config/`. Posts default to `src/content/posts/`, with an optional external notes directory, and the About page is `src/pages/about.md`.
 
 ## Prepare the site and assets
 
@@ -90,11 +90,11 @@ On touch screens, drag from a track's text to scroll. Dragging and cancelled ges
 
 ## Notes directory: `src/config/content.config.ts`
 
-`notesDir` is the only setting for the notes directory and defaults to `./src/content/blog`. Relative paths resolve from the theme root, independently of the shell working directory. Absolute paths such as `/vault/Notes` are also supported. A missing, unreadable, or non-directory path fails checks and builds instead of falling back to demo posts.
+`notesDir` is the only setting for the notes directory and defaults to `./src/content/posts`. Relative paths resolve from the theme root, independently of the shell working directory. Absolute paths such as `/vault/Notes` are also supported. A missing, unreadable, or non-directory path fails checks and builds instead of falling back to demo posts.
 
 ```ts
 export const contentConfig = {
-  notesDir: './src/content/blog',
+  notesDir: './src/content/posts',
 };
 ```
 
@@ -102,13 +102,13 @@ The loader recursively reads `.md` files, skips hidden files and directories, an
 
 Malformed frontmatter fails the current check/build with the note's path, even if the note was intended to be private. An opening `---` or `+++` without a closing delimiter is also incomplete frontmatter. Failed jobs do not publish a new site; withdrawal takes effect after the next successful build and deployment.
 
-The theme does not write into the notes directory. Attachment manifests and caches use Astro's cache directory, and output goes into `dist/`, allowing a read-only notes mount. The publisher mounts the theme read-only at `/theme`; with the default setting, mount NAS notes at `/theme/src/content/blog:ro`. `/app` contains only tools and dependencies. See the [deployment guide](DEPLOYMENT.md) for scheduled builds and deployment.
+The theme does not write into the notes directory. Attachment manifests and caches use Astro's cache directory, and output goes into `dist/`, allowing a read-only notes mount. The publisher mounts the theme read-only at `/theme`; with the default setting, mount NAS notes at `/theme/src/content/posts:ro`. `/app` contains only tools and dependencies. See the [deployment guide](DEPLOYMENT.md) for scheduled builds and deployment.
 
 External notes are not automatically included in the theme source archive. Provide them separately and adjust `notesDir` when moving to another environment.
 
 ## Write posts
 
-Place `.md` files in `notesDir` (default: `src/content/blog/`). The included `welcome.md` is a preview post that you can edit or remove. [English templates](../../examples/posts/en/) and [Chinese templates](../../examples/posts/zh-CN/) are outside the content directory and are published only after you copy them into it and set `publish: true`. By default, the filename determines the post URL: `hello.md` becomes `/posts/hello/`.
+Place `.md` files in `notesDir` (default: `src/content/posts/`). The included `welcome.md` is a preview post that you can edit or remove. [English templates](../../examples/posts/en/) and [Chinese templates](../../examples/posts/zh-CN/) are outside the content directory and are published only after you copy them into it and set `publish: true`. By default, the filename determines the post URL: `hello.md` becomes `/posts/hello/`.
 
 Publication uses a strict comparison of the parsed value: `publish: true`, `publish: True`, and `publish: TRUE` all qualify; the field name must be lowercase `publish`. Quoted strings (`"true"`, `"True"`, `"TRUE"`), `1`, `yes`, absent flags, and boolean false values are skipped before article validation. The old `draft` field no longer controls publication: add `publish: true` to posts that previously used `draft: false` or had no flag. Published articles still require valid `title/date`. To keep a post unpublished, use `publish: false` or omit the field. This rule applies to blog posts; the About page is built independently.
 
@@ -191,31 +191,89 @@ In Obsidian, use attachments in the same folder as the note, paths relative to t
 
 When customizing Markdown in `astro.config.mjs`, keep `remarkNoteAssets` and the paired `noteAssets(contentConfig)` integration. Missing paired processing raises `Incomplete note compilation`, even for posts without attachments; fix the configuration and rerun checks and builds. Corrupt attachment caches or plans for a different notes directory or deployment base also fail explicitly. Rerun content sync or build to generate a new plan.
 
-### Embedded single-file HTML tools
+### Embedded HTML tools
 
-Place an author-reviewed, self-contained `.html` file beside the post and use the reserved lowercase `tool:` image marker:
+Place an author-reviewed, self-contained `.html` file beside the post and use the reserved lowercase `iframe:` image marker:
 
 ```md
-![tool: Addition calculator](./calculator.html)
+![iframe: Addition calculator](./calculator.html)
 ```
 
 Reference-style images work too:
 
 ```md
-![tool: Addition calculator][calculator]
+![iframe: Addition calculator][calculator]
 
 [calculator]: ./calculator.html
 ```
 
-Copy the complete [tool example directory](../../examples/posts/en/tools/). Its post defaults to `publish: false`; review the HTML before setting it to `true`. HTML is copied as an article attachment with its original bytes. Merely existing in the notes directory does not publish it. Dependencies such as JS, CSS, images and JSON are not scanned or copied; keep styles, scripts and fixed data inside the single file without external resources.
+Copy the complete [tool example directory](../../examples/posts/en/tools/). Its posts default to `publish: false`; review the files before publishing. Without a manifest, the existing single-HTML behavior remains: styles, scripts and fixed data must be self-contained. Merely placing files in the Vault does not publish them.
 
-The tool name must be nonempty and the target must be a local `.html` file relative to the current Markdown file; extension case is preserved and checked without case sensitivity. Remote/site-absolute URLs, queries and fragments are rejected. Encode a literal filename `#` as `%23`. The current publisher rejects literal `%` characters in tool output paths and asks you to rename the file/folder; normal URL encoding remains supported. Shared `../` tools must stay inside `notesDir` and use the existing per-post `_attachments/` copies. Invalid, missing, escaping or conflicting targets fail checks/builds. Ordinary images, HTML links and `cover` do not become tools automatically.
+For a multi-file tool, reference `index.html` and place `manifest.json` in the same directory. See the [timestamp package example](../../examples/posts/en/tools/timestamp.md):
+
+```md
+![iframe: Timestamp converter](./timestamp/index.html)
+```
+
+```json
+{
+  "version": 1,
+  "download": true,
+  "files": ["index.html", "app.js", "style.css"]
+}
+```
+
+Iframe references and ordinary Markdown links to a local `index.html` use the same manifest validation. The theme looks for `manifest.json` beside the entry. Fields `version` and `files` are required, `download` is an optional boolean, and unknown fields are rejected. List specific existing files with exact path case and include `index.html`. Globs, directory expansion, absolute paths, dot/parent segments, backslashes, drive prefixes, control characters and `%`, `?`, `#` are rejected. Paths are unencoded relative filenames. Symlinks in the package root or file paths are unsupported. Markdown, MDX and Astro source cannot be package assets.
+
+The entry-directory `manifest.json` is the reserved control file and cannot list itself in `files`. Direct attachment references to a `manifest.json` beside `index.html` are rejected. Nested resources such as `data/manifest.json` may be explicitly listed in `files`. A same-named JSON file in another directory without an adjacent `index.html` is treated as an ordinary attachment.
+
+With a manifest, the entry must be named exactly `index.html`. Invalid JSON, unsupported formats, missing files and invalid paths fail checks/builds instead of falling back to single-file behavior. Standard `JSON.parse` semantics apply (the final duplicate JSON key wins); duplicate entries in the files array are rejected. All assets use the entry's output directory and retain their relative layout. Shared packages retain separate per-post copies. Updates, removed entries and withdrawal take effect after the next successful build/deployment.
+
+Use paths such as `./app.js` and `./style.css` inside the tool. The index entry supports canonical directory URLs. Development also serves directory aliases for registered package entries, with JS/MJS, CSS, JSON and WASM MIME types. The control manifest is retained in build inputs and download archives. Content sync writes the current attachment-plan format while author manifests use `version: 1`.
+
+Astro 7 development additionally checks cross-origin subresource requests from opaque frames. This integration serves only exact planned static files under registered package entries before that check. Other source paths retain the existing protection. No CORS permission is added; fetch/WASM still require separate browser compatibility checks.
+
+The theme does not scan HTML/JS/WASM dependencies, install libraries, compile tools or run their business tests. A manifest guarantees delivery of its selected files, not runtime completeness. Test tools independently and carry dependencies locally. Classic scripts, fetch, modules and WASM have different loading requirements in the existing sandbox; multiple files do not automatically remove CORS or storage restrictions.
+
+Iframe titles must be nonempty and targets must be local `.html` files relative to the current Markdown file. Extension case is preserved and checked without case sensitivity. Iframe references reject remote/site-absolute URLs, queries and fragments. Encode a literal filename `#` as `%23`. Literal `%` characters in iframe or package output paths require renaming the file or folder. Normal URL encoding remains supported. Shared `../` tools must stay inside `notesDir` and use the existing per-post `_attachments/` copies. Invalid, missing, escaping or conflicting targets fail checks/builds.
 
 The compiler generates a stable iframe URL containing the deployment base and post ID, such as `/blog/posts/tool-example/calculator.html`. Keep relative paths in source Markdown. The iframe fills the article width and has a 480px height with internal scrolling; the tool author must support narrow layouts and keyboard operation. Tools do not persist after leaving an article. Automatic height, parent communication and execution inside Obsidian are not provided.
 
 Frames always use `sandbox="allow-scripts allow-downloads"`, lazy loading and `referrerpolicy="no-referrer"`; HTML permission declarations are not read. Scripts and file exports are allowed, without same-origin, form submission, popup or top-navigation permissions. Tools should export from explicit buttons, although the download permission itself is not limited to user gestures or JSON. Import through a file chooser, without an upload service. Tools must validate file size/content and remain usable without persistent storage.
 
 Publish reviewed tools only. Frame isolation does not automatically protect direct HTML visits, prevent all networking or limit computation. Local builds, exports and desktop operation are verified. A user reports that board swipes, scrolling outside the board within the tool, and parent-page scrolling work in iPhone Chrome. In the 2048 sample, gestures that start on the board control the game; start a drag in the instructions or another area outside the board to scroll the tool. Desktop Chrome touch emulation still has tap/internal-scroll failures. Other devices, mobile file round trips and the standalone Safari app are not fully verified; check the intended environment.
+
+### Open an HTML tool independently
+
+An article containing only ordinary links also publishes the complete selected package. Copy the [link-only example](../../examples/posts/en/tools/timestamp-linked.md).
+
+```md
+[Open the timestamp tool](./timestamp/index.html?mode=standalone#result)
+
+[**Open the tool**][clock]
+
+[clock]: ./timestamp/index.html?mode=reference#result "Timestamp converter"
+```
+
+Ordinary links retain queries, fragments, titles and inline formatting. Package detection uses the file path. Local HTML links copied into article attachments use `target="_blank"`, `rel="noopener"` and `data-astro-reload` for native navigation in a new tab. The tool runs as an independent document with its normal browser origin. The tool initiates any browser device authorization.
+
+For ordinary links, only `index.html` triggers package detection. Other HTML files, single HTML files without manifests, ordinary images and covers retain single-attachment delivery. Site-absolute and remote links keep their existing URL handling. Iframe and ordinary references to the same package within an article share its published copy.
+
+### Download tool files
+
+| Tool | Setting | Download entry in the article |
+| --- | --- | --- |
+| Single HTML | No manifest required | Download the original HTML by default |
+| Package | `download: true` | Download the ZIP generated during the build |
+| Package | `download: false` or omitted | Download entry disabled |
+
+Iframe downloads appear in a toolbar above the frame. Ordinary links receive an adjacent download link. The theme generates filenames and URLs. Single HTML downloads use the file path, while the original opening link retains its query and fragment.
+
+A ZIP is placed beside its tool directory, for example `timestamp.zip` beside `timestamp/index.html`. Its root contains `index.html`, the selected files and an automatically included `manifest.json`. Subdirectories and original file bytes are preserved. The control manifest is added automatically. Repeated references in an article share the archive, and ZIP targets participate in page, attachment and public-file collision checks.
+
+The next successful build updates archives after download settings, files, manifests, references or publication status change. Development reads selected files on each request and uses the same ZIP generator. The build dependency is delivered through package.json and the lockfile. Follow the deployment guide to rebuild the Publisher image when updating the theme.
+
+`download: true` provides the distribution files selected by the manifest. Tool authors document local execution requirements. Include `README.txt` in `files` when a local HTTP server is required. Download labels follow the site language.
 
 ### Math formulas
 

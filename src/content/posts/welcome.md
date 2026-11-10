@@ -8,7 +8,7 @@ tags: [Aero]
 
 ## 简体中文
 
-这是随主题附带的欢迎文章。你可以在 `src/content/blog/` 中编辑或删除它，然后把自己的 Markdown 文章放进同一目录。
+这是随主题附带的欢迎文章。你可以在 `src/content/posts/` 中编辑或删除它，然后把自己的 Markdown 文章放进同一目录。
 
 站点标题、作者和导航位于 `src/config/site.config.ts`；壁纸与默认配色位于 `src/config/theme.config.ts`；播放器设置位于 `src/config/music.config.ts`，歌曲列表位于 `public/audio/playlist.json`。
 
@@ -16,8 +16,8 @@ tags: [Aero]
 
 ## English
 
-This welcome post is included with the theme. Edit or remove it from `src/content/blog/`, then put your own Markdown posts in that directory.
+This welcome post is included with the theme. Edit or remove it from `src/content/posts/`, then put your own Markdown posts in that directory.
 
 Set the site title, author, and navigation in `src/config/site.config.ts`; the wallpaper and default color in `src/config/theme.config.ts`; the player settings in `src/config/music.config.ts`; and tracks in `public/audio/playlist.json`.
 
-See `docs/en/CONFIGURATION.md` for every setting. Copyable English post templates are in `examples/posts/en/`; they are published only after you copy them into `src/content/blog/` and set `publish: true`.
+See `docs/en/CONFIGURATION.md` for every setting. Copyable English post templates are in `examples/posts/en/`; they are published only after you copy them into `src/content/posts/` and set `publish: true`.

@@ -1,8 +1,9 @@
 import { access, lstat, readFile, realpath, stat } from 'node:fs/promises';
 import { constants } from 'node:fs';
-import { dirname, extname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { basename, dirname, extname, isAbsolute, posix, relative, resolve, sep } from 'node:path';
 import { slug } from 'github-slugger';
 import { isPublishedNote, parseNoteFrontmatter } from './note-publication.mjs';
+import { expandToolPackage } from './tool-package.mjs';
 
 export function noteId(path, frontmatter) {
   if (frontmatter.slug !== undefined && typeof frontmatter.slug !== 'string') {
@@ -38,7 +39,7 @@ export function validatePostId(id) {
 const encodedPath = (path) => path.split('/').map(encodeURIComponent).join('/');
 
 /** Resolve only referenced files, retaining subdirectories and isolating shared assets. */
-export async function resolveNoteAsset(url, note, assets, kind = 'attachment') {
+export async function resolveNoteAsset(url, note, assets, kind = 'attachment', toolEntries = [], archives = []) {
   if (kind === 'tool' && (typeof url !== 'string' || !url || /^(?:[a-z][a-z\d+.-]*:|\/|#|\?)/i.test(url) || /[?#]/.test(url))) {
     throw new Error(`Invalid tool reference "${url}" in ${note.file}: use a relative local .html file without a query or fragment`);
   }
@@ -74,23 +75,42 @@ export async function resolveNoteAsset(url, note, assets, kind = 'attachment') {
     return `${base}/posts/${encodedPath(id)}/${suffix}`;
   }
   if ([source, sourcePath].some((path) => /^\.(md|mdx|astro)$/i.test(extname(path)))) throw new Error(`Notes cannot be copied as attachments: "${url}" in ${note.file}`);
+  for (const file of new Set([sourcePath, source])) {
+    if (basename(file).toLowerCase() !== 'manifest.json') continue;
+    let entry;
+    try { entry = await stat(resolve(dirname(file), 'index.html')); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+    if (entry?.isFile()) {
+      throw new Error(`Tool package manifests are build metadata, not attachments: "${url}" in ${note.file}`);
+    }
+  }
   const local = inside(dirname(note.file), sourcePath)
     ? relative(dirname(note.file), sourcePath)
     : `_attachments/${relative(note.root, source)}`;
   const output = local.split(sep).join('/');
   const target = `posts/${note.id}/${output}`;
-  if (kind === 'tool' && output.includes('%')) {
+  const linkedEntry = kind === 'link' && basename(sourcePath).toLowerCase() === 'index.html';
+  const bundle = kind === 'tool' || linkedEntry
+    ? await expandToolPackage({ entry: sourcePath, root: note.root, target }) : null;
+  if ((kind === 'tool' || bundle) && output.includes('%')) {
     throw new Error(`Invalid tool reference "${url}" in ${note.file}: literal % in the output path is unsupported by the current publisher; rename the file or folder`);
   }
-  assets.push({ source, target });
+  if (bundle) {
+    assets.push(...bundle.assets);
+    toolEntries.push(target);
+    if (bundle.manifest.download === true) {
+      archives.push({ entry: target, target: posix.dirname(target) + '.zip', manifest: bundle.manifest });
+    }
+  } else assets.push({ source, target });
   return `./${encodedPath(output)}${suffix}`;
 }
 
 /** Check the complete plan before writing any attachments. */
-export function assetPlan(assets, postIds) {
+export function assetPlan(assets, postIds, generatedTargets = []) {
   const targets = new Map();
   const pages = postIds.map((id) => `posts/${id}/index.html`);
-  for (const asset of [...pages.map((target) => ({ target, source: '<article>' })), ...assets]) {
+  const generated = generatedTargets.map(target => ({ target, source: '<generated>' }));
+  for (const asset of [...pages.map((target) => ({ target, source: '<article>' })), ...assets, ...generated]) {
     const parts = asset.target.split('/');
     if (parts.some((part) => !part || part === '.' || part === '..' || part.includes('\\'))) throw new Error(`Invalid attachment output: ${asset.target}`);
     const key = asset.target.normalize('NFC').toLowerCase();
@@ -102,5 +122,5 @@ export function assetPlan(assets, postIds) {
     const parts = target.split('/');
     for (let i = 1; i < parts.length; i++) if (targets.has(parts.slice(0, i).join('/'))) throw new Error(`Attachment file/directory collision: ${target}`);
   }
-  return [...targets.values()].filter((asset) => asset.source !== '<article>');
+  return [...targets.values()].filter((asset) => asset.source !== '<article>' && asset.source !== '<generated>');
 }

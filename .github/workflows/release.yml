@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag to build (for example v1.0.0)
+        description: Existing version tag to build (for example v1.1.0)
         required: true
         type: string
 
@@ -91,7 +91,13 @@ jobs:
           解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
           Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
 
-          Included features: build-time Markdown and math rendering; explicit Obsidian note publication and referenced attachments; single-file HTML tools; archives/tags, Chinese/English UI, Aero themes, persistent music playback, and isolated scheduled publishing.
+          本版新增通过 iframe 或普通 Markdown 链接发布自包含工具目录。入口同目录的 `manifest.json` v1 显式列出文件。单 HTML 自动提供原文件下载，目录包设置 `download: true` 后提供 ZIP，包含所选文件和原始控制清单。中英文时间戳示例随主题包提供。
+
+          This release adds self-contained tool folders referenced through iframes or regular Markdown links. A version 1 `manifest.json` beside the entry lists the selected files. Single HTML tools offer the original file for download. Tool folders with `download: true` offer a ZIP containing the selected files and original control manifest. Chinese and English timestamp examples are included.
+
+          从 v1.0.0 升级时，请使用 `![iframe: 名称](路径)`。默认文章目录已迁至 `src/content/posts/`，内容集合键为 `posts`，请核对自己的 `notesDir` 与容器挂载路径。更新主题后运行 `npm ci`，Publisher 镜像须从实际使用的同一份主题源码重新构建，以包含新的 fflate 依赖并保持 package 文件一致。
+
+          When upgrading from v1.0.0, use `![iframe: Name](path)`. The default posts directory is now `src/content/posts/` and the content collection key is `posts`. Check your `notesDir` and container mounts. Run `npm ci` after updating the theme, and rebuild the Publisher image from the exact theme source you use to include the new fflate dependency and keep package files consistent.
 
           The theme package follows ADR-0013: production theme/tools, default assets, author examples and guides; no tests, CI files or developer maintenance records. Verify the download with `SHA256SUMS.txt`.
           NOTES

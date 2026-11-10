@@ -66,7 +66,7 @@ node --test --test-name-pattern="complete Vault" tools/test/publication.test.mjs
 
 ## NAS 与线上验收
 
-将 `Notes/` 复制到独立测试目录，复用已经验证的发布镜像和 Compose 配置，以独立项目／工作数据运行。沿用默认 `notesDir: './src/content/blog'` 时，笔记只读挂载目标仍是 `/theme/src/content/blog`；把该挂载的宿主目录指向测试 Vault，并为 `/data` 选择独立目录。保留现有只读主题挂载。测试项目只手动运行单次命令：
+将 `Notes/` 复制到独立测试目录，复用已经验证的发布镜像和 Compose 配置，以独立项目／工作数据运行。沿用默认 `notesDir: './src/content/posts'` 时，笔记只读挂载目标仍是 `/theme/src/content/posts`；把该挂载的宿主目录指向测试 Vault，并为 `/data` 选择独立目录。保留现有只读主题挂载。测试项目只手动运行单次命令：
 
 ```sh
 docker compose run --rm publisher once --build-only

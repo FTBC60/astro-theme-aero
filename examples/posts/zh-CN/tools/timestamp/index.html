@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>时间戳转换</title><link rel="stylesheet" href="./style.css"><script defer src="./app.js"></script></head>
+<body><main><h1>时间戳转换</h1><p>输入整数 Unix 时间戳，输出 UTC 和本地时间。</p><label for="timestamp">时间戳</label><input id="timestamp" inputmode="numeric" value="0"><fieldset><legend>单位</legend><label><input type="radio" name="unit" value="s" checked>秒</label><label><input type="radio" name="unit" value="ms">毫秒</label></fieldset><button id="convert" type="button">转换</button><button id="now" type="button">使用当前时间</button><output id="result" aria-live="polite" data-invalid="请输入有效范围内的整数时间戳。"></output></main></body>
+</html>
+

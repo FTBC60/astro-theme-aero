@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "download": true,
+  "files": [
+    "index.html",
+    "app.js",
+    "style.css"
+  ]
+}
+

@@ -19,6 +19,8 @@ interface UiMessages {
   postList: string;
   readPost: (title: string) => string;
   readMore: string;
+  downloadHtml: string;
+  downloadZip: string;
   pagination: string;
   previousPage: string;
   nextPage: string;
@@ -67,6 +69,7 @@ interface UiMessages {
 
 export const translations: Record<Locale, UiMessages> = {
   'zh-CN': {
+    downloadHtml: '下载 HTML', downloadZip: '下载 ZIP',
     navigation: '主导航', home: '首页', archives: '归档', about: '关于',
     sidebar: '个人资料与小组件', profile: '个人资料', openSidebar: '展开侧栏', closeSidebar: '收起侧栏',
     backHome: '返回首页', visitAuthor: (author) => `访问${author}的链接`, authorAvatar: (author) => `${author} 的头像`,
@@ -92,6 +95,7 @@ export const translations: Record<Locale, UiMessages> = {
     trackLoadFailed: (title) => `无法加载：${title}。请检查音频地址，或切换到其他曲目。`,
   },
   en: {
+    downloadHtml: 'Download HTML', downloadZip: 'Download ZIP',
     navigation: 'Main navigation', home: 'Home', archives: 'Archives', about: 'About',
     sidebar: 'Profile and widgets', profile: 'Profile', openSidebar: 'Open sidebar', closeSidebar: 'Close sidebar',
     backHome: 'Back to home', visitAuthor: (author) => `Visit ${author}'s link`, authorAvatar: (author) => `${author}'s avatar`,

@@ -41,14 +41,14 @@ try {
   await put(join(fixture, 'public/fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect width="16" height="16" fill="skyblue"/></svg>');
   await put(join(fixture, 'public/audio/playlist.json'), '[]');
   await put(join(fixture, 'src/config/content.config.ts'), "export const contentConfig = { notesDir: './notes' };\n");
-  const markdown = '---\ntitle: 2048 integration sample\ndate: "2026-11-03"\nslug: "2048"\npublish: true\n---\n\n![tool: 2048 " onload="unsafe](./2048.html)\n\n[HTML link](./2048.html)';
+  const markdown = '---\ntitle: 2048 integration sample\ndate: "2026-11-03"\nslug: "2048"\npublish: true\n---\n\n![iframe: 2048 " onload="unsafe](./2048.html)\n\n[HTML link](./2048.html)';
   const note = join(fixture, 'notes/day/day.md');
   const tool = join(fixture, 'notes/day/2048.html');
   await put(note, markdown); await put(tool, sourceBytes);
-  await put(join(fixture, 'notes/private.md'), '---\npublish: false\n---\n![tool: invalid](https://example.com/tool.html)');
+  await put(join(fixture, 'notes/private.md'), '---\npublish: false\n---\n![iframe: invalid](https://example.com/tool.html)');
   await put(join(fixture, 'notes/day/unused.html'), '<!doctype html><p>NOT_PUBLISHED</p>');
   for (const [lang, directory] of [['zh', 'zh-CN'], ['en', 'en']]) {
-    await put(join(fixture, `notes/calculator-${lang}/index.md`), `---\ntitle: Calculator ${lang}\ndate: "2026-11-03"\nslug: calculator-${lang}\npublish: true\n---\n\n![tool: Calculator ${lang}](./calculator.html)`);
+    await put(join(fixture, `notes/calculator-${lang}/index.md`), `---\ntitle: Calculator ${lang}\ndate: "2026-11-03"\nslug: calculator-${lang}\npublish: true\n---\n\n![iframe: Calculator ${lang}](./calculator.html)`);
     await put(join(fixture, `notes/calculator-${lang}/calculator.html`), await readFile(join(project, `examples/posts/${directory}/tools/calculator.html`)));
   }
   const configPath = join(fixture, 'astro.config.mjs');

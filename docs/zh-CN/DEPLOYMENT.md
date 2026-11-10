@@ -69,7 +69,7 @@ astro-publisher/
 
 从旧版迁移：将 Compose 的 `WORKER_NAME` 值填入 `wrangler.json` 的 `name`，移除该环境变量，并重建一次工具镜像以安装读取外部配置的新发布脚本。以后仅调整部署参数不需要重建。
 
-笔记目录仍只由主题 `src/config/content.config.ts` 中的 `notesDir` 决定，没有 `CONTENT_DIR`。默认配置保持 `./src/content/blog`，对应挂载目标 `/theme/src/content/blog`：
+笔记目录仍只由主题 `src/config/content.config.ts` 中的 `notesDir` 决定，没有 `CONTENT_DIR`。默认配置保持 `./src/content/posts`，对应挂载目标 `/theme/src/content/posts`：
 
 ```yaml
 volumes:
@@ -81,7 +81,7 @@ volumes:
       create_host_path: false
   - type: bind
     source: /volume1/Files/Vault/Notes
-    target: /theme/src/content/blog
+    target: /theme/src/content/posts
     read_only: true
     bind:
       create_host_path: false

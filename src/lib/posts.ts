@@ -1,9 +1,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-export type Post = CollectionEntry<'blog'>;
+export type Post = CollectionEntry<'posts'>;
 
 export async function publishedPosts(): Promise<Post[]> {
-  return (await getCollection('blog', ({ data }) => data.publish === true))
+  return (await getCollection('posts', ({ data }) => data.publish === true))
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id));
 }
 

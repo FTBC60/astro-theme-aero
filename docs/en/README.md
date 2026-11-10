@@ -6,7 +6,7 @@ An Astro static blog theme based on [hexo-theme-aero](https://github.com/5h1nnN/
 
 ## Download the theme package
 
-Open [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest) and download `astro-theme-aero-v1.0.0-theme.tar.gz` (use the matching version for later releases). This author package contains configurable theme source, default assets, examples, and usage guides. GitHub’s automatic “Source code” archives are full repository snapshots with developer materials; select the asset ending in `-theme.tar.gz`. Extract it, enter `astro-theme-aero/`, then follow the installation steps below. Use `SHA256SUMS.txt` from the same Release to verify download integrity.
+Open [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest) and download `astro-theme-aero-v1.1.0-theme.tar.gz` (use the matching version for later releases). This author package contains configurable theme source, default assets, examples, and usage guides. GitHub’s automatic “Source code” archives are full repository snapshots with developer materials; select the asset ending in `-theme.tar.gz`. Extract it, enter `astro-theme-aero/`, then follow the installation steps below. Use `SHA256SUMS.txt` from the same Release to verify download integrity.
 
 ## Quick start
 
@@ -22,7 +22,7 @@ Then set up your site:
 1. Edit `src/config/site.config.ts` to choose the interface language (`zh-CN` or `en`) and set the site title, author, signature, avatar, navigation, and posts per page.
 2. Edit `src/config/theme.config.ts` to choose the default color scheme, wallpaper, and wallpaper position.
 3. Configure the player in `src/config/music.config.ts` and edit tracks in `public/audio/playlist.json`. Set `enabled: false` if you do not want a player.
-4. Set the notes directory in `src/config/content.config.ts` (default: `./src/content/blog`) and place Markdown posts with `publish: true` there and edit `src/pages/about.md`. The included `welcome.md` is a preview post you can remove. Copyable post templates are available in [English](../../examples/posts/en/) and [Chinese](../../examples/posts/zh-CN/); an [English About page template](../../examples/pages/en/about.md) is also included.
+4. Set the notes directory in `src/config/content.config.ts` (default: `./src/content/posts`) and place Markdown posts with `publish: true` there and edit `src/pages/about.md`. The included `welcome.md` is a preview post you can remove. Copyable post templates are available in [English](../../examples/posts/en/) and [Chinese](../../examples/posts/zh-CN/); an [English About page template](../../examples/pages/en/about.md) is also included.
 
 See the [configuration guide](CONFIGURATION.md) for every field, asset paths, post frontmatter, and release checks. Choosing `lang: 'en'` changes the theme interface; it does not translate your posts, About page, signature, or track names.
 

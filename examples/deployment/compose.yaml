@@ -20,7 +20,7 @@ services:
           create_host_path: false
       - type: bind
         source: /volume1/Files/Vault/Notes
-        target: /theme/src/content/blog
+        target: /theme/src/content/posts
         read_only: true
         bind:
           create_host_path: false

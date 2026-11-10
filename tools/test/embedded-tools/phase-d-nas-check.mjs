@@ -17,7 +17,7 @@ const origin = new URL(config.origin).origin;
 assert(origin === config.origin && origin.startsWith('https://'));
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const fileHash = async (path) => hash(await readFile(path));
-const root = '/theme/src/content/blog';
+const root = '/theme/src/content/posts';
 const fixture = join(root, config.directory);
 const site = '/data/site';
 const result = { phase, created: new Date().toISOString(), status: 'running', cloudWrites: false, checks: [], routes: [] };

@@ -106,7 +106,7 @@ test('tools compile with fixed permissions, stable URLs and the existing attachm
   await put(join(root, '共享/计算 器.html'), '<!doctype html><p>shared</p>');
   for (const base of ['/', '/blog/']) {
     const compilation = createNoteCompilation({ ...settings, base });
-    const result = await compilation.compile({ ...note, id: '日记/day', file: join(root, 'day/day.md'), body: '![tool: A <B> "quoted" & result](./工具%20%26%20图%23.HTML)\n\n![tool: Shared][calculator]\n\n[calculator]: ../共享/计算%20器.html\n\n[ordinary HTML link](./工具%20%26%20图%23.HTML)\n\n![ordinary HTML image](./工具%20%26%20图%23.HTML)' }, render);
+    const result = await compilation.compile({ ...note, id: '日记/day', file: join(root, 'day/day.md'), body: '![iframe: A <B> "quoted" & result](./工具%20%26%20图%23.HTML)\n\n![iframe: Shared][calculator]\n\n[calculator]: ../共享/计算%20器.html\n\n[ordinary HTML link](./工具%20%26%20图%23.HTML)\n\n![ordinary HTML image](./工具%20%26%20图%23.HTML)' }, render);
     const html = result.rendered.html;
     assert.equal((html.match(/<iframe /g) || []).length, 2);
     assert(html.includes(`src="${base}posts/%E6%97%A5%E8%AE%B0/day/%E5%B7%A5%E5%85%B7%20%26%20%E5%9B%BE%23.HTML"`));
@@ -118,7 +118,7 @@ test('tools compile with fixed permissions, stable URLs and the existing attachm
     assert.equal((html.match(/referrerpolicy="no-referrer"/g) || []).length, 2);
     assert.match(html, /class="aero-embedded-tool"/);
     assert.doesNotMatch(html, /allow-same-origin|allow-forms|allow-popups|allow-top-navigation|transition:persist/);
-    assert.match(html, /<a href="\.\/.+\.HTML">ordinary HTML link<\/a>/);
+    assert.match(html, /<a href="\.\/.+\.HTML"[^>]+target="_blank"[^>]+rel="noopener"[^>]+data-astro-reload[^>]*>ordinary HTML link<\/a>/);
     assert.match(html, /<img[^>]+alt="ordinary HTML image"/);
     await compilation.writePlan();
     const { assets } = await compilation.readPlan();
@@ -142,10 +142,10 @@ test('invalid explicit tool references fail compilation rather than becoming ima
   ];
   for (const url of invalid) {
     const compilation = createNoteCompilation(settings);
-    await assert.rejects(compilation.compile({ ...note, body: `![tool: Invalid](${url})` }, render), /Invalid tool|Invalid attachment|Missing attachment|escapes notesDir|not a file/);
+    await assert.rejects(compilation.compile({ ...note, body: `![iframe: Invalid](${url})` }, render), /Invalid tool|Invalid attachment|Missing attachment|escapes notesDir|not a file/);
     await assert.rejects(compilation.writePlan(), /Cannot save an incomplete/);
   }
-  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool:   ](tool.html)' }, render), /Tool name must not be empty/);
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![iframe:   ](tool.html)' }, render), /Iframe title must not be empty/);
   // The percent restriction is deliberately scoped to executable tool references.
   const ordinary = await createNoteCompilation(settings).compile({ ...note, body: '[file](percent%25tool.html)' }, render);
   assert.match(ordinary.rendered.html, /<a href=/);
@@ -154,8 +154,8 @@ test('invalid explicit tool references fail compilation rather than becoming ima
 test('tool references retain article ownership and disappear with their final reference', async () => compilationFixture(async ({ root, settings, note, render }) => {
   await put(join(root, 'tool.html'), '<!doctype html><p>shared tool</p>');
   const first = createNoteCompilation(settings);
-  await first.compile({ ...note, body: '![tool: First](tool.html)\n\n![tool: Again](tool.html)\n\n[file](tool.html)' }, render);
-  await first.compile({ ...note, id: 'other', file: join(root, 'other.md'), body: '![tool: Other](tool.html)' }, render);
+  await first.compile({ ...note, body: '![iframe: First](tool.html)\n\n![iframe: Again](tool.html)\n\n[file](tool.html)' }, render);
+  await first.compile({ ...note, id: 'other', file: join(root, 'other.md'), body: '![iframe: Other](tool.html)' }, render);
   await first.writePlan();
   assert.deepEqual((await first.readPlan()).assets.map(({ target }) => target), ['posts/day/tool.html', 'posts/other/tool.html']);
   const linkOnly = createNoteCompilation(settings);
@@ -169,8 +169,8 @@ test('tool references retain article ownership and disappear with their final re
 }));
 
 test('unpublished tool inputs are skipped before tool validation and publication', async () => compilationFixture(async ({ root, settings }) => {
-  await put(join(root, 'private.md'), '---\npublish: false\n---\n![tool: Invalid](https://example.com/tool.html)');
-  await put(join(root, 'day.md'), '---\ntitle: Public\ndate: "2026-11-03"\npublish: true\n---\n![tool: Public](tool.html)');
+  await put(join(root, 'private.md'), '---\npublish: false\n---\n![iframe: Invalid](https://example.com/tool.html)');
+  await put(join(root, 'day.md'), '---\ntitle: Public\ndate: "2026-11-03"\npublish: true\n---\n![iframe: Public](tool.html)');
   await put(join(root, 'tool.html'), '<!doctype html><p>public</p>');
   await put(join(root, 'unused.html'), '<!doctype html><p>private</p>');
   const stored = [];
@@ -185,23 +185,23 @@ test('tool symlinks cannot escape notesDir or change the resolved file type', as
     await symlink(join(root, 'code.txt'), join(root, 'alias.html'));
     await symlink(join(project, 'tools/test/embedded-tools/fixtures/2048.html'), join(root, 'outside.html'));
   } catch (error) { if (error.code === 'EPERM') { t.skip('Symlinks are unavailable in this environment'); return; } throw error; }
-  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool: Alias](alias.html)' }, render), /resolved target must be a .html file/);
-  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![tool: Outside](outside.html)' }, render), /escapes notesDir/);
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![iframe: Alias](alias.html)' }, render), /resolved target must be a .html file/);
+  await assert.rejects(createNoteCompilation(settings).compile({ ...note, body: '![iframe: Outside](outside.html)' }, render), /escapes notesDir/);
 }));
 
 test('tool outputs reject article collisions and preserve the previous complete plan', async () => compilationFixture(async ({ root, settings, note, render }) => {
   await put(join(root, 'game.html'), '<!doctype html><p>game</p>');
   await put(join(root, 'index.html'), '<!doctype html><p>colliding tool</p>');
   const previous = createNoteCompilation(settings);
-  await previous.compile({ ...note, body: '![tool: Valid](game.html)' }, render);
+  await previous.compile({ ...note, body: '![iframe: Valid](game.html)' }, render);
   await previous.writePlan();
   const before = await previous.readPlan();
   const ownPage = createNoteCompilation(settings);
-  await assert.rejects(ownPage.compile({ ...note, body: '![tool: Collision](index.html)' }, render), /collision/);
+  await assert.rejects(ownPage.compile({ ...note, body: '![iframe: Collision](index.html)' }, render), /collision/);
   await assert.rejects(ownPage.writePlan(), /Cannot save an incomplete/);
   assert.deepEqual(await previous.readPlan(), before);
   const nestedPage = createNoteCompilation(settings);
-  await nestedPage.compile({ ...note, body: '![tool: Valid](game.html)' }, render);
+  await nestedPage.compile({ ...note, body: '![iframe: Valid](game.html)' }, render);
   await nestedPage.compile({ ...note, id: 'day/game.html', file: join(root, 'other.md') }, render);
   await assert.rejects(nestedPage.writePlan(), /collision/);
   assert.deepEqual(await previous.readPlan(), before);
@@ -264,7 +264,7 @@ test('plan readers reject mismatched provenance, unsupported versions and malfor
   const manifest = new URL(filename, settings.cacheDir);
   const valid = JSON.parse(await readFile(manifest, 'utf8'));
   const mutations = [
-    { ...valid, version: valid.version + 1 }, { ...valid, assets: null }, { ...valid, postIds: ['day', 'day'] },
+    { ...valid, version: valid.version + 1 }, { ...valid, version: valid.version - 1 }, { ...valid, assets: null }, { ...valid, postIds: ['day', 'day'] },
     { ...valid, assets: [{ source: join(root, '..', 'outside.txt'), target: 'posts/day/file.txt' }] },
     { ...valid, assets: [{ source: join(root, 'private.md'), target: 'posts/day/private.md' }] },
     { ...valid, assets: [{ source: join(root, 'file.txt'), target: 'posts/other/file.txt' }] },
@@ -340,7 +340,7 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     await writeFile(config, (await readFile(config, 'utf8')).replace("output: 'static',", "output: 'static', base: '/blog/',"));
     const notes = join(root, 'vault/Notes');
     const daily = join(notes, 'day/day.md');
-    const original = '---\ntitle: 测试日记\ndate: "2026-10-02"\npublish: true\nslug: "2026-10-02"\ncover: ./图%20片.png\n---\n\n![图片](./图%20片.png)\n\n[下载](docs/report.pdf#page=1)\n\n![参考][photo]\n\n[photo]: ./图%20片.png\n\n[共享](../shared/shared.txt)\n\n[另一篇](../second.md#heading)\n\n$a^2$\n\n```js\nconst x = 1;\n```\n\n![tool: Embedded tool](tool.html)';
+    const original = '---\ntitle: 测试日记\ndate: "2026-10-02"\npublish: true\nslug: "2026-10-02"\ncover: ./图%20片.png\n---\n\n![图片](./图%20片.png)\n\n[下载](docs/report.pdf#page=1)\n\n![参考][photo]\n\n[photo]: ./图%20片.png\n\n[共享](../shared/shared.txt)\n\n[另一篇](../second.md#heading)\n\n$a^2$\n\n```js\nconst x = 1;\n```\n\n![iframe: Embedded tool](tool.html)';
     const tool = '<!doctype html><meta charset="utf-8"><p>工具原字节</p><script>const answer = 42;</script>';
     await put(daily, original);
     await put(join(notes, 'day/图 片.png'), png);
@@ -443,7 +443,7 @@ test('dev serves referenced attachments and refreshes after edits and withdrawal
     await writeFile(config, (await readFile(config, 'utf8')).replace("output: 'static',", "output: 'static', base: '/blog/',"));
     await put(join(root, 'src/config/content.config.ts'), "export const contentConfig = { notesDir: './notes' };");
     const file = join(root, 'notes/day.md');
-    const markdown = '---\ntitle: Dev Note\ndate: "2026-10-02"\npublish: true\ncover: ./photo.png\n---\n![photo](photo.png)\n[download](document.txt)\n\n![tool: Dev tool](tool.html)';
+    const markdown = '---\ntitle: Dev Note\ndate: "2026-10-02"\npublish: true\ncover: ./photo.png\n---\n![photo](photo.png)\n[download](document.txt)\n\n![iframe: Dev tool](tool.html)';
     const tool = '<!doctype html><meta charset="utf-8"><p>开发工具</p><script>const count = 1;</script>';
     await put(file, markdown);
     await put(join(root, 'notes/photo.png'), png);

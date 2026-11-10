@@ -1,6 +1,6 @@
 # 完整 Vault 验收样本 / Complete Vault fixture
 
-`Notes/` 是只含合成内容的测试 Vault，可整目录复制到独立的 NAS 测试目录。不要覆盖自己的真实日记。它不会随默认 `src/content/blog/` 自动发布。
+`Notes/` 是只含合成内容的测试 Vault，可整目录复制到独立的 NAS 测试目录。不要覆盖自己的真实日记。它不会随默认 `src/content/posts/` 自动发布。
 
 `Notes/` contains synthetic content only. Copy it to a separate test directory; keep your real notes separate. The default content directory does not publish this fixture.
 
