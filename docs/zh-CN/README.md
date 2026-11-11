@@ -6,7 +6,7 @@
 
 ## 下载主题包
 
-前往 [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest)，下载 `astro-theme-aero-v1.1.0-theme.tar.gz`（后续版本使用对应版本号）。它是面向博客作者的主题包，包含可配置源码、默认资源、示例和中英文使用文档。GitHub 自动附带的 “Source code” 是完整仓库快照，包含开发资料，请选择名称以 `-theme.tar.gz` 结尾的附件。解压后进入 `astro-theme-aero/`，再执行下面的安装步骤。可用同一 Release 的 `SHA256SUMS.txt` 核对下载完整性。
+前往 [GitHub Releases](https://github.com/FTBC60/astro-theme-aero/releases/latest)，下载 `astro-theme-aero-v1.2.0-theme.tar.gz`（后续版本使用对应版本号）。它是面向博客作者的主题包，包含可配置源码、默认资源、示例和中英文使用文档。GitHub 自动附带的 “Source code” 是完整仓库快照，包含开发资料，请选择名称以 `-theme.tar.gz` 结尾的附件。解压后进入 `astro-theme-aero/`，再执行下面的安装步骤。可用同一 Release 的 `SHA256SUMS.txt` 核对下载完整性。
 
 ## 快速开始
 
@@ -91,7 +91,7 @@ npm run preview
 
 在主题根目录运行 `npm run export`。脚本依次执行类型检查和构建，然后在 `release/` 生成两个 `.tar.gz` 文件（文件名含版本号和 Git 提交短哈希；工作区有未提交修改时加 `-dirty`）：
 
-- `*-theme.tar.gz`：可继续配置和开发的主题源码，包含主题源码和默认资源、中英文使用文档、作者示例、正式编译发布工具、工程配置、README 和许可证。测试、验收材料及开发维护文档不进入源码包；包内 `package.json` 也不包含测试命令。解压后进入 `astro-theme-aero/`，运行 `npm ci` 即可使用。
+- `*-theme.tar.gz`：可继续配置和开发的主题源码，包含主题源码和默认资源、中英文使用文档、作者示例、正式编译发布工具、工程配置、README 和许可证。测试、验收材料及开发维护文档不进入源码包；包内 `package.json` 也不包含测试或原型命令。解压后进入 `astro-theme-aero/`，运行 `npm ci` 即可使用。
 - `*-site.tar.gz`：当前配置及文章生成的静态站点，解压后将文件直接上传到静态托管服务的网站根目录。包内没有外层 `dist/` 目录。
 
 源码包仅在作者交付清单内枚举 Git 跟踪文件与未忽略新文件，因此未提交但未忽略的新文章和资源也会进入包，已跟踪且后来被忽略的文件仍可进入源码包；请先检查待分享内容。`node_modules/`、`.astro/`、`dist/`、`release/`、Git 历史及本地交接记录不在源码交付范围内。导出需要 Git、Node.js、npm 和 `tar`。`release/` 已被忽略，不会意外提交。
@@ -100,7 +100,7 @@ npm run preview
 
 export 将选中的资源复制到临时目录，检查并构建后打包；原 `public/`、笔记配置和已有 `dist/` 保留，临时目录在成功或失败后清理。常规 `dev` / `build` 使用原主题输入，正式发布请使用站点包或 Publisher。
 
-源码包与仓库版本的 npm 命令不同：源码包不含测试命令。使用 Publisher 时，请从所用主题的同一份仓库版本或源码包构建镜像，保持主题与工具链的 package 文件一致。
+源码包与仓库版本的 npm 命令不同：源码包不含测试或原型命令。使用 Publisher 时，请从所用主题的同一份仓库版本或源码包构建镜像，保持主题与工具链的 package 文件一致。
 
 ## 主要功能
 

@@ -84,7 +84,15 @@ The browser fetches `/audio/playlist.json` when the site opens, respecting the d
 
 After editing `public/audio/playlist.json` or music files locally, deploy the updated static files to your host. Local edits alone do not update the website. The normal workflow remains `npm run build` followed by deployment of `dist/`. Reading the playlist does not require recompiling the theme, but this project does not yet provide a separate playlist deployment command.
 
-The modes are `sequential` (stop after the last track), `list-loop` (start again from the first track), and `single-loop` (repeat the current track). Change modes in the playlist panel. The player does not autoplay or provide an in-page volume control. Playback persists during internal navigation; a full reload resets it. Audio format support depends on the browser.
+The modes are `sequential` (stop after the last track), `list-loop` (start again from the first track), and `single-loop` (repeat the current track). Change modes in the playlist panel. A visitor starts initial playback. Playback persists during internal navigation, and a full reload initializes a new session. Audio format support depends on the browser.
+
+Audio downloads completely into a temporary Blob before playback. Once the current track actually plays, the player prefetches the next track, holding the current track and at most one candidate. Selecting a different track immediately stops the old audio, releases its Blob, and reuses a valid candidate or starts downloading the target. Rapid selection cancels obsolete tasks and applies the latest choice. Selecting the current ready track or resuming after a pause reuses its resource and position. Initial playback, natural transitions and manual retries execute immediately. Blob references belong to the persistent player session and are released on replacement and disposal.
+
+While loading, the cover displays an Aero spinner and playback progress stays at zero. When ready, the cover fades in over about 200ms and the latest play or pause intent applies. If Safari requires another interaction, press play to use the loaded resource. Failed loading displays “Loading failed”. Open the playlist to read the reason at the bottom and select “Reload” to retry. Returning to the foreground continues valid tasks, and failed tasks remain available for manual retry.
+
+External HTTPS audio servers must allow CORS so the browser can read the complete response. Cross-origin access, network reading and decoding failures display a loading error. The Blob retains the response MIME type.
+
+Browsers supporting Media Session can route system media controls to play, pause, previous track, next track and seeking. Media information follows the actual loaded track, and track changes share the immediate selection entry point with the page controls. Available actions follow browser capabilities.
 
 On touch screens, drag from a track's text to scroll. Dragging and cancelled gestures do not select a track or close the playlist. Touching a track during momentum scrolling in the list or sidebar does not start playback; once scrolling stops, a separate tap plays the track. Mouse clicks, keyboard activation, native scrolling, and pinch zoom remain available.
 

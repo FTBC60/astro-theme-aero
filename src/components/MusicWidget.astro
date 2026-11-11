@@ -15,10 +15,14 @@ const nextMode = playbackModes[(playbackModes.indexOf(initialMode) + 1) % playba
   data-playback-mode={musicConfig.defaultPlaybackMode}
   transition:persist="aero-music-player"
 >
-  <audio data-audio preload="metadata"></audio>
+  <audio data-audio preload="auto"></audio>
   <div class="player-content">
     <div class="song-info">
-      <div class="info-bg album-art" data-cover style={`background-image: url(${JSON.stringify(withBase(musicConfig.defaultCover))})`}></div>
+      <div class="info-bg album-art" data-cover>
+        <img class="music-cover" data-cover-image src={withBase(musicConfig.defaultCover)} alt="" width="60" height="60" />
+        <span class="music-loader" role="status" aria-label={ui.audioLoading} aria-hidden="true"
+          style={`background-image: url(${JSON.stringify(withBase('/image/music-spinner.gif'))})`}></span>
+      </div>
       <div class="info-bg title-bar" data-track-info title={ui.playlistLoading}>
         <div class="song-title-viewport" data-title-viewport>
           <span class="song-title" data-title>{ui.playlistLoading}</span>

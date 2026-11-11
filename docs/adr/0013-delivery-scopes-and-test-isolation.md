@@ -12,7 +12,7 @@ status: accepted
 
 [交付清单](../../tools/lib/publish-files.mjs)明确列出作者源码包允许的目录和根文件，不依赖 `.gitignore` 隐藏仍需 Git 跟踪的测试或维护资料。允许范围内仍使用 Git 的跟踪与未忽略新文件枚举，并排除已从工作区删除的文件。站点的公开资源选择、笔记发布许可及附件规则不变。
 
-[导出工具](../../tools/export.mjs)仅在打包副本的 `package.json` 中移除 `test` / `test:*` 命令；仓库清单、依赖和锁文件保持原有契约。Publisher 比较完整 package 文件，因此镜像须从主题实际使用的同一份仓库版本或作者源码包构建，不混用两种 manifest，也不放宽现有一致性检查。
+[导出工具](../../tools/export.mjs)仅在打包副本的 `package.json` 中移除 `test` / `test:*` 及 `prototype:*` 开发命令；仓库清单、依赖和锁文件保持原有契约。Publisher 比较完整 package 文件，因此镜像须从主题实际使用的同一份仓库版本或作者源码包构建，不混用两种 manifest，也不放宽现有一致性检查。
 
 [Dockerfile](../../Dockerfile)明确复制三个正式入口及 `tools/lib/`，[Docker 忽略规则](../../.dockerignore)排除 `tools/test/`。作者文档中的开发链接、测试命令和 Vault 验收入口迁至测试说明，保证下载包中的相对链接指向已交付文件。
 

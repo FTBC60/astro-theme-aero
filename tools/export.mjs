@@ -103,9 +103,9 @@ try {
 
   const stageSource = join(temp, packageJson.name);
   for (const file of source) copyFile(file, join(stageSource, ...file.split('/')));
-  // Test commands belong to the Git checkout; only edit the archive's copy.
+  // Development commands belong to the Git checkout; only edit the archive's copy.
   const authorPackage = { ...packageJson, scripts: Object.fromEntries(
-    Object.entries(packageJson.scripts).filter(([name]) => name !== 'test' && !name.startsWith('test:')),
+    Object.entries(packageJson.scripts).filter(([name]) => name !== 'test' && !name.startsWith('test:') && !name.startsWith('prototype:')),
   ) };
   writeFileSync(join(stageSource, 'package.json'), JSON.stringify(authorPackage, null, 2) + '\n');
   validateSite(stageSite);

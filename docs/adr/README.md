@@ -22,6 +22,7 @@ These retrospective ADRs document the static theme and the earlier dynamic exper
 | [0014](0014-static-embedded-tools.md) | 单文件 HTML 工具、固定脚本＋下载权限与文章附件归属 | 已采用；核心及 NAS/Worker 链路通过，iPhone Chrome 滚动获用户实机通过反馈，桌面模拟差异保留 |
 | [0015](0015-tagged-theme-releases.md) | 版本标签触发作者主题包自动发布，区分仓库快照 | 已采用；首个正式版本为 1.0.0 |
 | [0016](0016-tool-package-file-manifests.md) | 工具入口旁的显式文件清单、目录映射及受限开发预览别名 | 已采用；阶段 B 本地验收，NAS/Cloudflare 待验 |
+| [0017](0017-blob-playback-and-media-session.md) | 完整 Blob 播放、单首预取、即时切歌与 Media Session | 已采用；正式实现及精简的必要检查通过，第 5 阶段整体验收待执行 |
 
 [变更追溯表](HISTORY.md)记录各阶段修改及提交，包括未单独立 ADR 的界面、归档和播放器修复。[恢复依据](SOURCES.md)记录本机会话文件、消息位置、证据边界和缺口。
 

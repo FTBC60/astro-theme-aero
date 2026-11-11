@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag to build (for example v1.1.0)
+        description: Existing version tag to build (for example v1.2.0)
         required: true
         type: string
 
@@ -91,13 +91,21 @@ jobs:
           解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
           Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
 
-          本版新增通过 iframe 或普通 Markdown 链接发布自包含工具目录。入口同目录的 `manifest.json` v1 显式列出文件。单 HTML 自动提供原文件下载，目录包设置 `download: true` 后提供 ZIP，包含所选文件和原始控制清单。中英文时间戳示例随主题包提供。
+          本版播放器新增完整音频 Blob 播放、单首预取与 Media Session 系统媒体控件。网页与系统控件共用播放、暂停、上一首、下一首和定位入口，歌单选曲立即响应。
 
-          This release adds self-contained tool folders referenced through iframes or regular Markdown links. A version 1 `manifest.json` beside the entry lists the selected files. Single HTML tools offer the original file for download. Tool folders with `download: true` offer a ZIP containing the selected files and original control manifest. Chinese and English timestamp examples are included.
+          The player now downloads complete audio into temporary Blobs, prefetches one upcoming track during playback, and integrates Media Session controls. Web and system controls share play, pause, previous/next, and seeking actions. Manual track selection starts immediately.
 
-          从 v1.0.0 升级时，请使用 `![iframe: 名称](路径)`。默认文章目录已迁至 `src/content/posts/`，内容集合键为 `posts`，请核对自己的 `notesDir` 与容器挂载路径。更新主题后运行 `npm ci`，Publisher 镜像须从实际使用的同一份主题源码重新构建，以包含新的 fflate 依赖并保持 package 文件一致。
+          初次播放需要等待完整下载和音频初始化。会话保留当前歌曲及最多一首候选，切歌和销毁时取消过期任务、释放旧 Blob URL。加载期间显示 Aero 加载圈，失败后可手动重试，站内切页继续复用播放器及有效任务。
 
-          When upgrading from v1.0.0, use `![iframe: Name](path)`. The default posts directory is now `src/content/posts/` and the content collection key is `posts`. Check your `notesDir` and container mounts. Run `npm ci` after updating the theme, and rebuild the Publisher image from the exact theme source you use to include the new fflate dependency and keep package files consistent.
+          Initial playback waits for the complete download and audio initialization. The session holds the current track and at most one candidate, cancels obsolete work, and releases old Blob URLs on track changes and disposal. An Aero loading indicator and retry feedback reflect resource state, and playback survives internal navigation.
+
+          系统媒体动作按浏览器能力启用。外链音频需要允许 CORS，完整下载与预取会增加流量和临时内存占用。Safari 可能需要在下载完成后再次点击播放。原型的 iPhone Safari 后台预取和衔接已有实机反馈，最终整合版的 Chrome 系统控件及 iPhone Safari 整体验收仍按 ADR-0017 的第 5 阶段安排。
+
+          System actions depend on browser support. External audio must allow CORS, and full downloads plus prefetching consume bandwidth and temporary memory. Safari may require another play gesture after downloading. Prototype iPhone Safari background-prefetch and continuation results are recorded, while the final integrated Chrome system-control and iPhone Safari acceptance remains scheduled in phase 5 of ADR-0017.
+
+          升级后运行 npm ci，并从实际使用的同一份主题源码重建 Publisher 镜像，以匹配 package 文件。播放器设置继续使用现有音乐配置和静态歌单。
+
+          After upgrading, run npm ci and rebuild the Publisher image from the exact theme source in use so the package files match. Continue using the existing music configuration and static playlist.
 
           The theme package follows ADR-0013: production theme/tools, default assets, author examples and guides; no tests, CI files or developer maintenance records. Verify the download with `SHA256SUMS.txt`.
           NOTES

@@ -15,3 +15,5 @@ status: accepted
 2026-10-31 实现改进：[播放会话与 DOM 接入](../architecture/playback-session.md) 将歌单、音频状态、播放模式与异步结果集中到独立会话模块；DOM 层负责展示和事件转发，现有静态资源、手动刷新、跨页续播和播放规则继续遵守本决策。
 
 2026-10-31 浮层接入改进：[歌单浮层与播放器接入](../architecture/playlist-panel.md) 集中开关、ARIA、焦点、定位与触摸协作，并统一导航重接入和释放。播放会话继续独立；保留移动侧栏与歌单共同处理 Escape 的既有行为。
+
+2026-11-11 音频加载与系统控制扩展见 [ADR-0017](0017-blob-playback-and-media-session.md)。完整 Blob 与单首预取解决本轮静态部署中的定位和后台衔接问题，手动选曲立即执行，网页与 Media Session 共用现有播放会话。

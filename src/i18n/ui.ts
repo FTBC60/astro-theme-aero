@@ -61,6 +61,11 @@ interface UiMessages {
   playbackModeChanged: (mode: string) => string;
   nowPlaying: (title: string) => string;
   playbackFailed: string;
+  audioLoading: string;
+  loadFailed: string;
+  playbackBlocked: string;
+  audioHttpError: (status: number) => string;
+  audioErrors: Record<'network' | 'empty' | 'decode' | 'playback', string>;
   trackSelected: (title: string) => string;
   paused: string;
   playlistEnded: string;
@@ -84,13 +89,17 @@ export const translations: Record<Locale, UiMessages> = {
     play: '播放', playNoTracks: '播放（未配置歌曲）', pause: '暂停',
     previousTrack: '上一首', nextTrack: '下一首', openPlaylist: '展开播放列表', closePlaylist: '收起播放列表',
     playlist: '播放列表', emptyPlaylist: '暂无歌曲', startListening: '点击播放开始收听',
-    playlistLoading: '正在加载歌单…', refreshPlaylist: '刷新歌单', retryPlaylist: '重试',
+    playlistLoading: '正在加载歌单…', refreshPlaylist: '刷新歌单', retryPlaylist: '重新加载',
     playlistLoadFailed: '歌单加载失败，请重试。', playlistRefreshFailed: '刷新失败，已保留原歌单。', playlistUpdated: '歌单已更新',
     playbackModes: { sequential: '顺序播放', 'list-loop': '列表循环', 'single-loop': '单曲循环' },
     playbackModeButton: (current, next) => `播放模式：${current}；点击切换为${next}`,
     playbackModeChanged: (mode) => `播放模式：${mode}`,
     nowPlaying: (title) => `正在播放：${title}`,
     playbackFailed: '无法播放，请检查音频地址或再次点击播放。',
+    audioLoading: '正在加载音频', loadFailed: '加载失败', playbackBlocked: '已加载，点击播放',
+    audioHttpError: (status) => `音频读取失败（HTTP ${status}）`,
+    audioErrors: { network: '无法获取音频，请检查网络或跨域配置', empty: '音频响应为空',
+      decode: '音频初始化或解码失败，请检查文件格式', playback: '音频启动失败，请重新加载' },
     trackSelected: (title) => `已选择：${title}`, paused: '已暂停', playlistEnded: '播放列表已结束',
     trackLoadFailed: (title) => `无法加载：${title}。请检查音频地址，或切换到其他曲目。`,
   },
@@ -110,13 +119,17 @@ export const translations: Record<Locale, UiMessages> = {
     play: 'Play', playNoTracks: 'Play (no tracks configured)', pause: 'Pause',
     previousTrack: 'Previous track', nextTrack: 'Next track', openPlaylist: 'Open playlist', closePlaylist: 'Close playlist',
     playlist: 'Playlist', emptyPlaylist: 'No tracks yet', startListening: 'Press play to start listening',
-    playlistLoading: 'Loading playlist…', refreshPlaylist: 'Refresh playlist', retryPlaylist: 'Retry',
+    playlistLoading: 'Loading playlist…', refreshPlaylist: 'Refresh playlist', retryPlaylist: 'Reload',
     playlistLoadFailed: 'Unable to load playlist. Please retry.', playlistRefreshFailed: 'Refresh failed. Previous playlist retained.', playlistUpdated: 'Playlist updated',
     playbackModes: { sequential: 'Play in order', 'list-loop': 'Loop playlist', 'single-loop': 'Repeat one' },
     playbackModeButton: (current, next) => `Playback mode: ${current}; activate to switch to ${next}`,
     playbackModeChanged: (mode) => `Playback mode: ${mode}`,
     nowPlaying: (title) => `Now playing: ${title}`,
     playbackFailed: 'Unable to play. Check the audio URL or press play again.',
+    audioLoading: 'Loading audio', loadFailed: 'Loading failed', playbackBlocked: 'Audio ready. Press play to continue.',
+    audioHttpError: (status) => `Unable to load audio (HTTP ${status})`,
+    audioErrors: { network: 'Unable to fetch audio. Check the network or CORS configuration.', empty: 'The audio response is empty.',
+      decode: 'Audio initialization or decoding failed. Check the file format.', playback: 'Unable to start audio. Please reload.' },
     trackSelected: (title) => `Selected: ${title}`, paused: 'Paused', playlistEnded: 'Playlist finished',
     trackLoadFailed: (title) => `Unable to load ${title}. Check the audio URL or choose another track.`,
   },

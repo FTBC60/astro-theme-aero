@@ -11,3 +11,10 @@ dist/
 /compose.yaml
 /publisher-data/
 /.env*
+/tools/test/prototypes/
+CONTEXT.md
+docs/architecture/operations-external-services.md
+docs/architecture/operations-readiness.md
+architecture-review-20261028-064905Z.html
+architecture-review-20261031-025703.html
+architecture-review-20261031-174214.html

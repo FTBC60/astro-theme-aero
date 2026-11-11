@@ -1,6 +1,6 @@
 {
   "name": "astro-theme-aero",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,6 +8,7 @@
     "build": "astro build",
     "export": "node tools/export.mjs",
     "preview": "astro preview",
+    "prototype:music": "node tools/test/prototypes/music-player/server.mjs",
     "check": "astro check",
     "test:content": "node --test tools/test/content.test.mjs tools/test/publication.test.mjs",
     "test:playlist": "node --test tools/test/playlist-panel.test.mjs tools/test/playlist-touch.test.mjs tools/test/playback-session.test.mjs",

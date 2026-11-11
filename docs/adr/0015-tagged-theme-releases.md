@@ -8,7 +8,7 @@ status: accepted
 
 作者交付物统一称为“主题包 / Theme package”，文件名为 `astro-theme-aero-v<版本>-theme.tar.gz`；静态站点产物继续使用 `-site.tar.gz`。本地普通导出保留提交哈希和可选 `dirty` 标记，正式导出仅保留版本号。`package.json` 与锁文件根版本同步，依赖版本不随本次发布调整。
 
-现有导出工具继续作为唯一打包入口。`npm run export:release` 要求干净工作区、与 package 版本完全一致且指向 HEAD 的现有 `v<版本>` 标签；检查和构建后再次验证版本状态，再产生主题包、站点包及仅针对主题包的 `SHA256SUMS.txt`。作者 manifest 仍仅移除测试命令，正式导出命令由随包工具提供。
+现有导出工具继续作为唯一打包入口。`npm run export:release` 要求干净工作区、与 package 版本完全一致且指向 HEAD 的现有 `v<版本>` 标签；检查和构建后再次验证版本状态，再产生主题包、站点包及仅针对主题包的 `SHA256SUMS.txt`。作者 manifest 移除测试及原型开发命令，正式导出命令由随包工具提供。
 
 GitHub Actions 由版本标签推送触发，也可手动指定已存在的标签重试。构建任务仅有读取权限，固定 Node 24.22.1，执行串行回归、正式导出和独立交付范围检查。发布任务单独获得 `contents: write`，验证传递的校验文件后，使用内置令牌创建 Release；只上传主题包与校验文件。官方 Actions 固定到已核对的版本提交。
 

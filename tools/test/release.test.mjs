@@ -131,9 +131,10 @@ for (const external of [false, true]) {
       const authorPackage = JSON.parse(await readFile(join(source, packageName, 'package.json'), 'utf8'));
       const expectedPackage = JSON.parse(originalPackage);
       for (const name of Object.keys(expectedPackage.scripts)) {
-        if (name === 'test' || name.startsWith('test:')) delete expectedPackage.scripts[name];
+        if (name === 'test' || name.startsWith('test:') || name.startsWith('prototype:')) delete expectedPackage.scripts[name];
       }
       assert.deepEqual(authorPackage, expectedPackage);
+      assert.equal(authorPackage.scripts['prototype:music'], undefined, 'Music prototypes stay in the checkout');
       await assertAuthorLinks(join(source, packageName));
       assert.equal(await readFile(join(source, packageName, 'package-lock.json'), 'utf8'), originalLock);
       assert.equal(await readFile(join(root, 'package.json'), 'utf8'), originalPackage);

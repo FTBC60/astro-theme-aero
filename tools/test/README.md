@@ -34,6 +34,12 @@ npm run build
 
 Tests use temporary workspaces. Uploads are mocked in Publisher tests; real integration cases use `build-only`. They do not deploy to the cloud. The controlled DOM fixture does not replace browser layout or hardware gesture checks.
 
+## 音乐播放器原型 / Music player prototype
+
+音乐 Blob 与 Safari 后台对照原型归档于本地 `tools/test/prototypes/music-player/`，该目录按现有规则忽略。保留该目录的工作区可运行 `npm run prototype:music -- --host 0.0.0.0`，操作说明与详细设备结果分别位于目录内的 `README.md` 和 `VALIDATION.md`。
+
+正式决策见 [ADR-0017](../../docs/adr/0017-blob-playback-and-media-session.md)，方案演进见[开发方案与实施记录](../../docs/architecture/music-player-development-plan.md)。
+
 ## 完整 Vault / Complete Vault
 
 [合成 Vault](vault/README.md)包含已发布笔记、私人笔记、草稿、模板、隐藏文件、同目录 PDF、子目录和共享附件。默认主题不会发布它。完整步骤和预期产物见[中文验收指南](validation-docs/zh-CN/VAULT-VALIDATION.md) / [English acceptance guide](validation-docs/en/VAULT-VALIDATION.md)。

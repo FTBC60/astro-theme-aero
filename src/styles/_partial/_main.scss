@@ -115,6 +115,11 @@ body {
     position: sticky;
     top: 140px;
     display: flow-root;
+    margin-top: 20px;
+}
+
+.sidebar-sticky-group > :nth-child(1 of .widget) {
+    margin-top: 0;
 }
 
 // Lift the sticky stacking context as well as the player above the glass footer.

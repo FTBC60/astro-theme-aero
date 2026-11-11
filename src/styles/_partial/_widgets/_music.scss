@@ -44,8 +44,36 @@
     margin-left: 20px;
     margin-bottom: 10px;
     position: relative;
-    background-size: cover;
+    overflow: hidden;
+    background: radial-gradient(ellipse at center, #3e7bad 0%, #22547e 36%, #102d4d 72%, #071a32 100%);
+}
+
+.music-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 200ms linear;
+}
+
+/* 7.css v0.21.0, MIT. License accompanies music-spinner.gif. */
+.music-loader {
+    position: absolute;
+    inset: 0;
+    width: 20px;
+    height: 20px;
+    margin: auto;
     background-position: center;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 200ms linear;
+    pointer-events: none;
+}
+
+.album-art.is-loading {
+    .music-cover { opacity: 0; }
+    .music-loader { opacity: 1; }
 }
 
 .song-info {
@@ -285,6 +313,11 @@
     flex-shrink: 0;
     margin: 8px 0 3px;
     color: #56616b;
+    overflow-wrap: anywhere;
+}
+
+.playlist-feedback.is-error {
+    color: #941f1f;
 }
 
 .ctrl-btn {

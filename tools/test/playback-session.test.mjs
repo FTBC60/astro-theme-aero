@@ -17,16 +17,20 @@ function harness(t, mode = 'list-loop') {
   const states = [];
   const requests = [];
   const replies = [];
+  const audioReplies = [];
+  const audioRequests = [];
   const timers = new Set();
   const calls = { sources: [], plays: 0, pauses: 0, seeks: [], reloads: 0 };
   let playResult = () => Promise.resolve();
   const audio = {
-    paused: true, ended: false, hasError: false, currentTime: 0, duration: 100, source: null,
-    setSource(source) { calls.sources.push(source); this.source = source; this.currentTime = 0; this.ended = false; this.hasError = false; },
-    play() { calls.plays++; this.paused = false; this.ended = false; dispatch('play'); return playResult(); },
+    paused: true, ended: false, currentTime: 0, duration: 100, source: null, readyState: 0,
+    get currentSrc() { return this.source ?? ''; },
+    get seekable() { return { length: this.readyState >= 3 ? 1 : 0, start: () => 0, end: () => this.duration }; },
+    setSource(source) { calls.sources.push(source); this.source = source; this.currentTime = 0; this.ended = false; this.readyState = 0; },
+    async play() { calls.plays++; this.paused = false; this.ended = false; dispatch('play'); await playResult(); if (!this.paused) dispatch('playing'); },
     pause() { calls.pauses++; this.paused = true; dispatch('pause'); },
     seek(seconds) { calls.seeks.push(seconds); this.currentTime = seconds; dispatch('timeupdate'); },
-    reload() { calls.reloads++; this.hasError = false; },
+    reload() { calls.reloads++; this.readyState = 4; dispatch('canplay'); },
     listen(listener) { listeners.add(listener); return () => listeners.delete(listener); },
   };
   const dispatch = (event) => { for (const listener of listeners) listener(event); };
@@ -39,6 +43,12 @@ function harness(t, mode = 'list-loop') {
       if (reply instanceof Error) return Promise.reject(reply);
       return Promise.resolve(reply ?? response([first, second]));
     },
+    fetchAudio(url, options) {
+      audioRequests.push({ url, ...options });
+      const reply = audioReplies.shift();
+      if (reply instanceof Error) return Promise.reject(reply);
+      return Promise.resolve(reply ?? { ok: true, status: 200, blob: async () => new Blob([url], { type: 'audio/mpeg' }) });
+    },
     scheduleTimeout(callback, milliseconds) {
       assert.equal(milliseconds, 15000);
       timers.add(callback);
@@ -46,7 +56,7 @@ function harness(t, mode = 'list-loop') {
     },
   });
   t.after(() => session.dispose());
-  return { session, audio, calls, requests, replies, timers, notices, states, listeners, dispatch,
+  return { session, audio, calls, requests, replies, audioRequests, audioReplies, timers, notices, states, listeners, dispatch,
     setPlay: (result) => { playResult = result; },
     expire: () => { for (const callback of [...timers]) { timers.delete(callback); callback(); } },
     snapshot: () => session.getSnapshot(),
@@ -77,7 +87,7 @@ test('initial loading selects a track without autoplay or polling', async (t) =>
   assert.equal(h.snapshot().tracks[0].src, 'https://example.test/blog/audio/first.mp3');
   assert.equal(h.snapshot().loadStatus, 'ready');
   assert.equal(h.calls.plays, 0);
-  assert.equal(h.snapshot().playing, false);
+  assert.equal(h.audio.paused, true);
   assert.equal(h.timers.size, 0);
   assert(Object.isFrozen(h.snapshot()) && Object.isFrozen(h.snapshot().tracks[0]));
 });
@@ -94,7 +104,7 @@ for (const playing of [true, false]) {
     assert.equal(h.snapshot().index, 1);
     assert.equal(h.snapshot().tracks[1].title, 'Renamed');
     assert.equal(h.audio.currentTime, 42);
-    assert.equal(h.snapshot().playing, playing);
+    assert.equal(h.audio.paused, !playing);
     assert.deepEqual(h.calls, before);
     const unchanged = h.snapshot().tracks;
     h.replies.push(response([second, { ...first, title: 'Renamed', cover: 'new.svg' }]));
@@ -116,7 +126,7 @@ for (const fresh of [[second], []]) {
     assert.equal(h.audio.currentTime, 0);
     assert.equal(h.calls.plays, 1);
     assert.equal(h.snapshot().tracks.length, fresh.length);
-    assert.equal(h.audio.source, fresh.length ? 'https://example.test/blog/audio/second.mp3' : null);
+    assert.equal(h.audio.source, null);
     if (!fresh.length) { assert.equal(h.snapshot().duration, 0); assert.equal(h.snapshot().currentTime, 0); }
   });
 }
@@ -138,7 +148,7 @@ for (const [reason, reply] of [
     assert.equal(h.snapshot().tracks, tracks);
     assert.equal(h.snapshot().loadStatus, 'error');
     assert.equal(h.snapshot().hasLoaded, true);
-    assert.equal(h.snapshot().playing, true);
+    assert.equal(h.audio.paused, false);
     assert.equal(h.audio.currentTime, 31);
     assert.deepEqual(h.calls, before);
     assert.equal(h.timers.size, 0);
@@ -189,7 +199,7 @@ test('timeout aborts a stalled fetch and a late response cannot replace a newer 
   assert.equal(h.requests[1].signal.aborted, true);
   assert.equal(h.snapshot().loadStatus, 'error');
   assert.equal(h.audio.currentTime, 12);
-  assert.equal(h.snapshot().playing, true);
+  assert.equal(h.audio.paused, false);
   h.replies.push(response([second]));
   await h.session.refresh();
   network.resolve(response([{ title: 'Stale', src: 'stale.mp3' }]));
@@ -205,12 +215,13 @@ test('pausing invalidates a pending play promise before its success arrives', as
   const oldPlay = deferred();
   h.setPlay(() => oldPlay.promise);
   const pending = h.session.togglePlayback();
+  await flush();
   await h.session.togglePlayback();
   const noticeCount = h.notices.length;
   oldPlay.resolve();
   await pending;
-  assert.equal(h.snapshot().playing, false);
-  assert.equal(h.snapshot().playbackError, null);
+  assert.equal(h.audio.paused, true);
+  assert.equal(h.snapshot().trackError, null);
   assert.equal(h.notices.length, noticeCount);
   assert.equal(h.notices.at(-1), 'paused');
 });
@@ -222,6 +233,7 @@ for (const outcome of ['resolve', 'reject']) {
     const oldPlay = deferred();
     h.setPlay(() => oldPlay.promise);
     const pending = h.session.togglePlayback();
+    await flush();
     h.setPlay(() => Promise.resolve());
     h.session.select(1);
     await flush();
@@ -229,8 +241,8 @@ for (const outcome of ['resolve', 'reject']) {
     oldPlay[outcome](outcome === 'reject' ? new Error('old failure') : undefined);
     await pending;
     assert.equal(h.snapshot().index, 1);
-    assert.equal(h.snapshot().playing, true);
-    assert.equal(h.snapshot().playbackError, null);
+    assert.equal(h.audio.paused, false);
+    assert.equal(h.snapshot().trackError, null);
     assert.equal(h.notices.length, noticeCount);
     assert.equal(h.notices.at(-1), 'playing');
   });
@@ -242,40 +254,46 @@ test('clearing the playlist invalidates an outstanding play result', async (t) =
   const oldPlay = deferred();
   h.setPlay(() => oldPlay.promise);
   const pending = h.session.togglePlayback();
+  await flush();
   h.replies.push(response([]));
   await h.session.refresh();
   oldPlay.resolve();
   await pending;
   assert.equal(h.snapshot().tracks.length, 0);
-  assert.equal(h.snapshot().playing, false);
+  assert.equal(h.audio.paused, true);
   assert.equal(h.notices.at(-1), 'playlist-updated');
 });
 
-test('current play errors are reported and native AbortError is ignored', async (t) => {
+test('current play errors are reported and native AbortError remains recoverable', async (t) => {
   const h = harness(t);
   await h.session.refresh();
   h.setPlay(() => { h.audio.paused = true; return Promise.reject(new Error('blocked')); });
   await h.session.togglePlayback();
-  assert.equal(h.snapshot().playbackError, 'playback');
+  await flush();
+  assert.deepEqual(h.snapshot().trackError, { kind: 'playback' });
   assert.equal(h.notices.at(-1), 'playback-failed');
   h.setPlay(() => { h.audio.paused = true; return Promise.reject(new DOMException('cancelled', 'AbortError')); });
   h.notices.length = 0;
   await h.session.togglePlayback();
-  assert.equal(h.snapshot().playbackError, null);
+  await flush();
+  assert.equal(h.snapshot().trackError, null);
   assert(!h.notices.includes('playback-failed'));
 });
 
-test('native media errors allow a reload and retry through the same session', async (t) => {
+test('native media errors allow a Blob retry through the same session', async (t) => {
   const h = harness(t);
   await h.session.refresh();
-  h.audio.hasError = true;
+  await h.session.togglePlayback();
   h.dispatch('error');
-  assert.equal(h.snapshot().playbackError, 'track');
+  assert.deepEqual(h.snapshot().trackError, { kind: 'decode' });
+  assert.equal(h.snapshot().loadedTrack, null);
+  assert.equal(h.snapshot().canSeek, false);
   assert.equal(h.notices.at(-1), 'track-load-failed');
   await h.session.togglePlayback();
-  assert.equal(h.calls.reloads, 1);
-  assert.equal(h.snapshot().playbackError, null);
-  assert.equal(h.snapshot().playing, true);
+  await flush();
+  assert.equal(h.calls.reloads, 2);
+  assert.equal(h.snapshot().trackError, null);
+  assert.equal(h.audio.paused, false);
 });
 
 for (const mode of ['sequential', 'list-loop', 'single-loop']) {
@@ -283,6 +301,7 @@ for (const mode of ['sequential', 'list-loop', 'single-loop']) {
     const h = harness(t, mode);
     await h.session.refresh();
     h.session.skip(-1);
+    await flush();
     await h.session.togglePlayback();
     const assignments = h.calls.sources.length;
     h.audio.currentTime = 100;
@@ -293,15 +312,21 @@ for (const mode of ['sequential', 'list-loop', 'single-loop']) {
     assert.equal(h.snapshot().mode, mode);
     if (mode === 'sequential') {
       assert.equal(h.snapshot().index, 1);
-      assert.equal(h.snapshot().playing, false);
+      assert.equal(h.audio.paused, true);
       assert.equal(h.notices.at(-1), 'playlist-ended');
+      await h.session.play();
+      assert.equal(h.audio.paused, false);
+      assert.equal(h.audio.currentTime, 0);
+      assert.deepEqual(h.calls.seeks, [0]);
+      assert.equal(h.calls.sources.length, assignments);
     } else if (mode === 'list-loop') {
       assert.equal(h.snapshot().index, 0);
-      assert.equal(h.snapshot().playing, true);
+      assert.equal(h.audio.paused, false);
     } else {
       assert.equal(h.snapshot().index, 1);
-      assert.equal(h.snapshot().playing, true);
+      assert.equal(h.audio.paused, false);
       assert.equal(h.audio.currentTime, 0);
+      assert.deepEqual(h.calls.seeks, [0]);
       assert.equal(h.calls.sources.length, assignments);
     }
   });
@@ -314,6 +339,7 @@ test('skipping preserves paused playback, mode cycling is local, and seeking use
   assert.equal(h.snapshot().index, 1);
   assert.equal(h.calls.plays, 0);
   h.session.skip(1);
+  await flush();
   assert.equal(h.snapshot().index, 0);
   h.session.cycleMode();
   assert.equal(h.snapshot().mode, 'list-loop');
@@ -338,6 +364,7 @@ test('disposing aborts requests, detaches audio and ignores late results and com
   const oldPlay = deferred();
   h.setPlay(() => oldPlay.promise);
   const playing = h.session.togglePlayback();
+  await flush();
   const network = deferred();
   h.replies.push(network.promise);
   const loading = h.session.refresh();
@@ -358,4 +385,152 @@ test('disposing aborts requests, detaches audio and ignores late results and com
   assert.equal(h.states.length, notifications);
   assert.deepEqual(h.calls, before);
   assert.equal(h.requests.length, 2);
+});
+
+test('full Blob loading honors pause intent and Safari authorization recovery reuses the resource', async (t) => {
+  const h = harness(t, 'single-loop');
+  await h.session.refresh();
+  const body = deferred();
+  h.audioReplies.push({ ok: true, status: 200, blob: () => body.promise });
+  const loading = h.session.play();
+  await flush();
+  assert.equal(h.snapshot().trackStatus, 'downloading');
+  assert.equal(h.snapshot().canSeek, false);
+  assert.equal(h.snapshot().loadedTrack, null);
+  h.session.pause();
+  body.resolve(new Blob(['complete audio']));
+  await loading;
+  const initializing = h.states.find((state) => state.trackStatus === 'initializing');
+  assert.equal(initializing?.loadedTrack, null);
+  assert.equal(initializing.canSeek, false);
+  assert.equal(h.snapshot().trackStatus, 'ready');
+  assert.equal(h.snapshot().loadedTrack.src, h.snapshot().tracks[0].src);
+  assert.equal(h.snapshot().canSeek, true);
+  assert.equal(h.calls.plays, 0);
+  const url = h.audio.source;
+  h.setPlay(() => { h.audio.paused = true; return Promise.reject(new DOMException('gesture required', 'NotAllowedError')); });
+  await h.session.play();
+  assert.equal(h.snapshot().wantPlaying, false);
+  assert.equal(h.snapshot().trackError, null);
+  assert.equal(h.snapshot().trackStatus, 'ready');
+  h.setPlay(() => Promise.resolve());
+  await h.session.play();
+  assert.equal(h.audio.paused, false);
+  assert.equal(h.audio.source, url);
+  assert.equal(h.audioRequests.length, 1);
+  h.session.seekTo(60);
+  assert.equal(h.audio.currentTime, 60);
+});
+
+test('manual selection reuses the current track and immediately releases it when switching to an in-flight candidate', async (t) => {
+  const h = harness(t, 'list-loop');
+  await h.session.refresh();
+  const next = deferred();
+  h.audioReplies.push(undefined, next.promise);
+  await h.session.play();
+  await flush();
+  const oldUrl = h.audio.source;
+  h.audio.currentTime = 42;
+  h.session.select(0);
+  await flush();
+  assert.equal(h.audio.currentTime, 42);
+  assert.equal(h.audio.source, oldUrl);
+  assert.equal(h.audioRequests.length, 2);
+  assert.equal(h.timers.size, 0);
+  h.session.select(1);
+  assert.equal(h.snapshot().trackStatus, 'downloading');
+  assert.equal(h.audio.source, null);
+  assert.equal(h.snapshot().loadedTrack, null);
+  assert.equal(h.timers.size, 0);
+  assert.equal(h.audioRequests[1].signal.aborted, false);
+  await assert.rejects(fetch(oldUrl));
+  assert.equal(h.audioRequests.length, 2);
+  next.resolve({ ok: true, status: 200, blob: async () => new Blob(['next']) });
+  await flush();
+  assert.equal(h.snapshot().index, 1);
+  assert.equal(h.audio.paused, false);
+  assert.equal(h.snapshot().loadedTrack.src, h.snapshot().tracks[1].src);
+  assert.equal(h.audioRequests.filter(({ url }) => url.endsWith('second.mp3')).length, 1);
+});
+
+test('switching away and back immediately downloads a new resource and ignores the cancelled result', async (t) => {
+  const h = harness(t, 'single-loop');
+  await h.session.refresh();
+  await h.session.play();
+  const oldUrl = h.audio.source;
+  h.audio.currentTime = 42;
+  const oldDownload = deferred();
+  h.audioReplies.push({ ok: true, status: 200, blob: () => oldDownload.promise });
+  h.session.select(1);
+  await flush();
+  assert.equal(h.audio.source, null);
+  await assert.rejects(fetch(oldUrl));
+  h.session.select(0);
+  await flush();
+  const currentUrl = h.audio.source;
+  assert.notEqual(currentUrl, oldUrl);
+  assert.equal(h.audioRequests[1].signal.aborted, true);
+  assert.equal(h.audioRequests.length, 3);
+  assert.equal(h.audio.currentTime, 0);
+  assert.equal(h.snapshot().trackStatus, 'ready');
+  assert.equal(h.audio.paused, false);
+  assert.equal(h.timers.size, 0);
+  oldDownload.resolve(new Blob(['cancelled track']));
+  await flush();
+  assert.equal(h.audio.source, currentUrl);
+  assert.equal(h.snapshot().loadedTrack.src, h.snapshot().tracks[0].src);
+});
+
+test('natural completion consumes a ready prefetch immediately and disposal revokes the current URL', async (t) => {
+  const h = harness(t, 'list-loop');
+  await h.session.refresh();
+  await h.session.play();
+  await flush();
+  assert.equal(h.audioRequests.length, 2);
+  const oldUrl = h.audio.source;
+  h.audio.ended = true;
+  h.audio.paused = true;
+  h.dispatch('ended');
+  await flush();
+  assert.equal(h.snapshot().index, 1);
+  assert.equal(h.audio.paused, false);
+  assert.equal(h.timers.size, 0);
+  assert.equal(h.audioRequests.filter(({ url }) => url.endsWith('second.mp3')).length, 1);
+  await assert.rejects(fetch(oldUrl));
+  const currentUrl = h.audio.source;
+  h.session.dispose();
+  assert.equal(h.snapshot().loadedTrack, null);
+  assert.equal(h.snapshot().canSeek, false);
+  await assert.rejects(fetch(currentUrl));
+});
+
+test('a cancelled Blob read cannot replace the latest selected track', async (t) => {
+  const h = harness(t, 'single-loop');
+  await h.session.refresh();
+  const old = deferred();
+  h.audioReplies.push({ ok: true, status: 200, blob: () => old.promise });
+  const pending = h.session.play();
+  await flush();
+  h.session.select(1);
+  await flush();
+  const url = h.audio.source;
+  assert.equal(h.audioRequests[0].signal.aborted, true);
+  old.resolve(new Blob(['stale']));
+  await pending;
+  assert.equal(h.snapshot().index, 1);
+  assert.equal(h.audio.source, url);
+  assert.equal(h.snapshot().trackError, null);
+});
+
+test('HTTP loading errors retain their status and manual retry starts immediately', async (t) => {
+  const h = harness(t, 'single-loop');
+  await h.session.refresh();
+  h.audioReplies.push({ ok: false, status: 503 });
+  await h.session.play();
+  assert.deepEqual(h.snapshot().trackError, { kind: 'http', status: 503 });
+  h.session.retry();
+  await flush();
+  assert.equal(h.audio.paused, false);
+  assert.equal(h.snapshot().trackError, null);
+  assert.equal(h.timers.size, 0);
 });

@@ -30,8 +30,9 @@ for (const language of ['en', 'zh-CN']) {
   }
 }
 const author = JSON.parse(tar('-xOf', archive, `${pkg.name}/package.json`));
-const expected = { ...pkg, scripts: Object.fromEntries(Object.entries(pkg.scripts).filter(([key]) => key !== 'test' && !key.startsWith('test:'))) };
-assert.deepEqual(author, expected, 'Only test commands may differ in the archived manifest');
+const expected = { ...pkg, scripts: Object.fromEntries(Object.entries(pkg.scripts).filter(([key]) => key !== 'test' && !key.startsWith('test:') && !key.startsWith('prototype:'))) };
+assert.deepEqual(author, expected, 'Only test and prototype commands may differ in the archived manifest');
+assert(!Object.values(author.scripts).some(command => command.includes('tools/test/')), 'Author commands must resolve to shipped tools');
 assert.equal(tar('-xOf', archive, `${pkg.name}/package-lock.json`), readFileSync(join(root, 'package-lock.json'), 'utf8'));
 const checksum = createHash('sha256').update(readFileSync(archive)).digest('hex');
 assert.equal(readFileSync(join(root, 'release/SHA256SUMS.txt'), 'utf8'), `${checksum}  ${name}\n`);
