@@ -1,0 +1,9 @@
+---
+import AboutLayout from '../layouts/AboutLayout.astro';
+import { Content, frontmatter } from '../content/pages/about.md';
+const aboutFrontmatter = frontmatter as { title: string; description?: string };
+---
+
+<AboutLayout frontmatter={aboutFrontmatter}>
+  <Content />
+</AboutLayout>

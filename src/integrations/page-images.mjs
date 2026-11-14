@@ -34,10 +34,13 @@ function rawImages(html, page, base) {
 }
 
 /** Resolve only fixed-page images; note attachments and source imports keep their existing pipelines. */
-export function remarkPageImages({ pagesDir, base }) {
+export function remarkPageImages({ pagesDir, contentPagesDir, base }) {
   return async (tree, file) => {
     if (!file.path) return;
-    const path = relative(pagesDir, file.path);
+    let path = relative(pagesDir, file.path);
+    if (isAbsolute(path) || path === '..' || path.startsWith(`..${sep}`)) {
+      path = relative(contentPagesDir, file.path);
+    }
     if (isAbsolute(path) || path === '..' || path.startsWith(`..${sep}`) || !/\.md$/i.test(path)) return;
     const route = path.split(sep).join('/').replace(/\.md$/i, '').replace(/(?:^|\/)index$/, '');
     const page = route ? `${route}/` : '';
@@ -73,7 +76,11 @@ export default function pageImages() {
       'astro:config:setup': ({ config, updateConfig }) => {
         const options = config.markdown.processor.options;
         updateConfig({ markdown: { processor: unified({ ...options,
-          remarkPlugins: [...options.remarkPlugins, [remarkPageImages, { pagesDir: fileURLToPath(new URL('pages/', config.srcDir)), base: config.base }]],
+          remarkPlugins: [...options.remarkPlugins, [remarkPageImages, {
+            pagesDir: fileURLToPath(new URL('pages/', config.srcDir)),
+            contentPagesDir: fileURLToPath(new URL('content/pages/', config.srcDir)),
+            base: config.base,
+          }]],
         }) } });
       },
     },

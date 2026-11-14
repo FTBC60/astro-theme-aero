@@ -32,6 +32,18 @@
 | --- | --- | --- | --- |
 | 2026-11-10 至 11 | 与 ADR-0017 同次提交 | 完整 Blob 播放、当前曲播放期间预取下一首、统一跳转、Aero 加载反馈、错误重试及 Media Session。随后删除手动防抖、旧 Blob 保留和重复快照字段，合并资源就绪状态及重复通知。 | [ADR-0017](0017-blob-playback-and-media-session.md)、[S18](SOURCES.md#s18)。原型 Safari 后台慢速预取通过，正式实现及精简后的 63 项必要测试、类型检查与构建通过，第 5 阶段整体验收待执行。 |
 
+## 2026-11-13 Aero 播放列表
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-13 | `7ebb573` | 选择性迁入 Aero 歌单窗口及向下 Grid 手风琴，修复 132px 最低高度造成的视口越界与减少动画覆盖顺序。保留歌曲列表独立滚动、`hidden` 关闭收尾及 `ResizeObserver`；删除冗余 DOM 变化和 document 动画监听、固定向下 placement 字段。 | [ADR-0018](0018-aero-playlist-viewport-accordion.md)、[S19](SOURCES.md#s19)。67 项歌单测试、Astro 检查、构建及桌面/移动仿真验证通过；物理手机与最终 NAS 发布待验。 |
+
+## 2026-11-13 About 页面目录迁移
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-13 | 与 ADR-0019 同次提交 | 将 About 正文从 `src/pages/about.md` 迁至 `src/content/pages/about.md`，以 `src/pages/about.astro` 直接导入 Markdown 并沿用 `AboutLayout`；扩展固定页面图片来源识别，同步更新中英文示例、文档及图片和发行包测试。 | [ADR-0019](0019-about-page-direct-markdown-import.md)、[S20](SOURCES.md#s20)。开发方案记录图片测试 7 项、Astro 检查 88 文件、构建 8 页、发行包测试 151 项及导出通过；发布与物理设备复核待完成。 |
+
 ## 动态实验的历史演进
 
 下列提交保留在 `dev` 历史，不是当前静态代码的组成部分。整体取舍、性能局限及暂缓原因见 [ADR-0003](0003-dynamic-publishing-experiment.md) 和 [ADR-0004](0004-return-to-static-assets.md)。

@@ -1,4 +1,3 @@
-import type { ThemeId } from '../config/theme.config';
 import type { PlaybackMode } from '../config/music.config';
 
 export type Locale = 'zh-CN' | 'en';
@@ -31,9 +30,17 @@ interface UiMessages {
   updated: string;
   poweredBy: string;
   themeTitle: string;
-  chooseTheme: string;
-  defaultTheme: string;
-  themeLabels: Record<ThemeId, string>;
+  openPalette: string;
+  closePalette: string;
+  resetTheme: string;
+  color1Label: string;
+  basicColorsLabel: string;
+  editColorsLabel: string;
+  clearColorSlot: string;
+  colorSlotCleared: (index: number) => string;
+  editTarget: string;
+  emptyCustomSlot: (index: number) => string;
+  customSlotColor: (index: number, hex: string) => string;
   themeRestored: (label: string) => string;
   themeChanged: (label: string) => string;
   musicPlayer: string;
@@ -82,8 +89,12 @@ export const translations: Record<Locale, UiMessages> = {
     pagination: '分页', previousPage: '上一页', nextPage: '下一页',
     pageNumber: (page) => `第 ${page} 页`, pageTitle: (page) => `第 ${page} 页`, postListPage: (page) => `文章列表 · 第 ${page} 页`,
     postArchive: '文章归档', updated: '更新于', poweredBy: '由 Astro 驱动',
-    themeTitle: 'Aero 配色', chooseTheme: '选择 Aero 配色', defaultTheme: '默认',
-    themeLabels: { 'classic-blue': '经典蓝', 'emerald-green': '翡翠绿', violet: '紫罗兰' },
+    themeTitle: '调色板', openPalette: '展开调色板', closePalette: '收起调色板',
+    resetTheme: '恢复默认配色', color1Label: '颜色 1', basicColorsLabel: '基本颜色与自定义色槽',
+    editColorsLabel: '编辑颜色', clearColorSlot: '清除色槽', editTarget: '当前编辑目标',
+    colorSlotCleared: (index) => `已清除自定义颜色槽 ${index}`,
+    emptyCustomSlot: (index) => `自定义颜色槽 ${index}（空，点击添加）`,
+    customSlotColor: (index, hex) => `自定义颜色槽 ${index}：${hex}`,
     themeRestored: (label) => `已恢复站点默认配色：${label}`, themeChanged: (label) => `已切换为${label}`,
     musicPlayer: '音乐播放器', noTracks: '未配置歌曲', musicTitle: '音乐', seek: '播放进度',
     play: '播放', playNoTracks: '播放（未配置歌曲）', pause: '暂停',
@@ -112,8 +123,12 @@ export const translations: Record<Locale, UiMessages> = {
     pagination: 'Pagination', previousPage: 'Previous page', nextPage: 'Next page',
     pageNumber: (page) => `Page ${page}`, pageTitle: (page) => `Page ${page}`, postListPage: (page) => `Posts · Page ${page}`,
     postArchive: 'Post archive', updated: 'Updated', poweredBy: 'Powered by Astro',
-    themeTitle: 'Aero Colors', chooseTheme: 'Choose an Aero color', defaultTheme: 'Default',
-    themeLabels: { 'classic-blue': 'Classic Blue', 'emerald-green': 'Emerald Green', violet: 'Violet' },
+    themeTitle: 'Colors', openPalette: 'Open color palette', closePalette: 'Close color palette',
+    resetTheme: 'Restore default color', color1Label: 'Color 1', basicColorsLabel: 'Basic colors and custom slots',
+    editColorsLabel: 'Edit colors', clearColorSlot: 'Clear slot', editTarget: 'Current edit target',
+    colorSlotCleared: (index) => `Cleared custom color slot ${index}`,
+    emptyCustomSlot: (index) => `Custom color slot ${index} (empty, click to add)`,
+    customSlotColor: (index, hex) => `Custom color slot ${index}: ${hex}`,
     themeRestored: (label) => `Restored site default color: ${label}`, themeChanged: (label) => `Switched to ${label}`,
     musicPlayer: 'Music player', noTracks: 'No tracks configured', musicTitle: 'Music', seek: 'Playback progress',
     play: 'Play', playNoTracks: 'Play (no tracks configured)', pause: 'Pause',

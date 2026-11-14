@@ -91,7 +91,7 @@ export function createPlaylistTouchGuard(panel: HTMLElement, items: HTMLElement)
     }, options);
   };
   const canActivate = (event: MouseEvent) => {
-    if (panel.hidden) return false;
+    if (panel.hidden || panel.inert) return false;
     const pointer = event as PointerEvent;
     if (pointer.pointerType === 'mouse' || (!pointer.pointerType && event.detail === 0)) {
       gesture = undefined;

@@ -18,7 +18,7 @@ main { min-width: 0; }
   flex-wrap: wrap;
   gap: 6px 12px;
 }
-.tag-list a { color: var(--primary-color); text-decoration: none; overflow-wrap: anywhere; }
+.tag-list a { color: var(--link-color); text-decoration: none; overflow-wrap: anywhere; }
 .tag-list a:hover { text-decoration: underline; }
 .archive-heading { font-size: 24px; font-weight: 400; margin: 20px 0 0; text-shadow: 0 0 10px var(--white-main); }
 .year-header { margin: 0; font-weight: 400; }

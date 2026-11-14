@@ -5,7 +5,10 @@
     --primary-color: #3c7fb1;
     --highlight-color: #aaddfa;
     --secondary-color: #d8e1e7;
-    --player-accent: #00a5f0;
+    --player-accent: #28628e;
+    --link-color: #28628e;
+    --code-color: #28628e;
+    --palette-preview-color: var(--primary-color);
 
     /* Material tokens: upstream defaults, ready for later color presets. */
     --glass-opacity: 0.3;
@@ -24,28 +27,4 @@
     color-mix(in srgb, var(--secondary-color), black 10%) 51%, 
     var(--secondary-color) 100%);
 
-}
-
-/* The original wallpaper and material geometry are shared by every preset. */
-[data-theme-option="classic-blue"] {
-    --primary-color: #3c7fb1;
-    --highlight-color: #aaddfa;
-    --secondary-color: #d8e1e7;
-    --player-accent: #00a5f0;
-}
-
-:root[data-aero-theme="emerald-green"],
-[data-theme-option="emerald-green"] {
-    --primary-color: #437f68;
-    --highlight-color: #b9e9cf;
-    --secondary-color: #d4e5d9;
-    --player-accent: #258b64;
-}
-
-:root[data-aero-theme="violet"],
-[data-theme-option="violet"] {
-    --primary-color: #73619b;
-    --highlight-color: #dbc5ee;
-    --secondary-color: #e2d9eb;
-    --player-accent: #8868b2;
 }

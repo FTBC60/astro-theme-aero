@@ -4,10 +4,71 @@ import { playlistHarness } from './fixtures/playlist-dom.mjs';
 
 function assertOpen(h, open) {
   assert.equal(h.panel.hidden, !open);
+  assert.equal(h.panel.inert, !open);
   assert.equal(h.player.classList.contains('playlist-open'), open);
   assert.equal(h.toggle.getAttribute('aria-expanded'), String(open));
   assert.equal(h.toggle.getAttribute('aria-label'), open ? 'Close playlist' : 'Open playlist');
 }
+
+test('downward height budget includes the accordion padding and can reach zero', (t) => {
+  const h = playlistHarness(t);
+  h.open();
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '280px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-max-height'), '272px');
+
+  h.window.visualViewport.height = 524;
+  h.dispatch(h.window.visualViewport, 'resize');
+  h.flushFrames();
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '4px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-max-height'), '0px');
+
+  h.window.visualViewport.height = 510;
+  h.dispatch(h.window.visualViewport, 'resize');
+  h.flushFrames();
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '0px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-max-height'), '0px');
+
+  h.window.visualViewport.height = 844;
+  h.sidebar.clientHeight = 540;
+  h.dispatch(h.window.visualViewport, 'resize');
+  h.flushFrames();
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '20px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-max-height'), '12px');
+});
+
+test('animated close stays inert until the local transition ends', (t) => {
+  const h = playlistHarness(t);
+  h.reducedMotion.matches = false;
+  h.open();
+  h.close();
+  assert.equal(h.panel.hidden, false);
+  assert.equal(h.panel.inert, true);
+  assert.equal(h.toggle.getAttribute('aria-expanded'), 'false');
+  h.dispatch(h.panel, 'transitionend', { propertyName: 'grid-template-rows' });
+  assertOpen(h, false);
+});
+
+test('quick reopening cancels the old close timer and ignores stale transitions', (t) => {
+  const h = playlistHarness(t);
+  h.reducedMotion.matches = false;
+  h.open();
+  h.close();
+  h.open();
+  t.mock.timers.tick(300);
+  h.dispatch(h.panel, 'transitionend', { propertyName: 'grid-template-rows' });
+  assertOpen(h, true);
+  h.close();
+  t.mock.timers.tick(240);
+  assertOpen(h, false);
+});
+
+test('the Aero window close button closes and restores toggle focus', (t) => {
+  const h = playlistHarness(t);
+  h.open();
+  h.dispatch(h.closeButton, 'click');
+  assertOpen(h, false);
+  assert.equal(h.document.activeElement, h.toggle);
+});
 
 test('the toggle keeps visibility, player class and accessible labels synchronized', (t) => {
   const h = playlistHarness(t);

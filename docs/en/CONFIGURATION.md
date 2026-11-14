@@ -2,7 +2,7 @@
 
 **Documentation language:** [简体中文](../zh-CN/CONFIGURATION.md) · English
 
-This guide is for authors using Aero to build a blog. The four main configuration files are in `src/config/`. Posts default to `src/content/posts/`, with an optional external notes directory, and the About page is `src/pages/about.md`.
+This guide is for authors using Aero to build a blog. The four main configuration files are in `src/config/`. Posts default to `src/content/posts/`, with an optional external notes directory, and the About page is `src/content/pages/about.md`.
 
 ## Prepare the site and assets
 
@@ -53,11 +53,27 @@ navigation: [
 
 | Field | Current value | What it controls |
 | --- | --- | --- |
-| `defaultTheme` | `classic-blue` | Color scheme for a new visitor. Other choices: `emerald-green` and `violet`. |
+| `defaultColor` | `#3C7FB1` | Default primary color for new visitors. Use six-digit HEX, such as `#437F68`. Either letter case is accepted. |
 | `wallpaper` | `/image/wallpaper.jpg` | Background image path or full HTTPS URL. |
 | `wallpaperPosition` | `center center` | Wallpaper focus using CSS `background-position` syntax, such as `70% center`. |
 
-The three schemes are Classic Blue, Emerald Green, and Violet. Visitors can choose a scheme in the sidebar. Their browser saves that choice and uses it instead of `defaultTheme`. Selecting the scheme marked “(Default)” restores the site default. Color changes affect the interface, not the wallpaper image.
+The theme derives glass, highlight, surface, and player colors from one primary color. Link text is corrected against the reading surface with a contrast target of 4.5:1. Use six-digit HEX when changing the SCSS `--white-main` token. Player titles use fixed white text with a text shadow.
+
+| Recommended color | HEX |
+| --- | --- |
+| Classic Blue | `#3C7FB1` |
+| Emerald Green | `#437F68` |
+| Violet | `#73619B` |
+
+The sidebar palette starts collapsed. Its button opens a Windows 7 Paint-style palette inside the sidebar, with 20 basic colors and 10 custom slots. Both round buttons measure 40×40, with 24×24 icons.
+
+- Choosing a basic color applies it immediately. “Color 1” previews the current primary color.
+- The initial edit target is the first empty slot, or slot 1 when all slots are filled. A blue inner outline marks the edit target. An orange border marks the applied color.
+- Choosing a filled slot applies its color and selects it for editing. Choosing an empty slot selects it and opens the native color picker. “Edit colors” writes the result to the selected slot. Subsequent edits continue to update that slot.
+- “Clear slot” empties the selected slot and returns focus to it. The button is disabled for an empty slot.
+- The outer red “×” restores the author's default primary color. The slot list and current primary color are saved separately.
+
+Visitor choices take precedence over the author's default. The browser saves the color and slots. If storage fails, the current page and client-side navigation use in-memory state. Reloading initializes from readable storage or the author's default. Set the wallpaper image through `wallpaper`.
 
 ## Music player
 
@@ -153,7 +169,7 @@ Note frontmatter uses YAML 1.2 Core without implicit timestamps. Date-shaped `ti
 
 Each segment of a post ID is URL-encoded separately, preserving `/` between nested directories. This supports links with Chinese post names and also applies to `slug` overrides. Avoid `#`, `?`, and `%` in custom slugs because of static routing limitations in the current Astro version; use letters, numbers, spaces, or hyphens instead.
 
-Spaces and punctuation in tag names become hyphens in tag URLs; English tags are case-insensitive. If two different tag names produce the same URL, the build fails so you can rename one of them. Post bodies support regular Markdown, code blocks, tables, and blockquotes. The About page is `src/pages/about.md`. It does not use post frontmatter; edit its body and the `title` and `description` at the top. You can start with the [English template](../../examples/pages/en/about.md) or [Chinese template](../../examples/pages/zh-CN/about.md).
+Spaces and punctuation in tag names become hyphens in tag URLs; English tags are case-insensitive. If two different tag names produce the same URL, the build fails so you can rename one of them. Post bodies support regular Markdown, code blocks, tables, and blockquotes. The About page is `src/content/pages/about.md`. It does not use post frontmatter; edit its body and the `title` and `description` at the top. You can start with the [English template](../../examples/pages/en/about.md) or [Chinese template](../../examples/pages/zh-CN/about.md).
 
 For public images in fixed Markdown pages, prefer `/image/example.png`; page-relative URLs also work. Compilation converts Markdown images, image references, and raw `<img src="…">` into stable URLs including the deployment base, so client navigation cannot resolve them against the previous page. HTTPS, protocol-relative and `data:` URLs are unchanged. Images found relative to the Markdown source still use Astro's image pipeline. Blog attachment selection and copying are unchanged.
 

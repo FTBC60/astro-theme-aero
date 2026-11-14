@@ -138,6 +138,22 @@ L14 用户确认已启用减少动态效果模拟；L167 报告累计 30 次浏�
 
 原型与详细验证记录由作者归档至本地忽略目录 `tools/test/prototypes/music-player/`。63 项必要测试、86 文件类型检查和生产构建通过来自 2026-11-11 本地检查。原型的设备测试、用户反馈的 NAS 发布及最终精简版的第 5 阶段整体验收分别记录，最终实现与本 ADR 同次提交。
 
+<a id="s19"></a>
+## S19：Aero 播放列表审查、v2.2 取舍与合并
+
+2026-11-13 的用户与 Codex 多轮讨论，包含对 Gemini 交付的 Aero 歌单窗口、真实视口越界和减少动画问题的审查，以及对自动滚动、紧凑模式、窗口滚动、`visibility` 替代 `hidden`、状态一致性与观察器精简的反复取舍。用户明确选择歌曲列表独立滚动、固定标题栏与操作区、低维护成本及必要的高度修复。
+
+最终方案见 [v2.2 开发方案](../architecture/playlist-aero-final-development-plan.md)，实现和本地验收对应 `7ebb573`，架构结论见 [ADR-0018](0018-aero-playlist-viewport-accordion.md)。原始 Gemini 版曾由用户报告成功在 NAS 编译发布；新修复版的本地模拟验证与待进行的物理设备、NAS 验收分别以开发方案为准。
+
+<a id="s20"></a>
+## S20：About 页面迁移的方案 B 决策与本地实施
+
+2026-11-13 的用户与 Codex 讨论从对照其他博客仓库的目录结构开始。用户指出 `src/pages/about.md` 同时承担作者内容和页面路由职责，提出将 About 正文与路由分离，并要求先形成开发方案。随后用户明确倾向于直接导入 Markdown 的方案 B，提供对 Content Collection 方案复杂度、`src/content/` 下直接导入可行性，以及图片来源识别的评审意见，要求据此继续收敛方案。
+
+用户要求将完整方案记录在 `docs/architecture/`，随后确认补充 ADR，并指出先前播放列表修改已占用 0018，About 决策应编号为 0019。设计取舍与实施清单见 [About 迁移开发方案](../architecture/about-page-migration-development-plan.md)，架构结论见 [ADR-0019](0019-about-page-direct-markdown-import.md)。本地工作区可核对 `src/content/pages/about.md`、`src/pages/about.astro`、图片插件、回归测试和中英文示例及文档的改动。
+
+本地验收数据沿用开发方案中的实施记录，涵盖 7 项图片测试、88 文件 Astro 检查、8 个构建页面、151 项发行包测试及导出成功。本次迁移与 ADR-0019 同次提交至 `static` 分支，尚未见正式发布或物理设备验证记录。
+
 ## 尚未恢复的材料
 
 - ChatGPT Work 中首次迁移的完整讨论，以及部分早期阶段原始选型过程；本机旧副本从接力开始，Git 最早也是源码导入。

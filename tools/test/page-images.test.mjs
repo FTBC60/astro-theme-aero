@@ -6,14 +6,46 @@ import pageImages from '../../src/integrations/page-images.mjs';
 
 const root = new URL('../../', import.meta.url);
 
-async function render(body, page = 'about.md', base = '/') {
+async function render(body, page = 'about.md', base = '/', directory = 'pages') {
   let config = { root, srcDir: new URL('src/', root), base, markdown: { processor: unified() } };
   pageImages().hooks['astro:config:setup']({ config,
     updateConfig(change) { config = { ...config, markdown: { ...config.markdown, ...change.markdown } }; },
   });
   const renderer = await config.markdown.processor.createRenderer({ syntaxHighlight: false, smartypants: false });
-  return renderer.render(body, { fileURL: new URL(`src/pages/${page}`, root) });
+  return renderer.render(body, { fileURL: new URL(`src/${directory}/${page}`, root) });
 }
+
+test('migrated About images resolve against /about/ for root and subpath deployments', async () => {
+  for (const base of ['/', '/blog/']) {
+    const { code, metadata } = await render(`![inline](./photo.png)
+
+![reference][photo]
+
+[photo]: /image/avatar.jpg
+
+<img src="../image/bg.jpg" width="1280"><img src="/image/bg.jpg">`, 'about.md', base, 'content/pages');
+    assert.match(code, new RegExp(`src="${base}about/photo\\.png"`));
+    assert.match(code, new RegExp(`src="${base}image/avatar\\.jpg"`));
+    assert.match(code, new RegExp(`src="${base}image/bg\\.jpg"`));
+    assert.match(code, /width="1280"/);
+    assert.deepEqual(metadata.localImagePaths, []);
+  }
+});
+
+test('migrated About keeps imported source images and avoids duplicate base prefixes', async () => {
+  const source = '../../../public/image/bg.jpg';
+  const { metadata } = await render(`![source](${source})`, 'about.md', '/blog/', 'content/pages');
+  assert(metadata.localImagePaths.includes(source));
+
+  const { code } = await render('<img src="/blog/image/bg.jpg">', 'about.md', '/blog/', 'content/pages');
+  assert.match(code, /src="\/blog\/image\/bg\.jpg"/);
+  assert.doesNotMatch(code, /\/blog\/blog\//);
+});
+
+test('migrated fixed-page detection leaves posts outside its image pipeline', async () => {
+  const { code } = await render('<img src="./attachment.png">', 'posts/day.md', '/blog/', 'content');
+  assert.match(code, /src="\.\/attachment\.png"/);
+});
 
 test('fixed-page raw images resolve against their destination, including deployment base', async () => {
   for (const base of ['/', '/blog/']) {

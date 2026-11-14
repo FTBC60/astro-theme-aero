@@ -8,7 +8,7 @@
 
 浮层模块负责按钮与列表事件、`hidden`、播放器的 `playlist-open` class、按钮的 ARIA 属性、外部点击、Escape 和选曲后的焦点恢复。它直接使用 DOM，在内部协调现有定位与触摸实现，不增加浏览器 adapter interface。
 
-`playlist-position.ts` 保留原有视口、可裁切祖先、自然高度和滚动列表的定位计算；`playlist-touch.ts` 保留原生滚动、惯性、位移、多指和兼容点击判定。两者仅响应浮层模块的启停，不再分别监听 Astro 导航。
+`playlist-position.ts` 根据视觉视口、可裁切祖先及播放器控制区的下边界定位，限制向下展开的浮层外框及其内部窗口高度；`playlist-touch.ts` 保留原生滚动、惯性、位移、多指和兼容点击判定。两者仅响应浮层模块的启停，不再分别监听 Astro 导航。
 
 `music.ts` 将选曲意图转交播放会话，并在播放器节点被替换或移除时释放浮层。列表内容、当前曲目标记、刷新状态和播放模式文案仍由其根据会话快照渲染。浮层模块不读取音频，也不获取歌单或修改播放状态。
 
@@ -35,5 +35,13 @@
 本地真实浏览器使用隔离的 `/blog/` 静态构建和 20 首测试歌单，验证桌面开关与焦点、外部点击、播放中的站内导航，以及打开浮层后的历史导航重接入。390×844 窄屏验证长列表边界、键盘选曲、选曲关闭与焦点恢复，并确认 Escape 同时关闭歌单和侧栏，最终焦点位于菜单按钮。未修改原 `public/audio/playlist.json`。该验证使用鼠标与键盘，不替代物理手机的原生触摸与惯性手感验收。
 
 本轮本地 57 项播放器测试与 28 项 Publisher 回归通过；当前主题类型检查无错误、警告或提示，源码包与站点包导出通过。未重跑内容/Vault 和资源选择测试，也未执行真实上传。
+
+## 2026-11-13 Aero 播放列表 v2.2
+
+播放列表升级为 7.css 风格 Aero 窗口，保留 220ms Grid 手风琴展开、180ms 透明度过渡及 `hidden`/局部 `transitionend`/240ms timer 关闭流程。窗口始终向下展开，标题栏、关闭按钮与操作区固定，只有 `.playlist-items` 独立滚动。
+
+`playlist-position.ts` 从视觉视口与可裁剪祖先计算下方空间，外层容器按实际高度裁切，内窗额外扣除 8px 外部留白。即使余量小于 8px，也不会强行保留最低高度；删除原来的上下择位、`MutationObserver`、全局 `transitionend` 和 `data-placement`，保留 `ResizeObserver`、滚动与视口监听。
+
+本地 `npm run check`、`npm run build` 及 67 项 `npm run test:playlist` 均通过。静态站点在 Chrome 的 1280×560、1280×720、390×844 设备仿真及等效缩放视口中验证了窗口边界、长列表滚动、减少动画、快速开关与 Astro 跨页节点复用。验收几何数据见 [v2.2 开发方案及实施记录](playlist-aero-final-development-plan.md)。
 
 NAS 验收需同步本轮主题并重建、重新创建发布工具镜像，因为测试脚本改变了 Publisher 核对的 `package.json`。手机实机与 NAS 的结果另行记录。

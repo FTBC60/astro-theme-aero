@@ -1,4 +1,4 @@
-﻿---
+---
 import { musicConfig, playbackModes } from '../config/music.config';
 import { withBase } from '../scripts/paths';
 import { siteConfig } from '../config/site.config';
@@ -44,27 +44,44 @@ const nextMode = playbackModes[(playbackModes.indexOf(initialMode) + 1) % playba
         <button class="button ctrl-btn" data-next type="button" disabled aria-label={ui.nextTrack}>
           <span class="ri-skip-forward-fill" aria-hidden="true"></span>
         </button>
-        <button class="button ctrl-btn" data-playlist-toggle type="button" aria-label={ui.openPlaylist} aria-expanded="false" aria-controls="music-playlist">
+        <button class="button ctrl-btn" data-playlist-toggle type="button" aria-label={ui.openPlaylist} title={ui.openPlaylist} aria-expanded="false" aria-controls="music-playlist">
           <span class="ri-play-list-line" aria-hidden="true"></span>
         </button>
       </div>
     </div>
-    <div class="playlist-panel" data-playlist-panel id="music-playlist" hidden>
-      <div class="playlist-heading">
-        <span>{ui.playlist}</span>
-        <div class="playlist-actions">
-          <button class="playlist-refresh" data-playlist-refresh type="button" disabled>
-            <span class="ri-refresh-line" aria-hidden="true"></span>
-            <span data-refresh-label>{ui.refreshPlaylist}</span>
-          </button>
-          <button class="playlist-mode" data-playback-mode-toggle type="button" aria-label={ui.playbackModeButton(ui.playbackModes[initialMode], ui.playbackModes[nextMode])} title={ui.playbackModes[initialMode]}>
-            <span class="ri-repeat-line" data-playback-mode-icon aria-hidden="true"></span>
-            <span data-playback-mode-label>{ui.playbackModes[initialMode]}</span>
-          </button>
+    <div class="playlist-accordion" data-playlist-panel id="music-playlist" inert hidden>
+      <div class="playlist-accordion-inner">
+        <div class="win7-window glass playlist-window" role="region" aria-labelledby="playlist-title">
+          <div class="win7-title-bar">
+            <div class="win7-title-bar-text" id="playlist-title">{ui.playlist}</div>
+            <div class="win7-title-bar-controls">
+              <button
+                type="button"
+                class="win7-close-btn"
+                data-playlist-close
+                aria-label={ui.closePlaylist}
+                title={ui.closePlaylist}
+              ></button>
+            </div>
+          </div>
+          <div class="win7-window-body playlist-window-body">
+            <div class="playlist-heading">
+              <div class="playlist-actions">
+                <button class="win7-btn playlist-refresh" data-playlist-refresh type="button" disabled>
+                  <span class="ri-refresh-line" aria-hidden="true"></span>
+                  <span data-refresh-label>{ui.refreshPlaylist}</span>
+                </button>
+                <button class="win7-btn playlist-mode" data-playback-mode-toggle type="button" aria-label={ui.playbackModeButton(ui.playbackModes[initialMode], ui.playbackModes[nextMode])} title={ui.playbackModes[initialMode]}>
+                  <span class="ri-repeat-line" data-playback-mode-icon aria-hidden="true"></span>
+                  <span data-playback-mode-label>{ui.playbackModes[initialMode]}</span>
+                </button>
+              </div>
+            </div>
+            <ol class="playlist-items has-scrollbar"></ol>
+            <p class="playlist-feedback" data-playlist-feedback role="status">{ui.playlistLoading}</p>
+          </div>
         </div>
       </div>
-      <ol class="playlist-items"></ol>
-      <p class="playlist-feedback" data-playlist-feedback role="status">{ui.playlistLoading}</p>
     </div>
     <span class="sr-only" data-status role="status" aria-live="polite"></span>
   </div>

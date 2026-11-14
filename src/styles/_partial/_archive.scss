@@ -31,12 +31,12 @@
 
 .archive-title {
     margin-left: 5px;
-    color: var(--primary-color);
+    color: var(--link-color);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: all 0.2s;
 }
 
 .archive-title:hover {
-    border-bottom-color: var(--primary-color);
+    border-bottom-color: var(--link-color);
 }

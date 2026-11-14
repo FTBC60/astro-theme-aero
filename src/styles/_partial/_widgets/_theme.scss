@@ -1,54 +1,393 @@
+/* Windows 7 Aero & MS Paint Ribbon Palette (inspired by 7.css, MIT) */
 .theme-widget {
-    padding: 12px;
+    margin-top: 20px;
 }
 
-.theme-widget h2 {
-    margin: 0 0 10px;
-    font-size: 18px;
-    font-weight: 400;
-    text-shadow: 0 0 10px var(--white-main);
-}
-
-.theme-options {
-    display: grid;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.theme-option {
+.theme-dock {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 5px 7px;
-    border-radius: var(--panel-radius);
-    background: var(--aero-grad);
-    box-shadow: inset 0 0 0 1px var(--white-main), 0 0 0 0.5px var(--black-main);
-    cursor: pointer;
+    gap: 10px;
 }
 
-.theme-option:has(input:checked) {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 1px;
-}
-
-.theme-option:focus-within {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-.theme-option input {
-    margin: 0;
-    accent-color: var(--primary-color);
-}
-
-.theme-swatch {
-    width: 16px;
-    height: 16px;
-    flex: none;
+.theme-circle-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: var(--primary-color);
-    border: 1px solid var(--white-main);
-    box-shadow: 0 0 0 1px var(--black-main);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.12s ease;
+}
+
+.theme-circle-btn::after {
+    border-radius: inherit;
+}
+
+.theme-circle-btn:active {
+    top: 1px;
+}
+
+.theme-circle-btn:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 3px;
+}
+
+.theme-btn-svg {
+    position: relative;
+    z-index: 2;
+    display: block;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
+/* Accordion container inside the sidebar */
+.theme-accordion {
+    display: grid;
+    margin-top: 12px;
+    animation: palette-reveal 0.18s ease-out;
+}
+
+.theme-accordion[hidden] {
+    display: none;
+}
+
+@keyframes palette-reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.theme-accordion-inner {
+    min-height: 0;
+    overflow: hidden;
+    /* Leave 4px room for the 7.css outer window shadow */
+    padding: 2px 3px 6px 2px;
+}
+
+/* 7.css style Windows 7 Aero Glass Window */
+.win7-window {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0.15) 42%,
+            rgba(255, 255, 255, 0) 43%,
+            rgba(255, 255, 255, 0.12) 100%
+        ),
+        rgba(from var(--primary-color) r g b / 0.42);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+        0 2px 8px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    padding: 0 5px 5px;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 12px;
+}
+
+.win7-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 2px 5px 4px;
+    min-height: 22px;
+    box-sizing: border-box;
+}
+
+.win7-title-bar-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: #000;
+    text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.95),
+        0 0 10px rgba(255, 255, 255, 0.85);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.win7-title-bar-controls {
+    display: flex;
+    align-items: flex-start;
+    margin-top: -4px;
+}
+
+/* 7.css Windows 7 red glossy close button */
+.win7-close-btn {
+    position: relative;
+    width: 34px;
+    height: 18px;
+    border: 1px solid #431414;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(
+        to bottom,
+        #f1a9a2 0%,
+        #e26b60 48%,
+        #c22518 52%,
+        #d85043 100%
+    );
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.48),
+        0 1px 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    padding: 0;
+}
+
+.win7-close-btn:hover {
+    background: linear-gradient(
+        to bottom,
+        #fcc7c2 0%,
+        #f27d72 48%,
+        #d92719 52%,
+        #f37264 100%
+    );
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+        0 0 6px rgba(255, 90, 75, 0.85);
+}
+
+.win7-close-btn:active {
+    background: linear-gradient(
+        to bottom,
+        #be4b40 0%,
+        #9e251b 48%,
+        #7a1008 52%,
+        #a33227 100%
+    );
+}
+
+.win7-close-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 8px;
+    height: 8px;
+    background:
+        linear-gradient(45deg, transparent 42%, #fff 42%, #fff 58%, transparent 58%),
+        linear-gradient(-45deg, transparent 42%, #fff 42%, #fff 58%, transparent 58%);
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.65));
+}
+
+.win7-window-body {
+    background: linear-gradient(to bottom, #f5f9fd 0%, #e5eff8 45%, #dbe7f4 100%);
+    border: 1px solid #596c7f;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 #ffffff;
+    padding: 7px;
+}
+
+/* Windows 7 MS Paint Colors Ribbon group */
+.paint-ribbon {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.paint-top-bar {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.paint-color1-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 6px;
+    min-width: 44px;
+    border: 1px solid #84a5c4;
+    border-radius: 2px;
+    background: linear-gradient(
+        to bottom,
+        #fdfefe 0%,
+        #cde4fc 48%,
+        #b5d6fa 52%,
+        #def0ff 100%
+    );
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+    flex-shrink: 0;
+}
+
+.paint-color1-swatch {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #808080;
+    box-shadow: inset 0 0 0 1px #ffffff;
+    background-color: var(--palette-preview-color, var(--primary-color));
+}
+
+.paint-color1-label {
+    font-size: 11px;
+    line-height: 1.1;
+    color: #1e395b;
+    white-space: nowrap;
+}
+
+/* 7.css Standard Push Button */
+.win7-btn {
+    appearance: none;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    background: linear-gradient(
+        to bottom,
+        #f2f2f2 0%,
+        #ebebeb 45%,
+        #dddddd 50%,
+        #cfcfcf 100%
+    );
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+    color: #111;
+    font: inherit;
+    font-size: 11px;
+    padding: 3px 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.win7-btn:hover {
+    border-color: #3c7fb1;
+    background: linear-gradient(
+        to bottom,
+        #eaf6fd 0%,
+        #d9f0fc 45%,
+        #bee6fd 50%,
+        #a7d9f5 100%
+    );
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.92);
+}
+
+.win7-btn:active,
+.win7-btn[aria-pressed="true"] {
+    border-color: #2c628b;
+    background: linear-gradient(
+        to bottom,
+        #e5f4fc 0%,
+        #c4e5f6 45%,
+        #98d1ef 50%,
+        #68b3db 100%
+    );
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.win7-btn:focus-visible,
+.win7-close-btn:focus-visible,
+.paint-swatch-cell:focus-visible {
+    outline: 1px dotted #000;
+    outline-offset: -2px;
+}
+
+/* Windows 7 Paint 10x3 Swatch Grid */
+.paint-grid-section {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid #b9cde2;
+    border-radius: 2px;
+    padding: 4px;
+}
+
+.paint-swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 2px;
+}
+
+.paint-swatch-cell {
+    appearance: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 1px;
+    border: 1px solid #a0afc0;
+    background: #ffffff;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    position: relative;
+}
+
+.paint-swatch-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--swatch-color, transparent);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+}
+
+.paint-swatch-cell.is-custom-slot.is-empty .paint-swatch-inner {
+    background:
+        linear-gradient(135deg, #f8fafc 0%, #eef3f8 100%);
+    border: 1px dashed #b4c2d1;
+}
+
+.paint-swatch-cell:hover {
+    border-color: #f29536;
+    background: #ffe69e;
+    box-shadow: 0 0 2px #f29536;
+    z-index: 1;
+}
+
+.paint-swatch-cell[aria-pressed="true"] {
+    border-color: #e67e17;
+    background: #ffd46c;
+    box-shadow:
+        0 0 0 1px #ffffff,
+        0 0 3px #e67e17;
+    z-index: 2;
+}
+
+.paint-footer-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 2px;
+    border-top: 1px solid #c5d4e5;
+}
+
+.paint-edit-colors-btn {
+    flex: 1;
+    padding: 4px;
+    min-height: 28px;
+    font-size: 12px;
+}
+
+.paint-clear-slot-btn {
+    min-height: 28px;
+}
+
+.paint-clear-slot-btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.paint-swatch-cell.is-editing {
+    outline: 2px solid #245a85;
+    outline-offset: -2px;
+}
+
+.paint-edit-colors-btn:focus-within {
+    outline: 1px dotted #000;
+    outline-offset: -3px;
+}
+
+.paint-edit-icon {
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-accordion,
+    .theme-circle-btn {
+        transition: none;
+        animation: none;
+    }
 }

@@ -24,6 +24,7 @@ class TestElement extends TestNode {
   attributes = new Map();
   dataset = {};
   hidden = false;
+  inert = false;
   scrollTop = 0;
   scrollLeft = 0;
   clientTop = 0;
@@ -37,6 +38,8 @@ class TestElement extends TestNode {
     this.classList = {
       contains: (name) => classes.has(name),
       toggle(name, force = !classes.has(name)) { if (force) classes.add(name); else classes.delete(name); return force; },
+      add: (name) => classes.add(name),
+      remove: (name) => classes.delete(name),
     };
     const properties = new Map();
     this.style = {
@@ -78,6 +81,9 @@ export function playlistHarness(t) {
   const document = new TestDocument();
   const window = new EventTarget();
   const frames = new Map();
+  // The fixture does not run CSS transitions, so use reduced motion by default.
+  // Individual tests can opt into the timer/transition completion path.
+  const reducedMotion = { matches: true };
   let frameId = 0;
   const observers = [];
   class Observer {
@@ -90,7 +96,8 @@ export function playlistHarness(t) {
   Object.assign(window, {
     Node: TestNode, Element: TestElement, AbortController, ResizeObserver: Observer, MutationObserver: Observer,
     visualViewport: Object.assign(new EventTarget(), { offsetTop: 0, height: 844 }),
-    getComputedStyle: (element) => ({ overflowY: element.overflowY }),
+    matchMedia: () => reducedMotion,
+    getComputedStyle: (element) => ({ overflowY: element.overflowY, paddingTop: '2px', paddingBottom: '6px' }),
     requestAnimationFrame: (callback) => { frames.set(++frameId, callback); return frameId; },
     cancelAnimationFrame: (id) => frames.delete(id),
   });
@@ -120,14 +127,19 @@ export function playlistHarness(t) {
   const toggle = element(controls, '', 'playlistToggle');
   const panel = element(content, '', 'playlistPanel');
   panel.hidden = true;
+  panel.inert = true;
   panel.rect = { top: 0, bottom: 300, height: 300 };
-  element(panel, 'playlist-heading');
-  const items = element(panel, 'playlist-items');
+  const inner = element(panel, 'playlist-accordion-inner');
+  const playlistWindow = element(inner, 'playlist-window');
+  const closeButton = element(playlistWindow, '', 'playlistClose');
+  const body = element(playlistWindow, 'playlist-window-body');
+  element(body, 'playlist-heading');
+  const items = element(body, 'playlist-items');
   items.rect = { top: 0, bottom: 200, height: 200 };
   const track = element(items, '', 'trackIndex');
   track.dataset.trackIndex = '0';
   const label = element(track);
-  element(panel, 'playlist-feedback');
+  element(body, 'playlist-feedback');
   const outside = element(document.body);
   const selected = [];
   const state = { plays: 0 };
@@ -148,8 +160,8 @@ export function playlistHarness(t) {
     }
     return event;
   };
-  const open = () => { if (panel.hidden) dispatch(toggle, 'click', { pointerType: 'mouse', detail: 1 }); };
-  const close = () => { if (!panel.hidden) dispatch(toggle, 'click', { pointerType: 'mouse', detail: 1 }); };
+  const open = () => { if (toggle.getAttribute('aria-expanded') !== 'true') dispatch(toggle, 'click', { pointerType: 'mouse', detail: 1 }); };
+  const close = () => { if (toggle.getAttribute('aria-expanded') === 'true') dispatch(toggle, 'click', { pointerType: 'mouse', detail: 1 }); };
   const pointer = (type, properties = {}) => dispatch(type === 'pointerdown' ? track : document, type, {
     pointerType: 'touch', pointerId: 1, isPrimary: true, clientX: 50, clientY: 50, ...properties,
   });
@@ -159,6 +171,6 @@ export function playlistHarness(t) {
   const scrollEnd = (target = items) => dispatch(document, 'scrollend', { target });
   const flushFrames = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach((callback) => callback()); };
   t.after(dispose);
-  return { document, window, sidebar, newSidebar, player, panel, items, toggle, track, label, outside, state, selected, frames, observers,
+  return { document, window, reducedMotion, sidebar, newSidebar, player, panel, inner, items, toggle, closeButton, track, label, outside, state, selected, frames, observers,
     dispatch, open, close, dispose, pointer, click, tap, scroll, scrollEnd, flushFrames };
 }

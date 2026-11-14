@@ -122,6 +122,10 @@ for (const external of [false, true]) {
       for (const name of ['tools/deploy.mjs', 'tools/export.mjs', 'tools/scheduler.mjs', 'tools/lib/publisher.mjs']) {
         assert(members.includes(`${packageName}/${name}`), name);
       }
+      for (const name of ['src/content/pages/about.md', 'src/pages/about.astro', 'examples/pages/en/about.md', 'examples/pages/zh-CN/about.md']) {
+        assert(members.includes(`${packageName}/${name}`), name);
+      }
+      assert(!members.includes(`${packageName}/src/pages/about.md`));
       for (const name of ['.github/', 'tools/test/', 'docs/adr/', 'docs/architecture/', 'docs/validation/', 'examples/vault/', 'tools/unlisted-tool.mjs']) {
         assert(!members.some((member) => member.startsWith(`${packageName}/${name}`)), name);
       }
@@ -148,6 +152,9 @@ for (const external of [false, true]) {
       await publish({ root, runtimeRoot: project, dataDir, mode: 'build-only', env });
       const published = join(dataDir, 'site');
       for (const site of [exported, published]) {
+        const aboutHtml = await readFile(join(site, 'about/index.html'), 'utf8');
+        assert.match(aboutHtml, /src="\/blog\/image\/bg\.jpg"/);
+        assert.match(aboutHtml, /src\/content\/pages\/about\.md/);
         for (const name of included) assert.equal(await readFile(join(site, name), 'utf8'), `fixture: ${name}`);
         for (const name of excluded.filter((name) => name !== 'posts/day/index.html')) assert.equal(await exists(join(site, name)), false, name);
         const html = await readFile(join(site, 'posts/day/index.html'), 'utf8');
