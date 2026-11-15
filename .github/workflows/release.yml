@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag to build (for example v1.3.0)
+        description: Existing version tag to build (for example v1.4.0)
         required: true
         type: string
 
@@ -91,13 +91,13 @@ jobs:
           解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
           Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
 
-          v1.3.0 新增 Windows Paint 风格的主题调色板，支持预设颜色、颜色编辑与自定义色位；播放列表改为 Aero 窗口及向下展开的手风琴，按视口剩余高度约束窗口，歌曲区域可独立滚动。
+          v1.4.0 将 Aero 主题的最低浏览器兼容目标扩展至 Windows 7 上的 Chrome 109 与 Firefox 115 ESR，现代浏览器继续使用同一份静态构建。主题色现预计算混色与 RGB 通道，替换旧浏览器不支持的 CSS 颜色语法；播放列表的浮层层级通过显式 class 同步，支持关闭动画和 Astro 跨页面导航。
 
-          v1.3.0 adds a Windows Paint-style theme palette with preset colors, a color picker, and custom color slots. The playlist now uses a downward-expanding Aero accordion constrained by available viewport height, with an independently scrolling track list.
+          v1.4.0 extends Aero's browser compatibility target to Chrome 109 and Firefox 115 ESR on Windows 7 while retaining one static build for modern browsers. Theme colors now precompute blended colors and RGB channels instead of relying on unsupported CSS color syntax. The playlist uses explicit layering classes across closing animations and Astro page navigation.
 
-          About 页作者正文移至 `src/content/pages/about.md`，路由改由 `src/pages/about.astro` 提供，访问地址仍为 `/about/`；图片处理支持新的 Markdown 位置。播放器保留此前的 Blob 缓存与系统媒体控件。
+          保留 v1.3.0 的 Windows Paint 风格调色板、Aero 播放列表和迁移后的 About 正文位置，以及现有 Blob 缓存与系统媒体控件。
 
-          Authors now edit About content at `src/content/pages/about.md`; `src/pages/about.astro` maintains the `/about/` route. Markdown image handling supports the new location. The player retains Blob caching and Media Session controls from the previous release.
+          The Windows Paint-style palette, Aero playlist, About content location, Blob caching, and Media Session controls introduced in earlier releases remain available.
 
           升级后运行 npm ci，并从实际使用的同一份主题源码重建 Publisher 镜像，以匹配 package 文件。播放器设置继续使用现有音乐配置和静态歌单。
 

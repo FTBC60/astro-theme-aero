@@ -19,10 +19,10 @@ body {
 
 
 .card {
-    background: rgba(from var(--primary-color) r g b / var(--glass-opacity));
+    background: rgba(var(--primary-rgb), var(--glass-opacity));
     box-sizing: border-box;
     box-shadow:
-        inset 0 0 20px rgba(from var(--primary-color) r g b / var(--glass-glow-opacity)),
+        inset 0 0 20px rgba(var(--primary-rgb), var(--glass-glow-opacity)),
         0 0 0 1px var(--white-main),
         0 0 0 1.5px var(--black-main),
         var(--shadow-raised);
@@ -68,7 +68,7 @@ body {
     background: linear-gradient(to top, 
     var(--highlight-color) 0%, 
     var(--highlight-color) 50%, 
-    color-mix(in srgb, var(--highlight-color), black 10%) 51%, 
+    var(--highlight-hover-dark) 51%,
     var(--highlight-color) 80%);
     box-shadow: inset 0 0 0 2px var(--highlight-color),
         0 0 3px var(--highlight-color);
@@ -118,12 +118,12 @@ body {
     margin-top: 20px;
 }
 
-.sidebar-sticky-group > :nth-child(1 of .widget) {
+.sidebar-sticky-group > .widget:first-child {
     margin-top: 0;
 }
 
 // Lift the sticky stacking context as well as the player above the glass footer.
-.sidebar-sticky-group:has(.playlist-open, .playlist-accordion:not([hidden])) {
+.sidebar-sticky-group.playlist-layer-visible {
     z-index: 5;
 }
 
@@ -174,7 +174,6 @@ body {
     box-shadow: 
         inset 0 5px 5px rgba(0, 0, 0, 0.4),
         0 0 0 0.5px var(--black-main);
-        /* 3px 3px 10px rgba(from var(--black-main) r g b / 0.6); */
 }
 
 .page-nav .space {

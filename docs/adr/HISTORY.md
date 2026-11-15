@@ -44,6 +44,12 @@
 | --- | --- | --- | --- |
 | 2026-11-13 | 与 ADR-0019 同次提交 | 将 About 正文从 `src/pages/about.md` 迁至 `src/content/pages/about.md`，以 `src/pages/about.astro` 直接导入 Markdown 并沿用 `AboutLayout`；扩展固定页面图片来源识别，同步更新中英文示例、文档及图片和发行包测试。 | [ADR-0019](0019-about-page-direct-markdown-import.md)、[S20](SOURCES.md#s20)。开发方案记录图片测试 7 项、Astro 检查 88 文件、构建 8 页、发行包测试 151 项及导出通过；发布与物理设备复核待完成。 |
 
+## 2026-11-14 Windows 7 浏览器兼容
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-14 | `static` 提交 `e3eb586` | 为 Windows 7 Chrome 109、Firefox 115 ESR 与现代浏览器统一保留 Aero 外观；用 10 个预计算混色 Token 和 2 个 RGB 通道 Token 替换不兼容颜色语法，使用 `panel.hidden` 驱动播放器及 Sticky 父容器层级，清理跨页残留 class，并简化首个 Widget 选择器。补充颜色及歌单回归测试。 | [ADR-0020](0020-windows-7-browser-compatibility.md)、[S21](SOURCES.md#s21)。本地检查记录为颜色 2 项、歌单 69 项、发行包 155 项、Astro 检查 89 文件及 8 页构建通过；作者报告 NAS 同步、Cloudflare Worker 编译发布、Windows 7 虚拟机测试无问题并准予验收，未单列两款浏览器逐项数据。 |
+
 ## 动态实验的历史演进
 
 下列提交保留在 `dev` 历史，不是当前静态代码的组成部分。整体取舍、性能局限及暂缓原因见 [ADR-0003](0003-dynamic-publishing-experiment.md) 和 [ADR-0004](0004-return-to-static-assets.md)。

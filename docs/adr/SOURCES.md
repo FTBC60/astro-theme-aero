@@ -154,6 +154,13 @@ L14 用户确认已启用减少动态效果模拟；L167 报告累计 30 次浏�
 
 本地验收数据沿用开发方案中的实施记录，涵盖 7 项图片测试、88 文件 Astro 检查、8 个构建页面、151 项发行包测试及导出成功。本次迁移与 ADR-0019 同次提交至 `static` 分支，尚未见正式发布或物理设备验证记录。
 
+<a id="s21"></a>
+## S21：Windows 7 浏览器兼容改造决策、实施与验收
+
+2026-11-14 前后，作者与 Codex 多轮讨论 Aero 在 Windows 7 Chrome 109 和 Firefox 115 ESR 的兼容目标，并参考外部评审收敛为最小修改方案。最终确认在 `deriveThemeColors()` 内预计算 10 个混合色及 2 个 RGB 通道 Token，替换生效的旧浏览器不支持的 CSS 颜色语法；用 `panel.hidden` 同步歌单和 Sticky 父容器层级，以单一父容器引用处理 Astro 跨页迁移；将首个 Widget 选择器简化为 `:first-child`。作者随后明确授权实施。
+
+正式方案与实施检查记录见 [Windows 7 兼容改造方案](../architecture/aero-windows-7-compatibility-plan.md)，决策见 [ADR-0020](0020-windows-7-browser-compatibility.md)。七个源码文件及相关测试已在 `static` 分支提交为 `e3eb586`；方案记录了颜色测试 2 项、歌单测试 69 项、发行包测试 155 项、89 文件 Astro 检查、8 页构建及 CSS 扫描结果。作者随后确认已同步 NAS、在 Cloudflare Worker 编译发布，并在 Windows 7 虚拟机中测试未发现问题，准予验收。反馈没有逐项列明 Chrome 109 与 Firefox 115 ESR 的测试数据。
+
 ## 尚未恢复的材料
 
 - ChatGPT Work 中首次迁移的完整讨论，以及部分早期阶段原始选型过程；本机旧副本从接力开始，Git 最早也是源码导入。

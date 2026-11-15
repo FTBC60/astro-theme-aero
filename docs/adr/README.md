@@ -25,6 +25,7 @@ These retrospective ADRs document the static theme and the earlier dynamic exper
 | [0017](0017-blob-playback-and-media-session.md) | 完整 Blob 播放、单首预取、即时切歌与 Media Session | 已采用；正式实现及精简的必要检查通过，第 5 阶段整体验收待执行 |
 | [0018](0018-aero-playlist-viewport-accordion.md) | Windows 7 Aero 歌单窗口、向下 Grid 展开及完整可视高度预算 | 已采用；`static` 合并与本地检查通过，物理手机及最终 NAS 发布待验 |
 | [0019](0019-about-page-direct-markdown-import.md) | About 页面分离作者内容、固定路由与布局，直接导入 Markdown | 已采用；本地测试、构建与导出通过，尚未发布 |
+| [0020](0020-windows-7-browser-compatibility.md) | 单份 Aero 静态构建兼容 Windows 7 Chrome 109、Firefox 115 ESR | 已采用；本地检查通过，作者反馈 NAS、Cloudflare Worker 发布及 Windows 7 虚拟机验收通过 |
 
 [变更追溯表](HISTORY.md)记录各阶段修改及提交，包括未单独立 ADR 的界面、归档和播放器修复。[恢复依据](SOURCES.md)记录本机会话文件、消息位置、证据边界和缺口。
 

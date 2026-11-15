@@ -15,16 +15,16 @@
     --glass-glow-opacity: 0.8;
     --glass-blur: 2px;
     --shadow-opacity: 0.6;
-    --shadow-raised: 3px 3px 10px rgba(from var(--black-main) r g b / var(--shadow-opacity));
+    --shadow-raised: 3px 3px 10px rgba(0, 0, 0, var(--shadow-opacity));
     --panel-radius: 3px;
     --pill-radius: 15px;
     --container-width: 960px;
     --layout-gap: 20px;
 
     --aero-grad: linear-gradient(to bottom, 
-    color-mix(in srgb, var(--secondary-color), white 60%) 0%, 
+    var(--aero-grad-light) 0%,
     var(--secondary-color) 50%, 
-    color-mix(in srgb, var(--secondary-color), black 10%) 51%, 
+    var(--aero-grad-dark) 51%,
     var(--secondary-color) 100%);
 
 }

@@ -113,7 +113,7 @@ export function playlistHarness(t) {
     return node;
   };
   const newSidebar = () => {
-    const sidebar = element(document.body);
+    const sidebar = element(document.body, 'sidebar-sticky-group');
     sidebar.overflowY = 'auto';
     return sidebar;
   };

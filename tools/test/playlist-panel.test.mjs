@@ -8,6 +8,8 @@ function assertOpen(h, open) {
   assert.equal(h.player.classList.contains('playlist-open'), open);
   assert.equal(h.toggle.getAttribute('aria-expanded'), String(open));
   assert.equal(h.toggle.getAttribute('aria-label'), open ? 'Close playlist' : 'Open playlist');
+  assert.equal(h.player.classList.contains('playlist-layer-visible'), open);
+  assert.equal(h.player.closest('.sidebar-sticky-group')?.classList.contains('playlist-layer-visible'), open);
 }
 
 test('downward height budget includes the accordion padding and can reach zero', (t) => {
@@ -43,8 +45,21 @@ test('animated close stays inert until the local transition ends', (t) => {
   h.close();
   assert.equal(h.panel.hidden, false);
   assert.equal(h.panel.inert, true);
+  assert.equal(h.player.classList.contains('playlist-layer-visible'), true);
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), true);
   assert.equal(h.toggle.getAttribute('aria-expanded'), 'false');
   h.dispatch(h.panel, 'transitionend', { propertyName: 'grid-template-rows' });
+  assertOpen(h, false);
+});
+
+test('the close timeout releases both elevated layers after the animation', (t) => {
+  const h = playlistHarness(t);
+  h.reducedMotion.matches = false;
+  h.open();
+  h.close();
+  t.mock.timers.tick(239);
+  assert.equal(h.player.classList.contains('playlist-layer-visible'), true);
+  t.mock.timers.tick(1);
   assertOpen(h, false);
 });
 
@@ -54,6 +69,7 @@ test('quick reopening cancels the old close timer and ignores stale transitions'
   h.open();
   h.close();
   h.open();
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), true);
   t.mock.timers.tick(300);
   h.dispatch(h.panel, 'transitionend', { propertyName: 'grid-template-rows' });
   assertOpen(h, true);
@@ -151,6 +167,8 @@ test('navigation suspends observers and frames, then observes the new sidebar wi
   sidebar.append(h.player);
   h.dispatch(h.document, 'astro:page-load');
   assertOpen(h, true);
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), false);
+  assert.equal(sidebar.classList.contains('playlist-layer-visible'), true);
   assert(h.observers.some((observer) => observer.targets.has(sidebar)));
   assert(!h.observers.some((observer) => observer.targets.has(h.sidebar)));
   assert.deepEqual(h.selected, []);
@@ -185,6 +203,21 @@ test('a closed panel stays inactive after repeated navigation events', (t) => {
   assert.deepEqual(h.selected, [0]);
 });
 
+test('navigation while closing releases the old parent before moving the player', (t) => {
+  const h = playlistHarness(t);
+  h.reducedMotion.matches = false;
+  h.open();
+  h.close();
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), true);
+  h.dispatch(h.document, 'astro:before-swap');
+  assertOpen(h, false);
+  const sidebar = h.newSidebar();
+  sidebar.append(h.player);
+  h.dispatch(h.document, 'astro:page-load');
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), false);
+  assert.equal(sidebar.classList.contains('playlist-layer-visible'), false);
+});
+
 test('repeated navigation while open does not duplicate selection listeners', (t) => {
   const h = playlistHarness(t);
   h.open();
@@ -215,6 +248,7 @@ test('dispose closes without focus changes and removes clicks, keys, navigation 
   h.dispose();
   h.dispose();
   assertOpen(h, false);
+  assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), false);
   assert.equal(h.document.activeElement, h.outside);
   assert.equal(h.frames.size, 0);
   assert(h.observers.every((observer) => observer.targets.size === 0));

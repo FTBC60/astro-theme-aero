@@ -22,6 +22,16 @@ export function deriveThemeColors(hex: string, surface = '#F2F6F8'): Record<stri
     return sectors[Math.floor(hue / 60) % 6].map((channel) => Math.round((channel + offset) * 255));
   }
 
+  function mix(first: number[], second: number[], weight: number): number[] {
+    return first.map((channel, index) =>
+      Math.round(channel * (1 - weight) + second[index] * weight)
+    );
+  }
+
+  function cssRgb(channels: number[]): string {
+    return `rgb(${channels.join(' ')})`;
+  }
+
   function luminance(rgb: number[]): number {
     const [red, green, blue] = rgb.map((channel) => {
       const value = channel / 255;
@@ -72,15 +82,31 @@ export function deriveThemeColors(hex: string, surface = '#F2F6F8'): Record<stri
   const primary = rgbFromHsl(hue, primarySaturation / 100, primaryLightness / 100);
   const highlightSaturation = saturation < 0.08 ? sat : clamp(sat + 15, 45, 90);
   const secondarySaturation = saturation < 0.08 ? sat : clamp(sat * 0.35, 14, 34);
+  const highlight = rgbFromHsl(hue, highlightSaturation / 100, clamp(lum + 32, 74, 88) / 100);
+  const secondary = rgbFromHsl(hue, secondarySaturation / 100, clamp(lum + 38, 84, 91) / 100);
+  const white = [255, 255, 255];
+  const black = [0, 0, 0];
   const background = rgbFromHex(/^#[0-9a-f]{6}$/i.test(surface.trim()) ? surface.trim() : '#F2F6F8');
   // Inline code adds a 5% #1b1f23 overlay to the reading surface.
   const codeBackground = background.map((channel, index) => Math.round(channel * 0.95 + [27, 31, 35][index] * 0.05));
 
   return {
     '--palette-preview-color': hex,
-    '--primary-color': `rgb(${primary.join(' ')})`,
+    '--primary-color': cssRgb(primary),
+    '--primary-rgb': primary.join(', '),
+    '--surface-rgb': background.join(', '),
     '--highlight-color': `hsl(${hue} ${highlightSaturation}% ${clamp(lum + 32, 74, 88)}%)`,
     '--secondary-color': `hsl(${hue} ${secondarySaturation}% ${clamp(lum + 38, 84, 91)}%)`,
+    '--aero-grad-light': cssRgb(mix(secondary, white, 0.6)),
+    '--aero-grad-dark': cssRgb(mix(secondary, black, 0.1)),
+    '--highlight-hover-dark': cssRgb(mix(highlight, black, 0.1)),
+    '--music-glow-color': cssRgb(mix(primary, white, 0.5)),
+    '--playlist-selected-border': cssRgb(mix(primary, [125, 162, 206], 0.45)),
+    '--playlist-selected-start': cssRgb(mix(highlight, white, 0.7)),
+    '--playlist-selected-end': cssRgb(mix(primary, white, 0.75)),
+    '--playlist-hover-border': cssRgb(mix(primary, white, 0.3)),
+    '--playlist-hover-start': cssRgb(mix(highlight, white, 0.82)),
+    '--playlist-hover-end': cssRgb(mix(primary, white, 0.84)),
     '--link-color': readableColor(primary, background),
     '--code-color': readableColor(primary, codeBackground),
     '--player-accent': readableColor(rgbFromHsl(hue, saturation, primaryLightness / 100), background),

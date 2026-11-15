@@ -4,15 +4,14 @@
     background: var(--white-main);
     box-sizing: border-box;
     box-shadow:
-        inset 0 0 30px color-mix(in srgb, var(--primary-color), white 50%),
+        inset 0 0 30px var(--music-glow-color),
         0 0 0 0.5px var(--black-main),
-        3px 3px 10px rgba(from var(--black-main) r g b / 0.6);
+        3px 3px 10px rgba(0, 0, 0, 0.6);
     border-radius: 20% 80% 20% 80% / 50% 30% 50% 40%;
     padding: 15px;
 }
 
-.music-widget.playlist-open,
-.music-widget:has(.playlist-accordion:not([hidden])) {
+.music-widget.playlist-layer-visible {
     z-index: 5;
 }
 
@@ -24,8 +23,8 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(to bottom, 
-        rgba(from var(--white-main) r g b / 0.8) 0%, 
-        rgba(from var(--black-main) r g b / 0.1) 100%);
+        rgba(var(--surface-rgb), 0.8) 0%,
+        rgba(0, 0, 0, 0.1) 100%);
     border-radius: 20% 80% 20% 80% / 50% 30% 50% 30%;
     pointer-events: none;
 }
@@ -251,7 +250,7 @@
             rgba(255, 255, 255, 0) 43%,
             rgba(255, 255, 255, 0.14) 100%
         ),
-        rgba(from var(--primary-color) r g b / 0.56);
+        rgba(var(--primary-rgb), 0.56);
     backdrop-filter: blur(6px);
 }
 
@@ -365,22 +364,22 @@
 }
 
 .playlist-track[aria-current="true"] {
-    border-color: color-mix(in srgb, var(--primary-color), #7da2ce 45%);
+    border-color: var(--playlist-selected-border);
     background: linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--highlight-color), white 70%) 0%,
-        color-mix(in srgb, var(--primary-color), white 75%) 100%
+        var(--playlist-selected-start) 0%,
+        var(--playlist-selected-end) 100%
     );
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
 }
 
 @media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .playlist-track:hover {
-        border-color: color-mix(in srgb, var(--primary-color), white 30%);
+        border-color: var(--playlist-hover-border);
         background: linear-gradient(
             to bottom,
-            color-mix(in srgb, var(--highlight-color), white 82%) 0%,
-            color-mix(in srgb, var(--primary-color), white 84%) 100%
+            var(--playlist-hover-start) 0%,
+            var(--playlist-hover-end) 100%
         );
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.82);
     }

@@ -1,5 +1,7 @@
 # Astro Theme Aero
 
+Windows 7 Compatible — Aero looks best where it all began.
+
 欢迎使用 Aero！这是一个将经典 Aero 风格带到 Astro 的博客主题。请选择您习惯的语言，开始配置自己的博客。
 
 Welcome to Aero! This Astro blog theme brings the classic Aero look to your site. Choose a language below to get started.
