@@ -12,7 +12,7 @@ status: accepted
 
 [tool-package.mjs](../../src/lib/tool-package.mjs) 验证格式、路径大小写、存在性及普通文件类型，拒绝符号链接和源码/清单发布，按入口最终输出目录展开为原 `{ source, target }` 记录。[note-assets.mjs](../../src/lib/note-assets.mjs) 复用文章归属及冲突校验；共享包仍生成各文章副本。没有新增工具注册中心或全站固定路由。
 
-开发服务器补齐资源 MIME，并为明确登记的工具包入口提供目录别名。[编译缓存](../../src/lib/note-compilation.mjs) 当前内部格式为 3，私有计划包含 `toolEntries` 入口集合与 `archives` 归档描述。归档描述保存入口、ZIP 目标和经过校验的清单，成员来源复用附件列表。作者清单为 v1，单条复制附件只有 source/target。
+开发服务器补齐资源 MIME，并为明确登记的工具包入口提供目录别名。[编译缓存](../../src/lib/note-compilation.mjs) 当前内部格式为 4，私有计划以 `toolEntries` 中的 `{ entry, files }` 记录保存每个工具包的精确成员，并包含 `archives` 归档描述。交付时由成员记录临时推导目标集合，普通 Markdown 附件即使位于工具包目录也不获得成员资格。旧版缓存须重新同步内容。归档描述保存入口、ZIP 目标和经过校验的清单，成员来源复用附件列表。作者清单为 v1，单条复制附件只有 source/target。
 
 实际浏览器发现 Astro 7 开发服务器会拦截不透明来源 iframe 的经典脚本与样式请求。因此集成通过仅开发时运行的 Vite post configureServer 回调，将已登记包目录中、且精确命中附件计划的静态文件处理放在该检查之前。其他源码、未选文件及普通附件仍经过原有保护；不设置 CORS、不放宽 iframe 权限。此顺序覆盖 Vite 配置重启，需随 Astro 升级保留浏览器回归。
 

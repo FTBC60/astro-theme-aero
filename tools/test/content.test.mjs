@@ -7,8 +7,9 @@ import { isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { notesLoader } from '../../src/lib/notes-loader.ts';
 import { createMarkdownProcessor, parseFrontmatter } from '@astrojs/markdown-remark';
-import { assetPlan, inside, noteId, resolveNoteAsset, resolveNotesDir } from '../../src/lib/note-assets.mjs';
+import { assetPlan, inside, noteId, resolveNotesDir } from '../../src/lib/note-assets.mjs';
 import { createNoteCompilation, remarkNoteAssets } from '../../src/lib/note-compilation.mjs';
+import { createNoteResources } from '../../src/lib/note-resources.mjs';
 
 const project = fileURLToPath(new URL('../../', import.meta.url));
 const cache = join(project, '.astro');
@@ -67,17 +68,18 @@ test('attachment resolution, Markdown references, covers and output conflicts', 
     await put(join(root, 'day/图 片.png'), png);
     await put(join(root, 'shared/file.txt'), 'shared');
     const note = { root, file, id: '日记/day', base: '/blog/' };
-    const assets = [];
-    assert.equal(await resolveNoteAsset('./图%20片.png', note, assets), './%E5%9B%BE%20%E7%89%87.png');
-    assert.equal(await resolveNoteAsset('../shared/file.txt#section', note, assets), './_attachments/shared/file.txt#section');
-    assert.equal(await resolveNoteAsset('https://example.com/photo.jpg', note, assets), 'https://example.com/photo.jpg');
-    assert.equal(await resolveNoteAsset('/image/cover.jpg', note, assets), '/blog/image/cover.jpg');
-    await assert.rejects(resolveNoteAsset('missing.jpg', note, assets), /Missing attachment/);
-    await assert.rejects(resolveNoteAsset('../../package.json', note, assets), /escapes notesDir/);
+    const resources = createNoteResources(note);
+    assert.equal((await resources.resolve('./图%20片.png')).url, './%E5%9B%BE%20%E7%89%87.png');
+    assert.equal((await resources.resolve('../shared/file.txt#section')).url, './_attachments/shared/file.txt#section');
+    assert.equal((await resources.resolve('https://example.com/photo.jpg')).url, 'https://example.com/photo.jpg');
+    assert.equal((await resources.resolve('/image/cover.jpg')).url, '/blog/image/cover.jpg');
+    assert.equal(resources.finish().assets.length, 2);
+    await assert.rejects(createNoteResources(note).resolve('missing.jpg'), /Missing attachment/);
+    await assert.rejects(createNoteResources(note).resolve('../../package.json'), /escapes notesDir/);
     await assert.rejects(resolveNotesDir(root, 'missing'), /Cannot read notesDir/);
     await assert.rejects(resolveNotesDir(root, 'day/day.md'), /not a directory/);
     await put(join(root, '.hidden.md'), '---\npublish: true\n---\nHidden');
-    await assert.rejects(resolveNoteAsset('../.hidden.md', note, assets, 'link'), /hidden note/);
+    await assert.rejects(createNoteResources(note).resolve('../.hidden.md', 'link'), /hidden note/);
     assert.equal(await resolveNotesDir(root, './day'), join(root, 'day'));
     assert.equal(noteId('日记/My Note.md', {}), '日记/my-note');
     assert.equal(noteId('day/day.md', { slug: 'day' }), 'day');
@@ -95,7 +97,7 @@ test('attachment resolution, Markdown references, covers and output conflicts', 
     assert.throws(() => assetPlan([{ source: 'x', target: 'posts/day/A.jpg' }, { source: 'y', target: 'posts/day/a.jpg' }], ['day']), /collision/);
     try {
       await symlink(join(project, 'package.json'), join(root, 'day/outside.json'));
-      await assert.rejects(resolveNoteAsset('outside.json', note, assets), /escapes notesDir/);
+      await assert.rejects(createNoteResources(note).resolve('outside.json'), /escapes notesDir/);
     } catch (error) { if (error.code !== 'EPERM') throw error; }
   } finally { assert(inside(cache, root)); await rm(root, { recursive: true, force: true }); }
 });

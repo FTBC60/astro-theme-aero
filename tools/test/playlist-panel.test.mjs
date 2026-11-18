@@ -38,6 +38,34 @@ test('downward height budget includes the accordion padding and can reach zero',
   assert.equal(h.panel.style.getPropertyValue('--playlist-max-height'), '12px');
 });
 
+test('position observer tracks geometry inputs and recalculates after anchor size changes', (t) => {
+  const h = playlistHarness(t);
+  h.open();
+  const observer = h.observers.find(({ targets }) => targets.has(h.controls));
+  assert(observer);
+  assert(observer.targets.has(h.player));
+  assert(observer.targets.has(h.content));
+  assert(observer.targets.has(h.sidebar));
+  assert(!observer.targets.has(h.panel.querySelector('.playlist-heading')));
+  assert(!observer.targets.has(h.panel.querySelector('.playlist-feedback')));
+
+  assert.equal(h.panel.style.top, '108px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '280px');
+
+  h.controls.rect = { top: 400, bottom: 530, height: 130 };
+  observer.trigger();
+  assert.equal(h.frames.size, 1);
+  h.flushFrames();
+  assert.equal(h.panel.style.top, '138px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '250px');
+
+  h.player.rect = { top: 400, bottom: 550, height: 150 };
+  observer.trigger();
+  h.flushFrames();
+  assert.equal(h.panel.style.top, '158px');
+  assert.equal(h.panel.style.getPropertyValue('--playlist-outer-max-height'), '230px');
+});
+
 test('animated close stays inert until the local transition ends', (t) => {
   const h = playlistHarness(t);
   h.reducedMotion.matches = false;
@@ -49,6 +77,24 @@ test('animated close stays inert until the local transition ends', (t) => {
   assert.equal(h.sidebar.classList.contains('playlist-layer-visible'), true);
   assert.equal(h.toggle.getAttribute('aria-expanded'), 'false');
   h.dispatch(h.panel, 'transitionend', { propertyName: 'grid-template-rows' });
+  assertOpen(h, false);
+});
+
+test('late selection click during closing animation cannot select a track', (t) => {
+  const h = playlistHarness(t);
+  h.reducedMotion.matches = false;
+  h.open();
+  h.close();
+  assert.equal(h.panel.hidden, false);
+  assert.equal(h.panel.inert, true);
+  assert.equal(h.toggle.getAttribute('aria-expanded'), 'false');
+
+  t.mock.timers.tick(100);
+  h.click({ pointerType: undefined });
+  assert.deepEqual(h.selected, []);
+  assert.equal(h.panel.hidden, false);
+
+  t.mock.timers.tick(140);
   assertOpen(h, false);
 });
 

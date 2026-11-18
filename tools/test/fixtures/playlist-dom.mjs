@@ -171,6 +171,6 @@ export function playlistHarness(t) {
   const scrollEnd = (target = items) => dispatch(document, 'scrollend', { target });
   const flushFrames = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach((callback) => callback()); };
   t.after(dispose);
-  return { document, window, reducedMotion, sidebar, newSidebar, player, panel, inner, items, toggle, closeButton, track, label, outside, state, selected, frames, observers,
+  return { document, window, reducedMotion, sidebar, newSidebar, player, content, controls, panel, inner, items, toggle, closeButton, track, label, outside, state, selected, frames, observers,
     dispatch, open, close, dispose, pointer, click, tap, scroll, scrollEnd, flushFrames };
 }

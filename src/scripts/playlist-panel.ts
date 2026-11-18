@@ -19,7 +19,7 @@ export function createPlaylistPanel(player: HTMLElement, { openLabel, closeLabel
   const events = new window.AbortController();
   const { signal } = events;
   const position = createPlaylistPositioner(player, panel);
-  const touch = createPlaylistTouchGuard(panel, items);
+  const touch = createPlaylistTouchGuard(items);
   let isOpen = !panel.hidden && player.classList.contains('playlist-open');
   let hideTimer: ReturnType<typeof setTimeout> | undefined;
   let suspended = false;

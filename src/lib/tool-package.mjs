@@ -1,8 +1,9 @@
-import { lstat, readFile, readdir } from 'node:fs/promises';
+import { constants } from 'node:fs';
+import { lstat, open, readFile, readdir } from 'node:fs/promises';
 import { basename, dirname, isAbsolute, join, posix, relative, sep } from 'node:path';
 import { zipSync } from 'fflate';
 
-function checkedManifest(data, fail) {
+export function checkedManifest(data, fail) {
   if (!data || typeof data !== 'object' || Array.isArray(data)
     || Object.keys(data).some(key => !['version', 'files', 'download'].includes(key))
     || data.version !== 1 || !Array.isArray(data.files) || !data.files.length
@@ -24,7 +25,7 @@ function checkedManifest(data, fail) {
 }
 
 // Check actual entries so Windows also enforces case and rejects parent junctions.
-async function checkedFile(root, file, fail) {
+export async function checkedFile(root, file, fail) {
   const name = relative(root, file);
   if (isAbsolute(name) || name === '..' || name.startsWith(`..${sep}`)) fail('file escapes notesDir');
   let parent = root;
@@ -38,6 +39,25 @@ async function checkedFile(root, file, fail) {
     if (index === parts.length - 1 ? !info.isFile() : !info.isDirectory()) fail(`not a regular file: ${name}`);
   }
   return file;
+}
+
+/** Open an already validated package member, then verify the opened file before reading. */
+export async function openCheckedFile(root, file, fail) {
+  await checkedFile(root, file, fail);
+  const handle = await open(file, constants.O_RDONLY | (constants.O_NOFOLLOW || 0));
+  try {
+    const opened = await handle.stat();
+    if (!opened.isFile()) fail(`not a regular file: ${file}`);
+    await checkedFile(root, file, fail);
+    const current = await lstat(file);
+    if (opened.dev !== current.dev || opened.ino !== current.ino) {
+      fail(`file changed while opening: ${file}`);
+    }
+    return handle;
+  } catch (error) {
+    await handle.close();
+    throw error;
+  }
 }
 
 /** Expand one explicitly referenced package without interpreting runtime dependencies. */
@@ -94,12 +114,15 @@ export async function createToolArchive(archive, assets, root) {
   const fail = message => { throw new Error(`Cannot create tool archive ${archive.target}: ${message}`); };
   for (const file of [...selection.manifest.files].sort()) {
     const source = sources.get(posix.join(posix.dirname(selection.entry), file));
-    await checkedFile(root, source, fail);
-    files[file] = await readFile(source);
+    const handle = await openCheckedFile(root, source, fail);
+    try { files[file] = await handle.readFile(); }
+    finally { await handle.close(); }
   }
   const manifestSource = join(dirname(sources.get(selection.entry)), 'manifest.json');
-  await checkedFile(root, manifestSource, fail);
-  const manifestBytes = await readFile(manifestSource);
+  const manifestHandle = await openCheckedFile(root, manifestSource, fail);
+  let manifestBytes;
+  try { manifestBytes = await manifestHandle.readFile(); }
+  finally { await manifestHandle.close(); }
   let current;
   try { current = JSON.parse(manifestBytes.toString('utf8').replace(/^\uFEFF/, '')); }
   catch (error) { fail(`control manifest is invalid: ${error.message}`); }

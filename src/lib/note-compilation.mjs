@@ -1,11 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
-import { isAbsolute, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { assetPlan, inside, resolveNoteAsset, validatePostId } from './note-assets.mjs';
-import { checkedToolArchives } from './tool-package.mjs';
+import { validatePostId } from './note-assets.mjs';
+import { checkedResourcePlan } from './note-resource-plan.mjs';
+import { createNoteResources } from './note-resources.mjs';
 
-const version = 3;
+const version = 4;
 const metadataKey = '__aeroCompilation';
 const planFile = 'aero-attachments.json';
 export const noteAssetsIntegrationName = 'aero-note-assets';
@@ -13,41 +13,6 @@ const encodedPath = (path) => path.split('/').map(encodeURIComponent).join('/');
 const publishedAssetUrl = (url, note) => url.startsWith('./')
   ? `${note.base.replace(/\/$/, '')}/posts/${encodedPath(note.id)}/${url.slice(2)}` : url;
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
-
-function checkedAssets(assets, postIds, root) {
-  if (!Array.isArray(assets) || !Array.isArray(postIds) || new Set(postIds).size !== postIds.length) {
-    throw new Error('Invalid attachment plan: expected assets and unique published post IDs');
-  }
-  for (const id of postIds) {
-    if (typeof id !== 'string') throw new Error('Invalid attachment plan: expected published post IDs');
-    validatePostId(id);
-  }
-  const published = new Set(postIds);
-  const belongsToPost = (target) => {
-    const parts = target.split('/');
-    if (parts.shift() !== 'posts') return false;
-    for (let length = 1; length < parts.length; length++) {
-      if (published.has(parts.slice(0, length).join('/'))) return true;
-    }
-    return false;
-  };
-  for (const asset of assets) {
-    if (!asset || typeof asset.source !== 'string' || !isAbsolute(asset.source) || !inside(root, asset.source)
-      || /\.(md|mdx|astro)$/i.test(asset.source) || typeof asset.target !== 'string'
-      || !belongsToPost(asset.target)) {
-      throw new Error('Invalid attachment plan: attachment must belong to a published note inside notesDir');
-    }
-  }
-  return assetPlan(assets, postIds);
-}
-
-function checkedToolEntries(entries, assets) {
-  const targets = new Set(assets.map(asset => asset.target));
-  if (!Array.isArray(entries) || entries.some(entry => typeof entry !== 'string' || !entry.endsWith('/index.html') || !targets.has(entry))) {
-    throw new Error('Invalid attachment plan: tool entry must be a planned index.html');
-  }
-  return [...new Set(entries)];
-}
 
 /** One content sync owns one compilation batch; only complete batches replace the cached plan.
  * @param {{root: string, base: string, cacheDir: URL, integrations?: {name: string}[], downloadLabels?: {html: string, zip: string}}} settings
@@ -84,17 +49,14 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
           || !Object.hasOwn(result, 'cover') || (frontmatter.cover === undefined ? result.cover !== null : typeof result.cover !== 'string')) {
           throw new Error(`Incomplete note compilation for "${id}" (${file}): check remarkNoteAssets in astro.config.mjs; expected a complete result for this note`);
         }
-        const planned = checkedAssets(result.assets, [id], root);
-        const plannedEntries = checkedToolEntries(result.toolEntries, planned);
-        const plannedArchives = checkedToolArchives(result.archives, planned, plannedEntries);
-        assetPlan(planned, [id], plannedArchives.map(archive => archive.target));
+        const planned = checkedResourcePlan({ root, assets: result.assets, toolEntries: result.toolEntries, archives: result.archives, postIds: [id] });
         // Private requests/results never reach Astro's content store.
         const { [metadataKey]: _private, ...cleanFrontmatter } = extra;
         /** @type {NonNullable<typeof rendered.metadata>} */
         const cleanMetadata = { ...rendered.metadata, frontmatter: cleanFrontmatter };
-        assets.push(...planned);
-        toolEntries.push(...plannedEntries);
-        archives.push(...plannedArchives);
+        assets.push(...planned.assets);
+        toolEntries.push(...planned.toolEntries);
+        archives.push(...planned.archives);
         postIds.push(id);
         return {
           rendered: { ...rendered, metadata: cleanMetadata },
@@ -108,11 +70,8 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
     async writePlan() {
       if (failed || pending || sealed) throw new Error('Cannot save an incomplete or already saved note compilation batch');
       sealed = true;
-      const planned = checkedAssets(assets, postIds, root);
-      const entries = checkedToolEntries(toolEntries, planned);
-      const selectedArchives = checkedToolArchives(archives, planned, entries);
-      assetPlan(planned, postIds, selectedArchives.map(archive => archive.target));
-      const plan = { version, root, base, postIds, assets: planned, toolEntries: entries, archives: selectedArchives };
+      const planned = checkedResourcePlan({ root, assets, toolEntries, archives, postIds });
+      const plan = { version, root, base, postIds, ...planned };
       await mkdir(cacheDir, { recursive: true });
       const temporary = new URL(`${planFile}.${randomUUID()}.tmp`, cacheDir);
       try {
@@ -127,11 +86,7 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
       if (plan?.version !== version || plan.root !== root || plan.base !== base) {
         throw new Error('Attachment plan does not match the current notesDir, base or format version; run content sync again');
       }
-      const planned = checkedAssets(plan.assets, plan.postIds, root);
-      const entries = checkedToolEntries(plan.toolEntries, planned);
-      const selectedArchives = checkedToolArchives(plan.archives, planned, entries);
-      assetPlan(planned, plan.postIds, selectedArchives.map(archive => archive.target));
-      return { root, assets: planned, toolEntries: entries, archives: selectedArchives };
+      return { root, ...checkedResourcePlan({ root, ...plan }) };
     },
   };
 }
@@ -146,9 +101,7 @@ export function remarkNoteAssets() {
       throw new Error('Invalid note compilation request');
     }
     const note = request.note;
-    const assets = [];
-    const toolEntries = [];
-    const archives = [];
+    const resources = createNoteResources(note);
     const definitions = new Map();
     const collect = (node) => {
       if (node.type === 'definition') definitions.set(node.identifier.toLowerCase(), node);
@@ -171,41 +124,27 @@ export function remarkNoteAssets() {
         const tool = node.type === 'image' && node.alt?.startsWith('iframe:');
         const title = tool ? node.alt.slice('iframe:'.length).trim() : '';
         if (tool && !title) throw new Error(`Iframe title must not be empty in ${note.file}`);
-        node.url = await resolveNoteAsset(node.url, note, assets, tool ? 'tool' : node.type, toolEntries, archives);
+        const resource = await resources.resolve(node.url, tool ? 'tool' : node.type);
+        node.url = resource.url;
         const htmlLink = node.type === 'link' && node.url.startsWith('./') && /\.html$/i.test(node.url.split(/[?#]/, 1)[0]);
-        let download;
-        if (tool || htmlLink) {
-          const entryUrl = node.url.split(/[?#]/, 1)[0];
-          const entry = `posts/${note.id}/${decodeURIComponent(entryUrl.slice(2))}`;
-          const archive = archives.find(item => item.entry === entry);
-          if (archive) {
-            download = {
-              url: `${note.base.replace(/\/$/, '')}/${encodedPath(archive.target)}`,
-              name: posix.basename(archive.target),
-              label: note.downloadLabels.zip,
-            };
-          } else if (!toolEntries.includes(entry)) {
-            download = {
-              url: publishedAssetUrl(entryUrl, note),
-              name: decodeURIComponent(posix.basename(entryUrl)),
-              label: note.downloadLabels.html,
-            };
-          }
-          if (download && (htmlLink || insideLink)) {
-            additions.push({ type: 'text', value: ' ' }, {
-              type: 'link',
-              url: download.url,
-              data: {
-                hProperties: {
-                  download: download.name,
-                  className: ['aero-tool-download'],
-                  'data-astro-reload': '',
-                  'aria-label': `${download.label} ${download.name}`,
-                },
+        const download = resource.download && {
+          ...resource.download,
+          label: note.downloadLabels[resource.download.kind],
+        };
+        if (download && (htmlLink || insideLink)) {
+          additions.push({ type: 'text', value: ' ' }, {
+            type: 'link',
+            url: download.url,
+            data: {
+              hProperties: {
+                download: download.name,
+                className: ['aero-tool-download'],
+                'data-astro-reload': '',
+                'aria-label': `${download.label} ${download.name}`,
               },
-              children: [{ type: 'text', value: download.label }],
-            });
-          }
+            },
+            children: [{ type: 'text', value: download.label }],
+          });
         }
         if (htmlLink) {
           node.data ??= {};
@@ -246,9 +185,9 @@ export function remarkNoteAssets() {
     };
     await visit(tree);
     if (frontmatter.cover) {
-      const cover = await resolveNoteAsset(frontmatter.cover, note, assets);
+      const { url: cover } = await resources.resolve(frontmatter.cover);
       frontmatter.cover = publishedAssetUrl(cover, note);
     }
-    frontmatter[metadataKey] = { version, kind: 'result', token: request.token, cover: frontmatter.cover ?? null, assets, toolEntries, archives };
+    frontmatter[metadataKey] = { version, kind: 'result', token: request.token, cover: frontmatter.cover ?? null, ...resources.finish() };
   };
 }

@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 import { cp, copyFile, mkdir, mkdtemp, readFile, symlink, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { assetPlan, resolveNoteAsset } from '../../../src/lib/note-assets.mjs';
+import { createNoteResources } from '../../../src/lib/note-resources.mjs';
 
 const project = fileURLToPath(new URL('../../../', import.meta.url));
 const sampleArg = process.argv.indexOf('--sample');
@@ -57,14 +57,15 @@ const shell = (contents) => `---\nimport BaseLayout from '../../layouts/BaseLayo
 await put(join(theme, 'src/pages/preflight/index.astro'), shell('<h1>Phase A manual iframe fixture</h1><p id="fixture-home">No tool lifecycle adapter installed.</p>'));
 const mappings = [];
 for (const base of ['/', '/blog/']) {
-  const assets = [];
   const note = { root: notes, file: join(notes, 'day/day.md'), id: 'preflight-day', base };
+  const resources = createNoteResources(note);
   const urls = {};
   for (const [name, reference] of [['game', './2048.html'], ['shared', '../共享工具/计算 器%23.html']]) {
-    const relative = await resolveNoteAsset(reference, note, assets, 'image');
+    const { url: relative } = await resources.resolve(reference, 'image');
     urls[name] = `${base.replace(/\/$/, '')}/posts/preflight-day/${relative.slice(2)}`;
   }
-  for (const asset of assetPlan(assets, ['preflight-day'])) await put(join(theme, 'public', asset.target), await readFile(asset.source));
+  const { assets } = resources.finish();
+  for (const asset of assets) await put(join(theme, 'public', asset.target), await readFile(asset.source));
   mappings.push({ base, urls, assets: assets.map(({ target }) => target) });
 }
 for (const [name, lazy, shared, downloads] of [

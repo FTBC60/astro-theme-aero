@@ -103,6 +103,7 @@ for (const playing of [true, false]) {
     await h.session.refresh();
     assert.equal(h.snapshot().index, 1);
     assert.equal(h.snapshot().tracks[1].title, 'Renamed');
+    if (playing) assert.equal(h.snapshot().loadedTrack, h.snapshot().tracks[1]);
     assert.equal(h.audio.currentTime, 42);
     assert.equal(h.audio.paused, !playing);
     assert.deepEqual(h.calls, before);
@@ -225,6 +226,50 @@ test('pausing invalidates a pending play promise before its success arrives', as
   assert.equal(h.notices.length, noticeCount);
   assert.equal(h.notices.at(-1), 'paused');
 });
+
+test('duplicate play requests share a single in-flight audio play attempt', async (t) => {
+  const h = harness(t);
+  await h.session.refresh();
+  await h.session.play();
+  h.session.pause();
+  h.notices.length = 0;
+  const deferredPlay = deferred();
+  h.setPlay(() => deferredPlay.promise);
+  const pending = h.session.play();
+  await h.session.play();
+  assert.equal(h.calls.plays, 2);
+  assert(!h.notices.includes('playing'));
+  deferredPlay.resolve();
+  await pending;
+  assert.deepEqual(h.notices, ['playing']);
+});
+
+for (const outcome of ['resolve', 'reject']) {
+  test(`a stale play ${outcome} cannot clear a newer pending play attempt`, async (t) => {
+    const h = harness(t);
+    await h.session.refresh();
+    await h.session.play();
+    h.session.pause();
+    const oldPlay = deferred();
+    h.setPlay(() => oldPlay.promise);
+    const stale = h.session.play();
+    h.session.pause();
+    const newPlay = deferred();
+    h.setPlay(() => newPlay.promise);
+    const current = h.session.play();
+    const playingNotices = h.notices.filter((notice) => notice === 'playing').length;
+    oldPlay[outcome](outcome === 'reject' ? new Error('stale failure') : undefined);
+    await stale;
+    assert.equal(h.snapshot().trackError, null);
+    assert.equal(h.notices.filter((notice) => notice === 'playing').length, playingNotices);
+    const playCalls = h.calls.plays;
+    await h.session.play();
+    assert.equal(h.calls.plays, playCalls);
+    newPlay.resolve();
+    await current;
+    assert.equal(h.notices.filter((notice) => notice === 'playing').length, playingNotices + 1);
+  });
+}
 
 for (const outcome of ['resolve', 'reject']) {
   test(`switching songs ignores the old play promise's late ${outcome}`, async (t) => {
@@ -451,6 +496,31 @@ test('manual selection reuses the current track and immediately releases it when
   assert.equal(h.audio.paused, false);
   assert.equal(h.snapshot().loadedTrack.src, h.snapshot().tracks[1].src);
   assert.equal(h.audioRequests.filter(({ url }) => url.endsWith('second.mp3')).length, 1);
+});
+
+test('selecting a duplicate-source track uses its own metadata and reuses the Blob', async (t) => {
+  const h = harness(t, 'single-loop');
+  h.replies.push(response([
+    { title: 'Version A', src: 'same.mp3', artist: 'Artist A', cover: 'a.svg' },
+    { title: 'Version B', src: 'same.mp3', artist: 'Artist B', cover: 'b.svg' },
+  ]));
+  await h.session.refresh();
+  await h.session.play();
+  const source = h.audio.source;
+  assert.equal(h.snapshot().loadedTrack, h.snapshot().tracks[0]);
+  h.session.select(1);
+  await flush();
+  assert.equal(h.snapshot().loadedTrack, h.snapshot().tracks[1]);
+  assert.equal(h.snapshot().loadedTrack.title, 'Version B');
+  assert.equal(h.snapshot().loadedTrack.artist, 'Artist B');
+  assert(h.snapshot().loadedTrack.cover.endsWith('/b.svg'));
+  assert.equal(h.audio.source, source);
+  assert.equal(h.audioRequests.length, 1);
+  assert.equal(h.calls.reloads, 1);
+  h.session.select(0);
+  await flush();
+  assert.equal(h.snapshot().loadedTrack, h.snapshot().tracks[0]);
+  assert.equal(h.audioRequests.length, 1);
 });
 
 test('switching away and back immediately downloads a new resource and ignores the cancelled result', async (t) => {

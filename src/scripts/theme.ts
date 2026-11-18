@@ -21,7 +21,6 @@ function applyTheme(root: HTMLElement = document.documentElement) {
 }
 
 function syncSwitcher() {
-  applyTheme();
   const switcher = document.querySelector<HTMLElement>('[data-theme-switcher]');
   if (!switcher) return;
   const preview = switcher.querySelector<HTMLElement>('[data-color1-swatch]');
@@ -59,7 +58,10 @@ function announce(switcher: HTMLElement, message: string) {
 }
 
 function selectColor(color: string, switcher: HTMLElement) {
-  currentColor = color;
+  if (color !== currentColor) {
+    currentColor = color;
+    applyTheme();
+  }
   syncSwitcher();
   try {
     if (color === defaultColor) localStorage.removeItem(themeStorageKey);

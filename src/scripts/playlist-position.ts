@@ -4,9 +4,7 @@ export function createPlaylistPositioner(player: HTMLElement, panel: HTMLElement
   const window = document.defaultView!;
   const content = player.querySelector<HTMLElement>('.player-content')!;
   const controls = player.querySelector<HTMLElement>('.music-controls')!;
-  const heading = panel.querySelector<HTMLElement>('.playlist-heading')!;
   const inner = panel.querySelector<HTMLElement>('.playlist-accordion-inner')!;
-  const feedback = panel.querySelector<HTMLElement>('.playlist-feedback')!;
   const gap = 8;
   const margin = 12;
   let frame = 0;
@@ -60,7 +58,7 @@ export function createPlaylistPositioner(player: HTMLElement, panel: HTMLElement
       if (!(event.target instanceof window.Node) || !panel.contains(event.target)) schedule();
     }, { capture: true, passive: true, signal });
     resize = new window.ResizeObserver(schedule);
-    for (const target of [content, heading, feedback]) resize.observe(target);
+    for (const target of [player, controls, content]) resize.observe(target);
     for (let ancestor = player.parentElement; ancestor && ancestor !== document.body; ancestor = ancestor.parentElement) {
       resize.observe(ancestor);
     }

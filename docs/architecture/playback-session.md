@@ -1,6 +1,6 @@
 # 播放会话与 DOM 接入
 
-2026-10-31 建立，2026-11-11 更新（America/Los_Angeles）。本模块承接 [ADR-0006](../adr/0006-runtime-static-playlist.md) 的静态歌单和跨页音频实例，以及 [ADR-0017](../adr/0017-blob-playback-and-media-session.md) 的 Blob 播放、单首预取和 Media Session 决策。阶段讨论与历史检查见[开发方案与实施记录](music-player-development-plan.md)。
+2026-10-31 建立，2026-11-16 更新（America/Los_Angeles）。本模块承接 [ADR-0006](../adr/0006-runtime-static-playlist.md) 的静态歌单和跨页音频实例，以及 [ADR-0017](../adr/0017-blob-playback-and-media-session.md) 的 Blob 播放、单首预取和 Media Session 决策。阶段讨论与历史检查见[开发方案与实施记录](music-player-development-plan.md)。
 
 ## 模块职责
 
@@ -25,13 +25,13 @@
 
 `loaded` 只记录原始音频 URL 和 Blob URL，`trackStatus` 统一表达加载阶段及就绪。`canplay` 在资源匹配且具备播放条件时进入 `ready`，`currentReady()` 同时检查资源存在与当前曲目匹配。`wantPlaying` 保存用户意图，实际播放状态读取音频元素。歌单请求的 `loadStatus` 与歌曲加载的 `trackStatus` 分别描述各自任务。
 
-网页与系统控件共用 `play()`、`pause()`、`skip()` 和按秒跳转的 `seekTo()`。快照中的 `loadedTrack` 仅在当前资源就绪且音频源匹配时输出，供 Media Session 更新歌曲信息。位置同步读取音频元素真实时间、时长和倍速，动作与元数据分别按能力和内容变化更新。
+网页与系统控件共用 `play()`、`pause()`、`skip()` 和按秒跳转的 `seekTo()`。快照中的 `loadedTrack` 仅在当前资源就绪且音频源匹配时输出，元数据直接取当前选中曲目，允许不同歌单项共享音频地址。Media Session 使用该快照更新歌曲信息。位置同步读取音频元素真实时间、时长和倍速，动作与元数据分别按能力和内容变化更新。
 
 下载和初始化期间显示封面加载圈并禁用进度调节，就绪后封面约 200ms 淡入。Safari 播放授权被拒绝时保留就绪资源，等待用户点击。歌曲加载错误使用 `trackError`，歌名栏显示“加载失败”，底部反馈与“重新加载”入口对应实际失败任务。返回前台后继续有效下载，已失败任务等待手动重试。
 
 ## 异步结果与生命周期
 
-每次播放都有内部请求序号。暂停、切歌、移除当前歌曲或销毁会话会使旧请求失效；旧 `play()` Promise 的成功或失败不再改变当前状态与通知。当前请求的真实错误仍显示失败反馈，浏览器正常的 `AbortError` 不显示为播放故障。
+每次实际调用音频 `play()` 都生成一个内部尝试身份，同一身份用于在途去重与异步结果校验。暂停、切歌、移除当前歌曲或销毁会话会使旧尝试失效；旧 `play()` Promise 的成功或失败不再改变当前状态与通知。当前请求的真实错误仍显示失败反馈，浏览器正常的 `AbortError` 不显示为播放故障。
 
 音频下载使用取消控制器与候选任务身份核对，确保旧响应体无法覆盖最新选曲。释放资源时解除音频源并撤销 Blob URL，候选失效时取消在途请求并清除引用。
 

@@ -74,8 +74,7 @@ export function createPlaybackSession({ audio, playlistUrl, defaultCover, base, 
   let wantPlaying = false;
   let loaded: { src: string; url: string } | undefined;
   let candidate: AudioDownload | undefined;
-  let request = 0;
-  let pendingPlay: number | undefined;
+  let activeAttempt: object | undefined;
   let loading: AbortController | undefined;
   let disposed = false;
   const currentReady = () => trackStatus === 'ready' && loaded !== undefined && loaded.src === tracks[index]?.src;
@@ -85,14 +84,14 @@ export function createPlaybackSession({ audio, playlistUrl, defaultCover, base, 
     return Object.freeze({
       tracks, index, mode, nextMode: playbackModes[(playbackModes.indexOf(mode) + 1) % playbackModes.length], loadStatus, hasLoaded,
       trackStatus, wantPlaying,
-      loadedTrack: ready && audio.currentSrc === loaded?.url ? tracks.find((track) => track.src === loaded?.src) ?? null : null,
+      loadedTrack: ready && audio.currentSrc === loaded?.url ? tracks[index] ?? null : null,
       canSeek: ready && duration > 0 && audio.seekable.length > 0,
       currentTime: ready && Number.isFinite(audio.currentTime) ? Math.max(0, audio.currentTime) : 0, duration,
       trackError,
     });
   };
   const emit = (notice?: PlaybackNotice) => { if (!disposed) onChange(getSnapshot(), notice); };
-  const invalidatePlay = () => { request++; pendingPlay = undefined; };
+  const invalidatePlay = () => { activeAttempt = undefined; };
   const cancelCandidate = () => { candidate?.controller.abort(); candidate = undefined; };
   const releaseLoaded = () => {
     const previous = loaded;
@@ -138,17 +137,17 @@ export function createPlaybackSession({ audio, playlistUrl, defaultCover, base, 
     if (disposed || !tracks.length) return;
     wantPlaying = true;
     if (trackStatus === 'idle' || trackStatus === 'error') { trackError = null; await loadTarget(); return; }
-    if (!currentReady() || pendingPlay !== undefined) { emit(); return; }
+    if (!currentReady() || activeAttempt !== undefined) { emit(); return; }
     if (audio.ended) audio.seek(0);
-    const current = ++request;
-    pendingPlay = current;
+    const attempt = {};
+    activeAttempt = attempt;
     try {
       const started = audio.play();
       emit();
       await started;
-      if (!disposed && current === request) emit('playing');
+      if (!disposed && activeAttempt === attempt) emit('playing');
     } catch (error) {
-      if (disposed || current !== request) return;
+      if (disposed || activeAttempt !== attempt) return;
       const name = error instanceof Error ? error.name : '';
       if (name === 'NotAllowedError' || name === 'AbortError') {
         wantPlaying = false;
@@ -156,7 +155,7 @@ export function createPlaybackSession({ audio, playlistUrl, defaultCover, base, 
         emit(name === 'NotAllowedError' ? 'playback-blocked' : 'paused');
       } else failTrack({ kind: 'playback' });
     } finally {
-      if (!disposed && current === request) pendingPlay = undefined;
+      if (!disposed && activeAttempt === attempt) activeAttempt = undefined;
     }
   };
   const markReady = () => {
