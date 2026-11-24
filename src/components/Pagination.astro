@@ -8,8 +8,16 @@ const ui = getUi(siteConfig.lang);
 const href = (page: number) => withBase(page === 1 ? basePath : `${basePath}page/${page}/`);
 ---
 {total > 1 && <nav class="page-nav" aria-label={ui.pagination}>
-  {current > 1 && <a class="extend" href={href(current - 1)} aria-label={ui.previousPage}>&lt;</a>}
+  {current > 1 && <a class="extend" href={href(current - 1)} aria-label={ui.previousPage}>
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z" />
+    </svg>
+  </a>}
   {Array.from({ length: total }, (_, index) => index + 1).map((page) =>
     <a href={href(page)} class:list={['page-number', { current: page === current }]} aria-current={page === current ? 'page' : undefined} aria-label={ui.pageNumber(page)}>{page}</a>)}
-  {current < total && <a class="extend" href={href(current + 1)} aria-label={ui.nextPage}>&gt;</a>}
+  {current < total && <a class="extend" href={href(current + 1)} aria-label={ui.nextPage}>
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z" />
+    </svg>
+  </a>}
 </nav>}

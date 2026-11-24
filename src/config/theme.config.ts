@@ -6,7 +6,7 @@ export const themeConfig: {
   // Six-digit HEX. Recommended colors: #3C7FB1, #437F68, #73619B.
   defaultColor: '#3C7FB1',
   // Use a public/ path or a full HTTPS URL. Keep the image independent of the avatar and music covers.
-  wallpaper: '/image/wallpaper.jpg',
+  wallpaper: '/image/wallpaper-tile.jpg',
   // CSS background-position; for example, 'center center' or '70% center'.
   wallpaperPosition: 'center center',
 };
