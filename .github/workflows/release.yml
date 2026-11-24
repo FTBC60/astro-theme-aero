@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag to build (for example v1.4.1)
+        description: Existing version tag to build (for example v1.4.2)
         required: true
         type: string
 
@@ -91,9 +91,9 @@ jobs:
           解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
           Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
 
-          v1.4.1 整理笔记资源规划与编译逻辑，加强嵌入式目录工具包成员校验及安全交付。播放器简化异步播放尝试与歌单监听，修正当前曲目元数据处理、跨页导航及触摸交互，并精简主题色计算。新增相应回归测试。
+          v1.4.2 修复移动端文章长链接溢出，并使侧栏遮罩覆盖整个视口。上一页与下一页按钮改为 Aero 风格 SVG 图标。壁纸新增纵向平铺，修复浏览器长截图底部露出空白背景的问题。
 
-          v1.4.1 consolidates note resource planning and compilation, and strengthens member validation and secure delivery for embedded tool packages. It simplifies asynchronous playback attempts and playlist observers, improves current-track metadata, navigation and touch handling, and streamlines theme color calculation. Regression coverage is expanded.
+          v1.4.2 wraps long links in article content, ensures the mobile sidebar mask covers the viewport, and replaces previous/next pagination symbols with Aero-style SVG icons. Vertical wallpaper tiling fixes blank backgrounds in full-page screenshots.
 
           延续 v1.4.0 的 Windows 7 Chrome 109 / Firefox 115 ESR 兼容目标，以及此前发布的调色板、Blob 缓存与系统媒体控件功能。
 
