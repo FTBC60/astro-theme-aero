@@ -4,7 +4,7 @@ status: accepted
 
 # 0016：工具目录包的显式文件清单
 
-2026-11-04（America/Los_Angeles）。用户确认 AuthKey 阶段 A 试验后，授权进入阶段 B。单文件不便组织本地依赖，扩展 [ADR-0014](0014-static-embedded-tools.md) 的交付单位为目录包，继续保持静态主题及原 iframe 语法和权限。
+2026-11-04（America/Los_Angeles）。用户确认 AuthKey 阶段 A 试验后，授权进入阶段 B。单文件不便组织本地依赖，扩展 [ADR-0014](0014-static-embedded-tools.md) 的交付单位为目录包，继续保持静态主题及原 iframe 语法和权限。2026-11-27 补充：[ADR-0023](0023-embedded-tools-same-origin-sandbox.md) 已将内嵌工具 `iframe` 的 `sandbox` 权限调整为包含 `allow-same-origin`；下文保留原阶段的决定与验收记录。
 
 ## 决定
 

@@ -50,7 +50,7 @@ test('package files use the entry mapping, retain bytes, and do not scan HTML de
   assert(plan.assets.every(x => Object.keys(x).sort().join(',') === 'source,target'));
   assert.deepEqual(plan.toolEntries, [{ entry: 'posts/日记/day/clock/index.html', files: ['index.html', 'app.js', '资源/样式.css'] }]);
   assert.equal((result.rendered.html.match(/<iframe /g) || []).length, 2);
-  assert.match(result.rendered.html, /sandbox="allow-scripts allow-downloads"/);
+  assert.match(result.rendered.html, /sandbox="allow-scripts allow-downloads allow-same-origin"/);
   assert(result.rendered.html.includes('/blog/posts/%E6%97%A5%E8%AE%B0/day/clock/index.html'));
   assert(!JSON.stringify(result.rendered.metadata).includes('toolEntries'), 'private compilation metadata must not reach Astro store');
   assert.equal(await readFile(plan.assets[2].source, 'utf8'), '/* 原字节 */');

@@ -177,6 +177,13 @@ L14 用户确认已启用减少动态效果模拟；L167 报告累计 30 次浏�
 
 经作者明确指令，第一轮执行第一梯队瘦身与同进程 UUID 令牌清理，并对 6 个相关测试文件中测试上述过度防御行为的用例同步收敛为正常边界测试，对应提交 `3931048`（`npm run check` 91 文件 0 错误、`npm run test:release` 168 / 168 项通过）。随后作者确认继续执行第二梯队精简：采用方案 A 保留 `checkedFile()` 在 `expandToolPackage()` 同步边界的大小写与软链检查，删除 `openCheckedFile()`、`checkedToolArchives()` 与 `createToolArchive()` 中的清单复检；统一 `note-assets.mjs` 的 `serveAssets()` 与 `astro:build:done` 交付流程，改用原生 `copyFile(..., COPYFILE_EXCL)` 与 `writeFile(..., { flag: 'wx' })`；将 `note-resource-plan.mjs` 收敛为 `finalizeResourcePlan()` 单次跨文章汇总检查；保留 `note-resources.mjs` 的状态锁与 `.md` 互链父目录 `lstat()` 检查，并同步清理 `tool-packages.test.mjs` 中的 TOCTOU 专项用例。决策结论见 [ADR-0022](0022-streamline-trust-boundaries-and-publisher-checks.md)。
 
+<a id="s24"></a>
+## S24：内嵌前端工具启用 allow-same-origin 权限
+
+2026-11-27 的本轮用户指示与工作区修改记录。用户明确指示执行既定修改方案，为 `iframe` 嵌入的前端工具增加 `allow-same-origin` 权限，范围涵盖三部分：修改 `src/lib/note-compilation.mjs` 第 156 行统一生成 `iframe` 的 `sandbox` 属性为 `"allow-scripts allow-downloads allow-same-origin"`；同步更新现有测试的 sandbox 权限断言（包括移除明确禁止 `allow-same-origin` 的断言）；更新中英文配置说明以匹配“由博客作者负责审查和发布工具”的信任模型。同时明确该修改旨在消除不透明来源引起的同源资源加载障碍（例如 Ruffle），而具体工具的实际播放兼容性仍需后续测试。
+
+当前 `static` 工作区可核对 `src/lib/note-compilation.mjs`、`tools/test/content.test.mjs`、`tools/test/tool-packages.test.mjs`、`docs/zh-CN/CONFIGURATION.md` 与 `docs/en/CONFIGURATION.md` 的改动，以及本轮补录的 [ADR-0023](0023-embedded-tools-same-origin-sandbox.md)（并已在 [ADR-0014](0014-static-embedded-tools.md)、[ADR-0016](0016-tool-package-file-manifests.md) 添加修订链接）。本轮自动化验证记录为 `npm run test:release`（166 / 166 项通过）、`npm run check`（91 文件 0 错误/0 警告/0 提示）与 `npm run build`（8 页构建完成）；历史阶段性脚本（`tools/test/embedded-tools/`）与验收文档（`tools/test/validation-docs/`）保持原貌未改写，Ruffle 实际播放兼容性尚未实测。
+
 ## 尚未恢复的材料
 
 - ChatGPT Work 中首次迁移的完整讨论，以及部分早期阶段原始选型过程；本机旧副本从接力开始，Git 最早也是源码导入。

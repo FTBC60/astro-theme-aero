@@ -28,6 +28,7 @@ These retrospective ADRs document the static theme and the earlier dynamic exper
 | [0020](0020-windows-7-browser-compatibility.md) | 单份 Aero 静态构建兼容 Windows 7 Chrome 109、Firefox 115 ESR | 已采用；本地检查通过，作者反馈 NAS、Cloudflare Worker 发布及 Windows 7 虚拟机验收通过 |
 | [0021](0021-github-actions-publishing-workflow.md) | 保留 NAS 发布容器并新增 GitHub Actions 编译发布流程 | 已采用；本地 169 项发布测试、检查、构建及无凭据 dry run 通过，云端 Actions 实际部署待验 |
 | [0022](0022-streamline-trust-boundaries-and-publisher-checks.md) | 收敛内部信任边界并精简发布器及工具包过度防御校验 | 已采用；两轮精简已落地，本地类型检查与发行测试通过 |
+| [0023](0023-embedded-tools-same-origin-sandbox.md) | 为内嵌前端工具 `iframe` 启用 `allow-same-origin` 权限 | 已采用；本地发行测试、类型检查与静态构建通过，Ruffle 等工具实机兼容待验 |
 
 [变更追溯表](HISTORY.md)记录各阶段修改及提交，包括未单独立 ADR 的界面、归档和播放器修复。[恢复依据](SOURCES.md)记录本机会话文件、消息位置、证据边界和缺口。
 

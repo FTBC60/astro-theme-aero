@@ -65,6 +65,12 @@
 
 | 2026-11-26 | `48f92e6` | 当主题与运行时根目录相同时，跳过同一份依赖清单的重复比较。 | 发布器依赖一致性检查精简。 |
 
+## 2026-11-27 内嵌前端工具启用同源权限
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-27 | `4bf08dd` | 为 `![iframe: ...]` 嵌入的前端工具启用同源权限：将 `src/lib/note-compilation.mjs` 生成 `iframe` 时的 `sandbox` 由 `allow-scripts allow-downloads` 调整为 `allow-scripts allow-downloads allow-same-origin`，使内嵌工具可使用同源 Fetch、WebAssembly 与浏览器存储并具备访问父页面 DOM 的能力，同时保留现有工具包清单格式、Markdown 引用语法与独立页面打开机制。同步更新 `tools/test/content.test.mjs`、`tools/test/tool-packages.test.mjs` 的 sandbox 断言（含移除禁止 `allow-same-origin` 的断言），以及中英文 `docs/{zh-CN,en}/CONFIGURATION.md` 的能力边界与作者审查信任模型说明。 | [ADR-0023](0023-embedded-tools-same-origin-sandbox.md)、[S24](SOURCES.md#s24)。本地 `npm run test:release`（166 项通过）、`npm run check`（91 文件 0 错误/0 警告/0 提示）与 `npm run build`（8 页）通过；Ruffle 等工具的实际播放与浏览器实测兼容待后续验证。 |
+
 ## 动态实验的历史演进
 
 下列提交保留在 `dev` 历史，不是当前静态代码的组成部分。整体取舍、性能局限及暂缓原因见 [ADR-0003](0003-dynamic-publishing-experiment.md) 和 [ADR-0004](0004-return-to-static-assets.md)。

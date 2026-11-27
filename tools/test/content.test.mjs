@@ -116,10 +116,10 @@ test('tools compile with fixed permissions, stable URLs and the existing attachm
     // Astro may normalise named entities to hex entities; quotes must remain
     // inside the single title attribute, without changing the name's text.
     assert.match(html, /title="A (?:<B>|&lt;B&gt;) (?:&#x22;|&quot;)quoted(?:&#x22;|&quot;) (?:&#x26;|&amp;) result"/);
-    assert.equal((html.match(/sandbox="allow-scripts allow-downloads"/g) || []).length, 2);
+    assert.equal((html.match(/sandbox="allow-scripts allow-downloads allow-same-origin"/g) || []).length, 2);
     assert.equal((html.match(/referrerpolicy="no-referrer"/g) || []).length, 2);
     assert.match(html, /class="aero-embedded-tool"/);
-    assert.doesNotMatch(html, /allow-same-origin|allow-forms|allow-popups|allow-top-navigation|transition:persist/);
+    assert.doesNotMatch(html, /allow-forms|allow-popups|allow-top-navigation|transition:persist/);
     assert.match(html, /<a href="\.\/.+\.HTML"[^>]+target="_blank"[^>]+rel="noopener"[^>]+data-astro-reload[^>]*>ordinary HTML link<\/a>/);
     assert.match(html, /<img[^>]+alt="ordinary HTML image"/);
     await compilation.writePlan();
@@ -353,7 +353,7 @@ test('build external notes, refresh attachments, switch roots and fail on invali
     assert.match(html, /href="\/blog\/posts\/%E4%B8%AD%E6%96%87\/%E7%AC%AC%E4%BA%8C%E7%AF%87\/#heading"/);
     assert.match(html, /mjx-container/);
     assert.match(html, /astro-code/);
-    assert.match(html, /<iframe src="\/blog\/posts\/2026-10-02\/tool.html"[^>]+sandbox="allow-scripts allow-downloads"/);
+    assert.match(html, /<iframe src="\/blog\/posts\/2026-10-02\/tool.html"[^>]+sandbox="allow-scripts allow-downloads allow-same-origin"/);
     const home = await readFile(join(root, 'dist/index.html'), 'utf8');
     assert.match(home, /src="\/blog\/posts\/2026-10-02\/%E5%9B%BE%20%E7%89%87.png"/);
     assert(!home.includes('/blog/blog/') && !home.includes('PRIVATE_NOTE') && !home.includes('Welcome to Aero'));

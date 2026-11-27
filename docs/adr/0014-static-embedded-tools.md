@@ -4,7 +4,7 @@ status: accepted
 
 # 0014：静态文章的单文件 HTML 工具与固定双权限
 
-2026-11-04 补充：[ADR-0016](0016-tool-package-file-manifests.md) 扩展目录包交付，保留本文的旧单文件行为及固定 sandbox。下文是原单文件阶段的决定与验收记录。
+2026-11-04 补充：[ADR-0016](0016-tool-package-file-manifests.md) 扩展目录包交付，保留本文的旧单文件行为及固定 sandbox。2026-11-27 补充：[ADR-0023](0023-embedded-tools-same-origin-sandbox.md) 将内嵌工具 `iframe` 的固定 `sandbox` 权限更新为 `allow-scripts allow-downloads allow-same-origin`。下文是原单文件阶段的决定与验收记录。
 
 2026-11-03（America/Los_Angeles）。2048 的 JSON 导入和下载导出需要在现有静态写作流程内运行。阶段 A 的[实测与限制](../../tools/test/validation-docs/embedded-tools-phase-a-2026-11-03.md)收敛后，用户授权进入阶段 B，现已完成[最小适配与本地验证](../../tools/test/validation-docs/embedded-tools-phase-b-2026-11-03.md)。本 ADR 标为已采用，表示设计与实现已落地；各环境验收分别记录。
 

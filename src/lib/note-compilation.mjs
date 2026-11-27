@@ -153,7 +153,7 @@ export function remarkNoteAssets() {
           node.url = publishedAssetUrl(node.url, note);
           node.type = 'html';
           node.value = tool
-            ? `<iframe src="${escapeHtml(node.url)}" title="${escapeHtml(title)}" sandbox="allow-scripts allow-downloads" loading="lazy" referrerpolicy="no-referrer" class="aero-embedded-tool"></iframe>`
+            ? `<iframe src="${escapeHtml(node.url)}" title="${escapeHtml(title)}" sandbox="allow-scripts allow-downloads allow-same-origin" loading="lazy" referrerpolicy="no-referrer" class="aero-embedded-tool"></iframe>`
             : `<img src="${escapeHtml(node.url)}" alt="${escapeHtml(node.alt || '')}"${node.title ? ` title="${escapeHtml(node.title)}"` : ''} loading="lazy">`;
           if (tool && download && !insideLink) {
             const control = `<a class="aero-tool-download" href="${escapeHtml(download.url)}"`
