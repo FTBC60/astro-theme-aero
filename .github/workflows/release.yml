@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing version tag to build (for example v1.5.0)
+        description: Existing version tag to build (for example v1.5.1)
         required: true
         type: string
 
@@ -91,19 +91,15 @@ jobs:
           解压主题包后进入 `astro-theme-aero/`，运行 `npm ci` 和 `npm run dev`，按中英文文档配置博客。
           Extract the theme package, enter `astro-theme-aero/`, run `npm ci` and `npm run dev`, and follow the included guides.
 
-          ### v1.5.0 — GitHub Actions publishing and streamlined Publisher
+          ### v1.5.1 — Same-origin support for embedded tools
 
-          - 新增 GitHub Actions 自动编译发布方案，继续支持 NAS Docker Publisher；两者共用发布工具。支持推送、定时及手动 dry run，无 Cloudflare Secrets 时自动检查与构建。
-          - Add GitHub Actions publishing alongside the NAS Docker Publisher, reusing the same deployment pipeline. Supports push, scheduled runs, and manual dry runs; falls back to check and build when Cloudflare secrets are absent.
-          - 优化 NAS I/O：笔记快照改用文件大小与纳秒修改时间的元数据指纹，移除重复依赖校验、资源计划校验及工具包重复检查，简化附件交付。
-          - Reduce NAS I/O by using size and nanosecond modification-time metadata for note snapshots, eliminating duplicate dependency, resource-plan and tool-package checks, and simplifying attachment delivery.
+          - 为文章中内嵌的单文件及目录包 HTML 工具 iframe 增加 `allow-same-origin`，支持同源 Fetch、WebAssembly 与浏览器存储。原有 Markdown 语法及工具包清单格式保持不变。
+          - Enable `allow-same-origin` for embedded single-file and directory-package HTML tools, allowing same-origin fetch, WebAssembly and browser storage. Existing Markdown syntax and package manifests remain unchanged.
 
-          **升级说明 / Upgrade notes**
+          **安全边界与升级说明 / Trust boundary and upgrade notes**
 
-          - `public/` 的忽略规则统一由根目录 `.gitignore` 管理；请将嵌套 `.gitignore` 中仍需生效的规则迁至根目录。
-          - Public resource selection now uses only the root `.gitignore`; migrate applicable nested ignore rules to the root file.
-          - 默认 `wrangler.json` 启用 `workers_dev`。GitHub Actions 作者模板见 `examples/deployment/publish.yml`，按中英文部署指南配置 Secrets 和笔记目录。
-          - The default `wrangler.json` enables `workers_dev`. Use `examples/deployment/publish.yml` and the bilingual deployment guides to configure secrets and notes.
+          - 同时授予 `allow-scripts` 和 `allow-same-origin` 后，同源工具可访问父页面 DOM 及站点存储。请仅发布经过博客作者审查的可信工具；跨源请求仍遵循 CORS。具体工具（如 Ruffle）的浏览器兼容性仍需实测。
+          - With `allow-scripts` and `allow-same-origin` together, same-origin tools can access the parent DOM and site storage. Publish only trusted, author-reviewed tools. Cross-origin requests remain subject to CORS; specific tools such as Ruffle still require browser testing.
           - 升级后运行 `npm ci`，NAS 用户从实际使用的同一份主题源码重建 Publisher 镜像。
           - After upgrading, run `npm ci`. NAS users should rebuild the Publisher image from the exact theme source in use.
 
