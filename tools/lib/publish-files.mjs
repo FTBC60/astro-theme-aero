@@ -36,11 +36,11 @@ export async function copyTheme(root, destination, notesRoot) {
   }
 }
 
-/** Fingerprint files and relative symlink destinations, without following directory links. */
+/** Fingerprint directory structure and file metadata (size + mtime) without reading file bytes. */
 export async function fingerprint(root) {
   const hash = createHash('sha256');
   async function visit(path) {
-    const info = await lstat(path);
+    const info = await lstat(path, { bigint: true });
     const name = relative(root, path).split(sep).join('/');
     if (info.isSymbolicLink()) {
       const target = await realpath(path);
@@ -50,8 +50,7 @@ export async function fingerprint(root) {
       hash.update(JSON.stringify(['directory', name]));
       for (const child of (await readdir(path)).sort()) await visit(join(path, child));
     } else if (info.isFile()) {
-      const digest = createHash('sha256').update(await readFile(path)).digest('hex');
-      hash.update(JSON.stringify(['file', name, digest]));
+      hash.update(JSON.stringify(['file', name, String(info.size), String(info.mtimeNs)]));
     } else throw new Error(`Snapshot contains a special file: ${name}`);
   }
   await visit(root);

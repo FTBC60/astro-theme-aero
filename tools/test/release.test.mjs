@@ -56,9 +56,8 @@ for (const external of [false, true]) {
         await cp(join(project, name), join(root, name), { recursive: true });
       }
       await symlink(join(project, 'node_modules'), join(root, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
-      await put(join(root, '.gitignore'), 'node_modules/\ndist/\n.astro/\nrelease/\n*.tmp\n/public/tracked.txt\n/public/norevive/\n!/public/norevive/keep.txt\n/public/content-excluded/*\n!/public/content-excluded/keep.txt\n');
-      await put(join(root, 'public/album/.gitignore'), 'private.txt\n!keep.tmp\n');
-      await put(join(root, 'public/posts/day/.gitignore'), '/index.html\n');
+      await put(join(root, '.gitignore'), 'node_modules/\ndist/\n.astro/\nrelease/\n*.tmp\n/public/tracked.txt\n/public/norevive/\n!/public/norevive/keep.txt\n/public/content-excluded/*\n!/public/content-excluded/keep.txt\n/public/album/private.txt\n!/public/album/keep.tmp\n/public/posts/day/index.html\n');
+      await put(join(root, 'public/album/.gitignore'), 'metadata-only\n');
       for (const name of [...included, ...excluded.filter((name) => !name.endsWith('.gitignore'))]) {
         await put(join(root, 'public', name), `fixture: ${name}`);
       }

@@ -41,6 +41,7 @@ async function jsonFile(path, data) {
 }
 
 export async function checkDependencies(themeRoot, runtimeRoot) {
+  if (resolve(themeRoot) === resolve(runtimeRoot)) return;
   for (const name of ['package.json', 'package-lock.json']) {
     const load = async (root) => {
       try { return JSON.parse(await readFile(join(root, name), 'utf8')); }
@@ -123,8 +124,6 @@ export async function publish({ root, runtimeRoot = fileURLToPath(new URL('../..
     check();
     await mkdir(stage, { recursive: true });
     await copyTheme(root, stage, notes);
-    // Also check the captured files, in case dependencies changed during copying.
-    await checkDependencies(stage, runtimeRoot);
     const { directory: snapshot, digest } = await snapshotNotes({ source: notes, stage, signal: controller.signal,
       onRetry: () => log('[publisher] Notes changed during copying; retrying the snapshot.\n'),
     });

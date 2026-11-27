@@ -83,9 +83,14 @@ npm run preview
 
 构建后的静态文件位于 `dist/`。
 
-## 群晖定时发布
+## 自动编译与发布
 
-支持 Container Manager 常驻定时发布：在 Compose 中设置 cron 表达式、时区和 Cloudflare 凭据，只读挂载笔记目录。配置、手动 dry run、日志与排错见[部署指南](DEPLOYMENT.md)。
+支持两种自动部署到 Cloudflare Workers 的方式（共用根目录 `wrangler.json` 与 `tools/deploy.mjs`）：
+
+- **方案一（群晖 NAS 容器定时发布）**：在 Container Manager 中通过 Compose 配置 cron 表达式、时区和 Cloudflare 凭据，只读挂载笔记目录。
+- **方案二（GitHub Actions 发布）**：将主题用作 GitHub Template（或复制 [publish.yml](../../examples/deployment/publish.yml)），把笔记提交到 `src/content/posts/` 并在仓库配置 Cloudflare Secrets，推送或定时触发自动构建与部署。
+
+详细步骤、dry run、日志与排错见[部署指南](DEPLOYMENT.md)。
 
 ## 导出发布包
 

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { validatePostId } from './note-assets.mjs';
-import { checkedResourcePlan } from './note-resource-plan.mjs';
+import { finalizeResourcePlan } from './note-resource-plan.mjs';
 import { createNoteResources } from './note-resources.mjs';
 
 const version = 4;
@@ -39,24 +39,21 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
       pending++;
       try {
         validatePostId(id);
-        const token = randomUUID();
-        const request = { version, kind: 'request', token, note: { id, root, file, base, downloadLabels } };
-        const metadata = { ...frontmatter, [metadataKey]: request };
+        const metadata = { ...frontmatter, [metadataKey]: { id, root, file, base, downloadLabels } };
         const rendered = await renderMarkdown(`---\n${JSON.stringify(metadata)}\n---\n${body}`, { fileURL: pathToFileURL(file) });
         const extra = rendered?.metadata?.frontmatter;
         const result = extra?.[metadataKey];
-        if (typeof rendered?.html !== 'string' || result?.version !== version || result.kind !== 'result' || result.token !== token
+        if (typeof rendered?.html !== 'string' || !result || !Array.isArray(result.assets)
           || !Object.hasOwn(result, 'cover') || (frontmatter.cover === undefined ? result.cover !== null : typeof result.cover !== 'string')) {
           throw new Error(`Incomplete note compilation for "${id}" (${file}): check remarkNoteAssets in astro.config.mjs; expected a complete result for this note`);
         }
-        const planned = checkedResourcePlan({ root, assets: result.assets, toolEntries: result.toolEntries, archives: result.archives, postIds: [id] });
-        // Private requests/results never reach Astro's content store.
+        // Private compilation metadata never reaches Astro's content store.
         const { [metadataKey]: _private, ...cleanFrontmatter } = extra;
         /** @type {NonNullable<typeof rendered.metadata>} */
         const cleanMetadata = { ...rendered.metadata, frontmatter: cleanFrontmatter };
-        assets.push(...planned.assets);
-        toolEntries.push(...planned.toolEntries);
-        archives.push(...planned.archives);
+        assets.push(...result.assets);
+        toolEntries.push(...result.toolEntries);
+        archives.push(...result.archives);
         postIds.push(id);
         return {
           rendered: { ...rendered, metadata: cleanMetadata },
@@ -70,7 +67,7 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
     async writePlan() {
       if (failed || pending || sealed) throw new Error('Cannot save an incomplete or already saved note compilation batch');
       sealed = true;
-      const planned = checkedResourcePlan({ root, assets, toolEntries, archives, postIds });
+      const planned = finalizeResourcePlan({ assets, toolEntries, archives, postIds });
       const plan = { version, root, base, postIds, ...planned };
       await mkdir(cacheDir, { recursive: true });
       const temporary = new URL(`${planFile}.${randomUUID()}.tmp`, cacheDir);
@@ -86,7 +83,7 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
       if (plan?.version !== version || plan.root !== root || plan.base !== base) {
         throw new Error('Attachment plan does not match the current notesDir, base or format version; run content sync again');
       }
-      return { root, ...checkedResourcePlan({ root, ...plan }) };
+      return { root, assets: plan.assets, toolEntries: plan.toolEntries, archives: plan.archives };
     },
   };
 }
@@ -95,12 +92,8 @@ export function createNoteCompilation({ root, base, cacheDir, integrations, down
 export function remarkNoteAssets() {
   return async (tree, file) => {
     const frontmatter = file.data.astro?.frontmatter;
-    const request = frontmatter?.[metadataKey];
-    if (!request) return;
-    if (request.version !== version || request.kind !== 'request' || typeof request.token !== 'string' || !request.note) {
-      throw new Error('Invalid note compilation request');
-    }
-    const note = request.note;
+    const note = frontmatter?.[metadataKey];
+    if (!note) return;
     const resources = createNoteResources(note);
     const definitions = new Map();
     const collect = (node) => {
@@ -188,6 +181,6 @@ export function remarkNoteAssets() {
       const { url: cover } = await resources.resolve(frontmatter.cover);
       frontmatter.cover = publishedAssetUrl(cover, note);
     }
-    frontmatter[metadataKey] = { version, kind: 'result', token: request.token, cover: frontmatter.cover ?? null, ...resources.finish() };
+    frontmatter[metadataKey] = { cover: frontmatter.cover ?? null, ...resources.finish() };
   };
 }

@@ -1,12 +1,11 @@
-import { randomUUID } from 'node:crypto';
-import { createReadStream } from 'node:fs';
-import { link, lstat, mkdir, open, realpath, stat, unlink } from 'node:fs/promises';
-import { basename, dirname, extname, resolve } from 'node:path';
+import { constants, createReadStream } from 'node:fs';
+import { copyFile, lstat, mkdir, realpath, stat, writeFile } from 'node:fs/promises';
+import { dirname, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inside, resolveNotesDir } from '../lib/note-assets.mjs';
 import { createNoteCompilation, noteAssetsIntegrationName } from '../lib/note-compilation.mjs';
 import { resourceDelivery } from '../lib/note-resource-plan.mjs';
-import { createToolArchive, openCheckedFile } from '../lib/tool-package.mjs';
+import { createToolArchive } from '../lib/tool-package.mjs';
 
 const types = { '.html': 'text/html; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.avif': 'image/avif', '.pdf': 'application/pdf', '.txt': 'text/plain; charset=utf-8', '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.mp4': 'video/mp4' };
 Object.assign(types, { '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.wasm': 'application/wasm' });
@@ -38,22 +37,6 @@ export default function noteAssets(settings) {
         res.setHeader('Content-Length', bytes.byteLength);
         if (req.method === 'HEAD') return res.end();
         return res.end(bytes);
-      }
-      if (output.packageMember) {
-        const fail = message => { throw new Error(`Cannot serve tool member ${output.target}: ${message}`); };
-        const handle = await openCheckedFile(plan.root, output.source, fail);
-        try {
-          res.setHeader('Content-Type', types[extname(output.source).toLowerCase()] || 'application/octet-stream');
-          res.setHeader('Content-Length', (await handle.stat()).size);
-          if (req.method === 'HEAD') {
-            await handle.close();
-            return res.end();
-          }
-          return handle.createReadStream().on('error', next).pipe(res);
-        } catch (error) {
-          await handle.close();
-          throw error;
-        }
       }
       const source = await realpath(output.source);
       if (!inside(plan.root, source)) throw new Error('Attachment escapes notesDir');
@@ -112,49 +95,20 @@ export default function noteAssets(settings) {
         }
         for (const output of outputs) {
           const destination = resolve(out, output.target);
-          const parent = dirname(destination);
-          await mkdir(parent, { recursive: true });
-          if (!inside(realOut, await realpath(parent))) {
-            throw new Error(`Attachment output symlink escapes dist: ${output.target}`);
-          }
-          const temporary = resolve(parent, `.${basename(destination)}.${randomUUID()}.tmp`);
-          let created = false;
+          await mkdir(dirname(destination), { recursive: true });
           try {
-            const staged = await open(temporary, 'wx');
-            created = true;
-            try {
-              if (output.kind === 'archive') {
-                await staged.writeFile(await createToolArchive(output, plan.assets, plan.root));
-              } else {
-                const fail = message => { throw new Error(`Cannot build tool member ${output.target}: ${message}`); };
-                let source;
-                if (output.packageMember) {
-                  source = await openCheckedFile(plan.root, output.source, fail);
-                } else {
-                  const path = await realpath(output.source);
-                  if (!inside(plan.root, path)) throw new Error(`Attachment escapes its root: ${output.target}`);
-                  source = await open(path, 'r');
-                }
-                try {
-                  if (!(await source.stat()).isFile()) throw new Error(`Attachment is not a file: ${output.target}`);
-                  for await (const chunk of source.createReadStream({ autoClose: false })) {
-                    await staged.writeFile(chunk);
-                  }
-                } finally { await source.close(); }
-              }
-            } finally { await staged.close(); }
-            if (!inside(realOut, await realpath(parent))) {
-              throw new Error(`Attachment output symlink escapes dist: ${output.target}`);
+            if (output.kind === 'archive') {
+              await writeFile(destination, await createToolArchive(output, plan.assets, plan.root), { flag: 'wx' });
+            } else {
+              const source = await realpath(output.source);
+              if (!inside(plan.root, source)) throw new Error(`Attachment escapes its root: ${output.target}`);
+              await copyFile(source, destination, constants.COPYFILE_EXCL);
             }
-            try { await link(temporary, destination); }
-            catch (error) {
-              if (error.code === 'EEXIST') {
-                throw new Error(`Attachment collides with a generated page or public file: ${output.target}`, { cause: error });
-              }
-              throw new Error(`Cannot publish attachment with a hard link (${output.target}): ${error.message}`, { cause: error });
+          } catch (error) {
+            if (error.code === 'EEXIST') {
+              throw new Error(`Attachment collides with a generated page or public file: ${output.target}`, { cause: error });
             }
-          } finally {
-            if (created) await unlink(temporary);
+            throw error;
           }
         }
       },

@@ -1,0 +1,78 @@
+name: Publish blog
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - 'docs/**'
+      - 'LICENSE'
+      - 'README.md'
+      - '.github/workflows/release.yml'
+      - '.github/scripts/**'
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (check, build, and Wrangler dry-run without upload)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blog-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: 'true'
+      ASTRO_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.1
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Check, build, and publish
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run == true }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Running publisher dry run (no upload)..."
+            npm run deploy:dry-run
+          elif [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && [ -n "$CLOUDFLARE_API_TOKEN" ] && [[ "$CLOUDFLARE_ACCOUNT_ID" != REPLACE_WITH_* ]] && [[ "$CLOUDFLARE_API_TOKEN" != REPLACE_WITH_* ]]; then
+            echo "Cloudflare credentials detected; deploying via publisher..."
+            npm run deploy
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "Error: CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN secrets are required for manual deployment (or run with dry_run=true)." >&2
+            exit 1
+          else
+            echo "Cloudflare secrets are not configured; falling back to check and build only."
+            npm run check
+            npm run build
+          fi
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: failure()
+        with:
+          name: publisher-logs-${{ github.run_id }}
+          path: |
+            .astro/publisher/logs/
+            .astro/publisher/status.json
+          if-no-files-found: ignore
+          retention-days: 7

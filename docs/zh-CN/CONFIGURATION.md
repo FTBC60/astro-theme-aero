@@ -317,4 +317,4 @@ npm run build
 npm run preview
 ```
 
-`npm run build` 会生成静态站点到 `dist/`。用预览命令检查文章、图片、标签和音乐后，运行 `npm run export`，将 `release/` 中的 `*-site.tar.gz` 解压部署到静态托管服务。export 使用主题根目录及嵌套 `.gitignore` 在构建前筛选 `public/`，支持 `!` 例外，与 Git 跟踪状态无关；通过临时输入和输出目录构建，原有 `dist/` 保留。详细范围见[导出发布包](README.md#导出发布包)。若图片无法显示，先确认文件在 `public/` 中，且配置路径以 `/` 开头、不含 `public`；若歌曲无法播放，检查文件路径和目标浏览器的格式支持；若文章没有出现，检查是否明确填写了 `publish: true`。
+`npm run build` 会生成静态站点到 `dist/`。用预览命令检查文章、图片、标签和音乐后，运行 `npm run export`，将 `release/` 中的 `*-site.tar.gz` 解压部署到静态托管服务。export 使用主题根目录 `.gitignore` 在构建前筛选 `public/`，支持 `!` 例外，与 Git 跟踪状态无关；通过临时输入和输出目录构建，原有 `dist/` 保留。详细范围见[导出发布包](README.md#导出发布包)。若图片无法显示，先确认文件在 `public/` 中，且配置路径以 `/` 开头、不含 `public`；若歌曲无法播放，检查文件路径和目标浏览器的格式支持；若文章没有出现，检查是否明确填写了 `publish: true`。

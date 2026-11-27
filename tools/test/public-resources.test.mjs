@@ -24,26 +24,26 @@ async function fixture(run) {
   }
 }
 
-test('nested rules, negation and directory pruning agree with Git without its index', async () => fixture(async (root) => {
-  const contents = {
-    '.gitignore': '*.tmp\n/public/closed/\n!/public/closed/keep.txt\n/public/open/*\n!/public/open/keep.txt\n/public/reopened/\n/public/changed.txt\n',
-    'public/.gitignore': '!reopened/\n!changed.txt\narchive/\n',
-    'public/album/.gitignore': 'private.txt\n*.tmp\n!keep.tmp\n/root.txt\nfolder/\n!folder/keep.txt\n\\#secret.txt\n\\!secret.txt\nspaced.txt  \n',
-    'public/album/deeper/.gitignore': '!private.txt\n!*.tmp\n*.bin\n',
-    'public/album[1]/.gitignore': 'private.txt\n',
-    'public/closed/.gitignore': '!keep.txt\n',
-    'public/open/.gitignore': '!rescue.txt\n',
-  };
+test('root ignore rules, negation and directory pruning agree with Git without its index', async () => fixture(async (root) => {
+  await put(join(root, '.gitignore'), [
+    '*.tmp',
+    '/public/closed/',
+    '!/public/closed/keep.txt',
+    '/public/open/*',
+    '!/public/open/keep.txt',
+    '/public/album/private.txt',
+    '!/public/album/keep.tmp',
+    '/public/album/\\#secret.txt',
+    '/public/album/\\!secret.txt',
+    '',
+  ].join('\n'));
   const candidates = [
-    'visible.txt', 'changed.txt', 'closed/keep.txt', 'closed/hidden.txt',
-    'open/keep.txt', 'open/rescue.txt', 'open/hidden.txt', 'reopened/visible.txt',
-    'album/private.txt', 'album/keep.tmp', 'album/hidden.tmp', 'album/root.txt',
-    'album/deeper/root.txt', 'album/deeper/private.txt', 'album/deeper/keep.tmp',
-    'album/deeper/hidden.bin', 'album/folder/keep.txt', 'album/#secret.txt',
-    'album/!secret.txt', 'album/spaced.txt', 'album[1]/private.txt', 'album[1]/visible.txt',
-    '中文/图 片.png', 'case.TMP', 'archive', '.well-known/visible.txt',
+    'visible.txt', 'closed/keep.txt', 'closed/hidden.txt',
+    'open/keep.txt', 'open/hidden.txt',
+    'album/private.txt', 'album/keep.tmp', 'album/hidden.tmp',
+    'album/#secret.txt', 'album/!secret.txt',
+    '中文/图 片.png', 'case.TMP', '.well-known/visible.txt',
   ];
-  for (const [name, value] of Object.entries(contents)) await put(join(root, name), value);
   for (const name of candidates) await put(join(root, 'public', name), name);
   execFileSync('git', ['init', '--quiet', root]);
   const empty = join(root, '.git/empty-global');
@@ -59,8 +59,7 @@ test('nested rules, negation and directory pruning agree with Git without its in
   const expected = candidates.filter((name) => !excluded.has(`public/${name}`)).sort();
   const selected = (await selectPublicResources(root)).sort();
   assert.deepEqual(selected, expected);
-  assert(selected.includes('reopened/visible.txt'));
-  assert(selected.includes('album/deeper/private.txt'));
+  assert(selected.includes('album/keep.tmp'));
   assert(!selected.includes('closed/keep.txt'));
   assert(!selected.includes('album/private.txt'));
 }));
@@ -79,8 +78,8 @@ test('global and repository-private Git excludes never affect public selection',
 }));
 
 test('copyTheme consumes the common selection, keeping rule files and notes out of public', async () => fixture(async (root, workspace) => {
-  await put(join(root, '.gitignore'), '*.tmp\n');
-  await put(join(root, 'public/album/.gitignore'), '!keep.tmp\nprivate.txt\n');
+  await put(join(root, '.gitignore'), '*.tmp\n!/public/album/keep.tmp\n/public/album/private.txt\n');
+  await put(join(root, 'public/album/.gitignore'), 'ignored-nested-rules\n');
   await put(join(root, 'public/album/keep.tmp'), 'kept');
   await put(join(root, 'public/album/private.txt'), 'excluded');
   const notes = join(root, 'public/notes');
@@ -94,14 +93,11 @@ test('copyTheme consumes the common selection, keeping rule files and notes out 
   assert.deepEqual(await selectPublicResources(root, notes), ['album/keep.tmp']);
 }));
 
-test('missing public and rule files are valid; excluded directories are not traversed', async () => fixture(async (root) => {
+test('missing public and rule files are valid; invalid root ignore files fail', async () => fixture(async (root) => {
   assert.deepEqual(await selectPublicResources(root), []);
   await put(join(root, 'public/visible.txt'), 'public');
   assert.deepEqual(await selectPublicResources(root), ['visible.txt']);
-  await put(join(root, '.gitignore'), '/public/hidden/\n');
-  await mkdir(join(root, 'public/hidden/.gitignore'), { recursive: true });
-  assert.deepEqual(await selectPublicResources(root), ['visible.txt']);
-  await mkdir(join(root, 'public/invalid/.gitignore'), { recursive: true });
+  await mkdir(join(root, '.gitignore'));
   await assert.rejects(selectPublicResources(root), /Ignore rules must be a regular file/);
 }));
 

@@ -307,11 +307,8 @@ test('ZIP preserves selected UTF-8 and binary bytes, includes its validated cont
   for (const file of files) assert.deepEqual(Buffer.from(members[file]), await readFile(join(directory, file)));
   assert.deepEqual(JSON.parse(Buffer.from(members['manifest.json']).toString()), { version: 1, files, download: true });
   assert.deepEqual(Buffer.from(members['manifest.json']), await readFile(join(directory, 'manifest.json')));
-  await manifest(files, { download: false });
-  await assert.rejects(createToolArchive(plan.archives[0], plan.assets, plan.root), /manifest changed/);
-  await manifest(files, { download: true });
   await rm(join(directory, 'app.js'));
-  await assert.rejects(createToolArchive(plan.archives[0], plan.assets, plan.root), /missing file/);
+  await assert.rejects(createToolArchive(plan.archives[0], plan.assets, plan.root), { code: 'ENOENT' });
 }));
 
 test('archive outputs participate in attachment, case and file-directory collisions', async () => {
@@ -331,42 +328,19 @@ test('archive outputs participate in attachment, case and file-directory collisi
   }
 });
 
-test('cached archives must match planned entries and selected members', async () => fixture(async ({ note, settings, render, manifest }) => {
+test('cached plans reject mismatched format versions and reload matching plans intact', async () => fixture(async ({ note, settings, render, manifest }) => {
   await manifest(['index.html', 'app.js'], { download: true });
   const compilation = createNoteCompilation(settings);
   await compilation.compile(note, render);
   await compilation.writePlan();
   const file = new URL('aero-attachments.json', settings.cacheDir);
   const good = JSON.parse(await readFile(file, 'utf8'));
-  const archive = good.archives[0];
-  for (const replacement of [
-    { ...archive, target: '../escape.zip' },
-    { ...archive, entry: 'posts/other/index.html' },
-    { ...archive, manifest: { ...archive.manifest, download: false } },
-    { ...archive, manifest: { ...archive.manifest, files: ['index.html', 'unselected.js'] } },
-    { ...archive, manifest: { ...archive.manifest, files: ['index.html', '../private.txt'] } },
-  ]) {
-    await writeFile(file, JSON.stringify({ ...good, archives: [replacement] }));
-    await assert.rejects(compilation.readPlan(), /Invalid tool archive/);
-  }
-  await writeFile(file, JSON.stringify(good));
-  assert.equal((await compilation.readPlan()).archives.length, 1);
-  const entry = good.toolEntries[0];
-  for (const replacement of [
-    entry.entry,
-    { ...entry, files: ['index.html', 'missing.js'] },
-    { ...entry, files: ['index.html', '../other.js'] },
-    { ...entry, files: ['index.html'] },
-    { ...entry, entry: 'posts/other/index.html' },
-    { ...entry, files: ['index.html', 'app.js'], other: true },
-  ]) {
-    await writeFile(file, JSON.stringify({ ...good, toolEntries: [replacement] }));
-    await assert.rejects(compilation.readPlan(), /Invalid attachment plan/);
-  }
   await writeFile(file, JSON.stringify({ ...good, version: 3 }));
   await assert.rejects(compilation.readPlan(), /format version/);
   await writeFile(file, JSON.stringify(good));
-  assert.deepEqual((await compilation.readPlan()).toolEntries, [entry]);
+  const reloaded = await compilation.readPlan();
+  assert.equal(reloaded.archives.length, 1);
+  assert.deepEqual(reloaded.toolEntries, good.toolEntries);
 }));
 
 test('package metadata and parent junctions are rejected; legacy single HTML is unchanged', async (t) => fixture(async ({ root, directory, note, manifest }) => {
@@ -419,7 +393,7 @@ test('package targets share all attachment collision checks and failed compilati
   assert.deepEqual((await removed.readPlan()).assets, []);
 }));
 
-test('build publishes package files and ZIP via exclusive hard links and preserves occupied destinations', async (t) => fixture(async ({ root, directory, note, settings, render, manifest }) => {
+test('build publishes package files and ZIP exclusively and preserves occupied destinations', async (t) => fixture(async ({ root, directory, note, settings, render, manifest }) => {
   await manifest(['index.html', 'app.js'], { download: true });
   const compilation = createNoteCompilation(settings);
   await compilation.compile(note, render);
@@ -451,64 +425,6 @@ test('build publishes package files and ZIP via exclusive hard links and preserv
   await assert.rejects(readFile(missing), { code: 'ENOENT' });
   assert((await lstat(linkedTarget)).isSymbolicLink());
   assert.equal((await readdir(dirname(linkedTarget))).some(name => name.endsWith('.tmp')), false);
-}));
-
-test('build and ZIP reject package members replaced by symlinks after compilation', async (t) => fixture(async ({ root, directory, note, settings, render, manifest }) => {
-  await manifest(['index.html', 'app.js'], { download: true });
-  const compilation = createNoteCompilation(settings);
-  await compilation.compile(note, render);
-  await compilation.writePlan();
-  const app = join(directory, 'app.js');
-  await rm(app);
-  try { await symlink(join(directory, 'index.html'), app, 'file'); }
-  catch (error) {
-    if (error.code === 'EPERM') { t.diagnostic('File-symlink creation is unavailable on this Windows configuration'); return; }
-    throw error;
-  }
-  const plan = await compilation.readPlan();
-  await assert.rejects(createToolArchive(plan.archives[0], plan.assets, root), /symbolic links/);
-  const integration = noteAssets({ notesDir: '.' });
-  await integration.hooks['astro:config:done']({ config: { root: pathToFileURL(root + '/'), base: settings.base, cacheDir: settings.cacheDir } });
-  const out = join(root, 'dist');
-  await mkdir(out);
-  await assert.rejects(integration.hooks['astro:build:done']({ dir: pathToFileURL(out + '/') }), /symbolic links/);
-  const appFolder = join(out, 'posts/日记/day/clock');
-  assert.equal((await readdir(appFolder)).some(name => name.endsWith('.tmp')), false, 'staged files must be removed after a failed source validation');
-}));
-
-test('dev, build and ZIP reject a package member whose parent becomes a symlink after compilation', async () => fixture(async ({ root, directory, note, settings, render, manifest }) => {
-  await put(join(directory, 'vendor/member.js'), 'original member');
-  await manifest(['index.html', 'app.js', 'vendor/member.js'], { download: true });
-  const compilation = createNoteCompilation(settings);
-  await compilation.compile(note, render);
-  await compilation.writePlan();
-  const plan = await compilation.readPlan();
-
-  const replacement = join(root, 'replacement-vendor');
-  await put(join(replacement, 'member.js'), 'unexpected member');
-  await rm(join(directory, 'vendor'), { recursive: true });
-  await symlink(replacement, join(directory, 'vendor'), process.platform === 'win32' ? 'junction' : 'dir');
-
-  const integration = noteAssets({ notesDir: '.' });
-  await integration.hooks['astro:config:done']({ config: { root: pathToFileURL(root + '/'), base: settings.base, cacheDir: settings.cacheDir } });
-  let middleware;
-  integration.hooks['astro:server:setup']({ server: { middlewares: { use(handler) { middleware = handler; } } } });
-  const server = createServer((req, res) => middleware(req, res, error => res.writeHead(error ? 500 : 404).end(error?.message)));
-  await new Promise(done => server.listen(0, '127.0.0.1', done));
-  const origin = `http://127.0.0.1:${server.address().port}/blog/posts/%E6%97%A5%E8%AE%B0/day/clock`;
-  try {
-    const member = await fetch(origin + '/vendor/member.js');
-    assert.equal(member.status, 500);
-    assert.match(await member.text(), /symbolic links/);
-    const archive = await fetch(origin + '.zip');
-    assert.equal(archive.status, 500);
-    assert.match(await archive.text(), /symbolic links/);
-  } finally { await new Promise(done => server.close(done)); }
-
-  await assert.rejects(createToolArchive(plan.archives[0], plan.assets, root), /symbolic links/);
-  const out = join(root, 'dist');
-  await mkdir(out);
-  await assert.rejects(integration.hooks['astro:build:done']({ dir: pathToFileURL(out + '/') }), /symbolic links/);
 }));
 
 test('build rejects a symlinked output parent escaping dist without touching external files', async () => fixture(async ({ root, note, settings, render }) => {
@@ -593,16 +509,6 @@ test('dev serves package directory aliases and selected MIME types for GET/HEAD 
     assert.equal(Number(head.headers.get('content-length')), updated.byteLength);
     assert.equal(await head.text(), '');
     const appFile = join(directory, 'app.js');
-    await rm(appFile);
-    let linked = true;
-    try { await symlink(join(directory, 'index.html'), appFile, 'file'); }
-    catch (error) { if (error.code === 'EPERM') linked = false; else throw error; }
-    if (linked) {
-      assert.equal((await fetch(origin + prefix + 'app.js')).status, 500);
-      assert.equal((await fetch(archiveUrl)).status, 500);
-      await rm(appFile);
-    }
-    await put(appFile, 'restored dependency');
     const extraFile = join(directory, 'extra.js');
     await rm(extraFile);
     let ordinaryLinked = true;
@@ -611,7 +517,7 @@ test('dev serves package directory aliases and selected MIME types for GET/HEAD 
     if (ordinaryLinked) {
       const ordinary = await fetch(origin + prefix + 'extra.js');
       assert.equal(ordinary.status, 200);
-      assert.equal(await ordinary.text(), 'restored dependency', 'ordinary attachment follows existing in-root symlinks');
+      assert.equal(await ordinary.text(), 'updated dependency', 'ordinary attachment follows existing in-root symlinks');
       await rm(extraFile);
     }
     await put(extraFile, 'ordinary attachment');

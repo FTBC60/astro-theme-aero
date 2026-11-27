@@ -161,6 +161,22 @@ L14 用户确认已启用减少动态效果模拟；L167 报告累计 30 次浏�
 
 正式方案与实施检查记录见 [Windows 7 兼容改造方案](../architecture/aero-windows-7-compatibility-plan.md)，决策见 [ADR-0020](0020-windows-7-browser-compatibility.md)。七个源码文件及相关测试已在 `static` 分支提交为 `e3eb586`；方案记录了颜色测试 2 项、歌单测试 69 项、发行包测试 155 项、89 文件 Astro 检查、8 页构建及 CSS 扫描结果。作者随后确认已同步 NAS、在 Cloudflare Worker 编译发布，并在 Windows 7 虚拟机中测试未发现问题，准予验收。反馈没有逐项列明 Chrome 109 与 Firefox 115 ESR 的测试数据。
 
+<a id="s22"></a>
+## S22：GitHub Actions 发布流程适配、双端一致性与模板化决策
+
+2026-11-23 至 2026-11-26 的本轮用户讨论与实施记录。最初针对将 NAS Publisher 简化为 GitHub Actions 进行方案分析并整理设计取舍至[方案文档](../architecture/publisher-to-github-actions.md)。作者随后逐项明确需求：将主题定位为 GitHub Template、笔记直接提交到 `src/content/posts/`、保留 NAS 发布容器为方案一并将 GitHub Actions 作为新增方案二、维持外链 CORS 音频支持、保留 `compose.yaml` 并更新中英文部署文档、以及将默认 `wrangler.json` 改为开启 `workers_dev` 且暂不添加 `routes`。
+
+可行性评估后，作者确认采用路径 A（在 `publish.yml` 中直接复用 `npm run deploy` / `npm run deploy:dry-run`），未配置 Cloudflare Secrets 时（如公开模板仓库）回退为仅执行 `npm run check` 与 `npm run build`；同时在 `examples/deployment/` 放置同步的 `publish.yml` 并在测试中增加一致性校验。相关变更提交至 `static` 分支 `5d7c2cb`。
+
+决策结论见 [ADR-0021](0021-github-actions-publishing-workflow.md)。本地在无凭据条件下的 `node tools/deploy.mjs --dry-run`、`npm run test:release`（169 项）、`npm run check`（91 文件）与 `npm run build`（8 页）结果均有本轮命令输出可查；GitHub Actions 云端实际执行及真实 Cloudflare 上传未在本机执行。
+
+<a id="s23"></a>
+## S23：过度防御性设计审计与第一梯队代码瘦身
+
+2026-11-26 的本轮代码审计与重构记录。作者要求对照 `AGENTS.md` 中的 Fail-Fast 与 Strict Trust Boundaries 原则检查仓库中是否存在针对极低概率场景的过度防御性设计，并整理热点文件与函数清单。审计覆盖 `tools/`、`src/lib/`、`src/integrations/` 与 `src/scripts/`：确认前端脚本的防错多针对真实浏览器差异与交互竞态，过度防御主要集中在发布器工具链（`wrangler.json` 全量白名单、`public/` 嵌套 `.gitignore` 解析器、笔记快照 3 遍全量读盘 SHA-256、重复依赖与 Git 版本检查）以及笔记/工具包管线（同进程 UUID 令牌协议、多层嵌套 `checkedResourcePlan()` 与文件打开 TOCTOU 防护）。
+
+经作者明确指令，第一轮执行第一梯队瘦身与同进程 UUID 令牌清理，并对 6 个相关测试文件中测试上述过度防御行为的用例同步收敛为正常边界测试，对应提交 `3931048`（`npm run check` 91 文件 0 错误、`npm run test:release` 168 / 168 项通过）。随后作者确认继续执行第二梯队精简：采用方案 A 保留 `checkedFile()` 在 `expandToolPackage()` 同步边界的大小写与软链检查，删除 `openCheckedFile()`、`checkedToolArchives()` 与 `createToolArchive()` 中的清单复检；统一 `note-assets.mjs` 的 `serveAssets()` 与 `astro:build:done` 交付流程，改用原生 `copyFile(..., COPYFILE_EXCL)` 与 `writeFile(..., { flag: 'wx' })`；将 `note-resource-plan.mjs` 收敛为 `finalizeResourcePlan()` 单次跨文章汇总检查；保留 `note-resources.mjs` 的状态锁与 `.md` 互链父目录 `lstat()` 检查，并同步清理 `tool-packages.test.mjs` 中的 TOCTOU 专项用例。决策结论见 [ADR-0022](0022-streamline-trust-boundaries-and-publisher-checks.md)。
+
 ## 尚未恢复的材料
 
 - ChatGPT Work 中首次迁移的完整讨论，以及部分早期阶段原始选型过程；本机旧副本从接力开始，Git 最早也是源码导入。

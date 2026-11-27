@@ -1,8 +1,7 @@
 import { lstat, readFile, realpath, stat } from 'node:fs/promises';
 import { basename, dirname, extname, isAbsolute, posix, relative, resolve, sep } from 'node:path';
-import { inside, noteId, validatePostId } from './note-assets.mjs';
+import { assetPlan, inside, noteId, validatePostId } from './note-assets.mjs';
 import { isPublishedNote, parseNoteFrontmatter } from './note-publication.mjs';
-import { checkedResourcePlan } from './note-resource-plan.mjs';
 import { expandToolPackage } from './tool-package.mjs';
 
 const encodedPath = (path) => path.split('/').map(encodeURIComponent).join('/');
@@ -102,7 +101,11 @@ export function createNoteResources(note) {
     finish() {
       if (finished || failed || pending) throw new Error('Cannot finish an incomplete or already finished note resource collection');
       finished = true;
-      return checkedResourcePlan({ root: note.root, assets, toolEntries, archives, postIds: [note.id] });
+      return {
+        assets: assetPlan(assets, [note.id], archives.map(archive => archive.target)),
+        toolEntries,
+        archives,
+      };
     },
   };
 }

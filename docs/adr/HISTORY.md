@@ -50,6 +50,21 @@
 | --- | --- | --- | --- |
 | 2026-11-14 | `static` 提交 `e3eb586` | 为 Windows 7 Chrome 109、Firefox 115 ESR 与现代浏览器统一保留 Aero 外观；用 10 个预计算混色 Token 和 2 个 RGB 通道 Token 替换不兼容颜色语法，使用 `panel.hidden` 驱动播放器及 Sticky 父容器层级，清理跨页残留 class，并简化首个 Widget 选择器。补充颜色及歌单回归测试。 | [ADR-0020](0020-windows-7-browser-compatibility.md)、[S21](SOURCES.md#s21)。本地检查记录为颜色 2 项、歌单 69 项、发行包 155 项、Astro 检查 89 文件及 8 页构建通过；作者报告 NAS 同步、Cloudflare Worker 编译发布、Windows 7 虚拟机测试无问题并准予验收，未单列两款浏览器逐项数据。 |
 
+## 2026-11-26 GitHub Actions 发布流程适配
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-26 | `5d7c2cb` | 保留群晖 NAS 容器作为方案一，新增 GitHub Actions 发布流程（`.github/workflows/publish.yml`）及同步作者模板（`examples/deployment/publish.yml`）作为方案二，复用 `npm run deploy` / `npm run deploy:dry-run` 并在无凭据时回退为 `npm run check` 与 `npm run build`。将根目录 `wrangler.json` 默认改为 `workers_dev: true`，更新发行校验、发布测试及中英文 `DEPLOYMENT.md` / `README.md`（另随同纳入方案文档及 `.gitignore`）。 | [ADR-0021](0021-github-actions-publishing-workflow.md)、[S22](SOURCES.md#s22)。本地无凭据 `node tools/deploy.mjs --dry-run`、`npm run test:release`（169 项）、`npm run check`（91 文件）与 `npm run build`（8 页）通过；云端 GitHub Actions 与真实 Cloudflare 部署待在仓库配置 Secrets 后验证。 |
+
+## 2026-11-26 信任边界收敛与发布器精简
+
+| 日期 | 提交 | 修改意图与落地内容 | 依据及限制 |
+| --- | --- | --- | --- |
+| 2026-11-26 | `3931048` | 第一梯队瘦身：简化 `deployment-config.mjs` 为 JSON/非空 `name` 及高危字段拦截；删除 `public-resources.mjs` 嵌套 `.gitignore` 解析器并复用根 `.gitignore`；将 `publish-files.mjs` / `notes-snapshot.mjs` 的 3 遍全量读盘 SHA-256 降级为 `size + mtimeNs` 元数据比对；删去 `publisher.mjs` 第二次 `checkDependencies()` 与 `export.mjs` 第二次 `checkedReleaseRevision()`；移除 `note-compilation.mjs` 同进程 `randomUUID()` 令牌协议并将 `checkedResourcePlan()` 收敛至 `writePlan()` 出口。同步精简 6 个单测文件中的过度防御断言。 | [ADR-0022](0022-streamline-trust-boundaries-and-publisher-checks.md)、[S23](SOURCES.md#s23)。本地 `npm run check`（91 文件 0 错误/0 警告/0 提示）与 `npm run test:release`（168 项测试通过）；未单独触发 `build`、`export` 或 NAS / GitHub Actions 线上发布验证。 |
+| 2026-11-26 | `408a43b` | 第二梯队瘦身：保留 `tool-package.mjs` 中 `checkedFile()` 在 `expandToolPackage()` 同步边界的大小写与软链检查（方案 A），删除 `openCheckedFile()`、`checkedToolArchives()` 及 `createToolArchive()` 中的同步后 `manifest.json` 复检；统一 `note-assets.mjs` 的 `serveAssets()` 与 `astro:build:done` 交付流程，去掉第 2/3 次 `realpath(parent)`、临时文件与硬链接，改为 `copyFile(..., COPYFILE_EXCL)` 与 `writeFile(..., { flag: 'wx' })`；将 `note-resource-plan.mjs` 的 `checkedResourcePlan()` 收敛为 `finalizeResourcePlan()` 单次跨文章汇总检查，保留 `note-resources.mjs` 状态锁与 `.md` 互链父目录检查；同步清理 `tool-packages.test.mjs` 中的 TOCTOU 专项用例。 | [ADR-0022](0022-streamline-trust-boundaries-and-publisher-checks.md)、[S23](SOURCES.md#s23)。本地类型检查（91 文件）和发行测试（166 项）通过。 |
+
+| 2026-11-26 | `48f92e6` | 当主题与运行时根目录相同时，跳过同一份依赖清单的重复比较。 | 发布器依赖一致性检查精简。 |
+
 ## 动态实验的历史演进
 
 下列提交保留在 `dev` 历史，不是当前静态代码的组成部分。整体取舍、性能局限及暂缓原因见 [ADR-0003](0003-dynamic-publishing-experiment.md) 和 [ADR-0004](0004-return-to-static-assets.md)。

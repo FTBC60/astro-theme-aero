@@ -83,9 +83,14 @@ npm run preview
 
 The generated static site is written to `dist/`.
 
-## Scheduled publishing on Synology
+## Automated publishing
 
-Run a persistent publisher in Container Manager with cron, timezone, Cloudflare credentials, and a read-only notes mount configured in Compose. See the [deployment guide](DEPLOYMENT.md) for setup, dry runs, logs, and troubleshooting.
+Two automated deployment options to Cloudflare Workers are supported (both share the root `wrangler.json` and `tools/deploy.mjs`):
+
+- **Option 1 (Synology NAS container)**: Run a persistent publisher in Container Manager with cron, timezone, Cloudflare credentials, and a read-only notes mount configured in Compose.
+- **Option 2 (GitHub Actions)**: Use the repository as a GitHub Template (or copy [publish.yml](../../examples/deployment/publish.yml)), commit notes to `src/content/posts/`, and configure Cloudflare Secrets in GitHub to build and deploy on push or schedule.
+
+See the [deployment guide](DEPLOYMENT.md) for setup, dry runs, logs, and troubleshooting.
 
 ## Export release archives
 
@@ -96,7 +101,7 @@ Run `npm run export` in the theme root. It checks and builds the project, then w
 
 The source archive enumerates tracked files and unignored new files only within the author-delivery allowlist. Uncommitted posts and assets can be included, and a tracked file can still be included after an ignore rule is added; review source contents before sharing. Dependencies, caches, build output, release archives, Git history, and local handoff notes are outside the source delivery scope. Export requires Git, Node.js, npm, and `tar`. The `release/` directory is ignored by Git.
 
-Site exports and Publisher select `public/` resources before building, using the theme's root and nested `.gitignore` files, including `!` exceptions. Matching is case-sensitive and independent of Git tracking. Global Git excludes and `.git/info/exclude` do not participate. Rule files are read but not published. A file cannot be restored with `!` while its parent directory remains excluded; restore the parent first.
+Site exports and Publisher select `public/` resources before building, using the theme's root `.gitignore` file, including `!` exceptions. Matching is case-sensitive and independent of Git tracking. Global Git excludes and `.git/info/exclude` do not participate. Rule files are read but not published. A file cannot be restored with `!` while its parent directory remains excluded; restore the parent first.
 
 Export copies selected resources into a temporary directory, checks and builds, and archives that output. Original public files, notes settings, and existing `dist/` are preserved; temporary export files are cleaned up. Regular `dev` / `build` use the original inputs; use site archives or Publisher for delivery.
 

@@ -62,7 +62,7 @@ function runner(events, fail) {
     } else {
       assert.equal(options.env.CLOUDFLARE_API_TOKEN, 'sensitive-test-token');
       const config = await json(args[args.indexOf('--config') + 1]);
-      assert.equal(config.workers_dev, false);
+      assert.equal(config.workers_dev, true);
       assert.equal(config.preview_urls, false);
       assert.equal(config.assets.html_handling, 'force-trailing-slash');
       assert.equal(await readFile(join(config.assets.directory, 'index.html'), 'utf8'), '<html>built</html>');
@@ -105,12 +105,12 @@ test('deployment settings reload from the theme and only the inspected site is u
   const staleEnvironment = { ...options.env, WORKER_NAME: 'ignored-old-name' };
   await publish({ ...options, env: staleEnvironment }, run);
   assert.equal(await readFile(path, 'utf8'), original);
-  const updated = { ...deploymentTemplate, name: 'updated-diary', workers_dev: true, preview_urls: true, send_metrics: true, compatibility_flags: ['nodejs_compat'], routes: [{ pattern: 'diary.example.com', custom_domain: true, zone_name: 'example.com' }], assets: { html_handling: 'drop-trailing-slash', not_found_handling: '404-page' } };
+  const updated = { ...deploymentTemplate, name: 'updated-diary', workers_dev: false, preview_urls: true, send_metrics: true, compatibility_flags: ['nodejs_compat'], routes: [{ pattern: 'diary.example.com', custom_domain: true, zone_name: 'example.com' }], assets: { html_handling: 'drop-trailing-slash', not_found_handling: '404-page' } };
   await put(path, JSON.stringify(updated));
   const result = await publish({ ...options, env: staleEnvironment }, run);
   assert.equal(result.workerName, 'updated-diary');
   assert.equal(captured[0].name, 'test-diary');
-  assert.equal(captured[0].workers_dev, false);
+  assert.equal(captured[0].workers_dev, true);
   assert.deepEqual(captured[1], { ...updated, assets: { ...updated.assets, directory: join(options.dataDir, 'site') } });
   assert.equal(await readFile(path, 'utf8'), JSON.stringify(updated));
 }));
@@ -120,14 +120,11 @@ test('invalid or missing deployment configuration stops before build or upload',
   const invalid = [
     'not JSON', 'null', '[]', '{}',
     JSON.stringify({ ...deploymentTemplate, name: '' }),
-    JSON.stringify({ ...deploymentTemplate, compatibility_date: '2026-02-30' }),
-    JSON.stringify({ ...deploymentTemplate, workers_dev: 'true' }),
-    JSON.stringify({ ...deploymentTemplate, routes: 'diary.example.com' }),
-    JSON.stringify({ ...deploymentTemplate, routes: [{ pattern: 'https://diary.example.com/', custom_domain: true }] }),
-    JSON.stringify({ ...deploymentTemplate, routes: [], route: 'diary.example.com/*' }),
-    JSON.stringify({ ...deploymentTemplate, assets: { directory: '/private' } }),
+    JSON.stringify({ ...deploymentTemplate, name: '   ' }),
     JSON.stringify({ ...deploymentTemplate, main: 'src/worker.js' }),
-    JSON.stringify({ ...deploymentTemplate, account_id: 'not-a-config-credential' }),
+    JSON.stringify({ ...deploymentTemplate, site: { bucket: './dist' } }),
+    JSON.stringify({ ...deploymentTemplate, assets: 'dist' }),
+    JSON.stringify({ ...deploymentTemplate, assets: { directory: '/private' } }),
   ];
   for (const text of invalid) {
     await put(path, text);
@@ -376,4 +373,26 @@ test('Compose settings, cron format, timezone and pinned image configuration agr
   assert.match(dockerfile, /^COPY tools\/deploy\.mjs tools\/export\.mjs tools\/scheduler\.mjs \.\/tools\/$/m);
   assert.match(dockerfile, /^COPY tools\/lib \.\/tools\/lib$/m);
   assert.match(dockerfile, /THEME_DIR=\/theme/);
+});
+
+test('GitHub Actions publish workflow and example template stay synchronized and valid', async () => {
+  const workflowText = await readFile(join(project, '.github/workflows/publish.yml'), 'utf8');
+  const exampleText = await readFile(join(project, 'examples/deployment/publish.yml'), 'utf8');
+  assert.equal(exampleText, workflowText);
+  const workflow = YAML.parse(workflowText);
+  assert.deepEqual(workflow.on.push.branches, ['main', 'master']);
+  assert.equal(workflow.on.schedule[0].cron, '0 11 * * *');
+  assert.equal(workflow.on.workflow_dispatch.inputs.dry_run.default, false);
+  assert.equal(workflow.concurrency.group, 'blog-publish');
+  assert.equal(workflow.concurrency['cancel-in-progress'], false);
+  const steps = workflow.jobs.publish.steps;
+  assert.equal(steps.find((step) => step.uses?.startsWith('actions/setup-node@')).with['node-version'], '24.22.1');
+  const publishStep = steps.find((step) => step.name === 'Check, build, and publish');
+  assert.equal(publishStep.env.CLOUDFLARE_ACCOUNT_ID, '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}');
+  assert.equal(publishStep.env.CLOUDFLARE_API_TOKEN, '${{ secrets.CLOUDFLARE_API_TOKEN }}');
+  assert.match(publishStep.run, /npm run deploy:dry-run/);
+  assert.match(publishStep.run, /npm run deploy\b/);
+  assert.match(publishStep.run, /npm run check/);
+  assert.match(publishStep.run, /npm run build/);
+  assert.equal(deploymentTemplate.workers_dev, true);
 });

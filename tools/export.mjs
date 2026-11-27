@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { sourceRoots, sourceFiles as releaseFiles } from './lib/publish-files.mjs';
@@ -31,7 +31,7 @@ function checkedReleaseRevision() {
 }
 
 // Fail before checking/building when a release is not reproducible from its tag.
-const releaseRevision = releaseMode ? checkedReleaseRevision() : undefined;
+if (releaseMode) checkedReleaseRevision();
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, { cwd: root, stdio: 'inherit', shell: process.platform === 'win32' && command === 'npm', ...options });
@@ -51,13 +51,6 @@ function copyFile(from, to) {
   copyFileSync(source, to);
 }
 
-function validateSite(directory) {
-  for (const entry of readdirSync(directory, { withFileTypes: true })) {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) validateSite(path);
-    else if (!entry.isFile()) throw new Error(`Unexpected link or special file in site: ${path}`);
-  }
-}
 
 function archive(stage, name, member) {
   const target = join(release, name);
@@ -108,13 +101,11 @@ try {
     Object.entries(packageJson.scripts).filter(([name]) => name !== 'test' && !name.startsWith('test:') && !name.startsWith('prototype:')),
   ) };
   writeFileSync(join(stageSource, 'package.json'), JSON.stringify(authorPackage, null, 2) + '\n');
-  validateSite(stageSite);
 
   const hash = spawnSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: root, encoding: 'utf8' });
   if (hash.status !== 0) throw new Error('Could not read Git revision');
   const status = spawnSync('git', ['status', '--porcelain', '--untracked-files=normal'], { cwd: root, encoding: 'utf8' });
   if (status.status !== 0) throw new Error('Could not read Git status');
-  if (releaseMode && checkedReleaseRevision() !== releaseRevision) throw new Error('Git revision changed during release export');
   const version = `${packageJson.name}-v${packageJson.version}${releaseMode ? '' : `-${hash.stdout.trim()}${status.stdout.trim() ? '-dirty' : ''}`}`;
   mkdirSync(release, { recursive: true });
   const theme = archive(temp, `${version}-theme.tar.gz`, basename(stageSource));

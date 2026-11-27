@@ -1,7 +1,7 @@
-import { constants } from 'node:fs';
-import { lstat, open, readFile, readdir } from 'node:fs/promises';
+import { lstat, readFile, readdir, realpath } from 'node:fs/promises';
 import { basename, dirname, isAbsolute, join, posix, relative, sep } from 'node:path';
 import { zipSync } from 'fflate';
+import { inside } from './note-assets.mjs';
 
 export function checkedManifest(data, fail) {
   if (!data || typeof data !== 'object' || Array.isArray(data)
@@ -41,25 +41,6 @@ export async function checkedFile(root, file, fail) {
   return file;
 }
 
-/** Open an already validated package member, then verify the opened file before reading. */
-export async function openCheckedFile(root, file, fail) {
-  await checkedFile(root, file, fail);
-  const handle = await open(file, constants.O_RDONLY | (constants.O_NOFOLLOW || 0));
-  try {
-    const opened = await handle.stat();
-    if (!opened.isFile()) fail(`not a regular file: ${file}`);
-    await checkedFile(root, file, fail);
-    const current = await lstat(file);
-    if (opened.dev !== current.dev || opened.ino !== current.ino) {
-      fail(`file changed while opening: ${file}`);
-    }
-    return handle;
-  } catch (error) {
-    await handle.close();
-    throw error;
-  }
-}
-
 /** Expand one explicitly referenced package without interpreting runtime dependencies. */
 export async function expandToolPackage({ entry, root, target }) {
   const directory = dirname(entry);
@@ -81,54 +62,18 @@ export async function expandToolPackage({ entry, root, target }) {
   return { assets, manifest: selection };
 }
 
-/** Validate generated archives against the same selected attachment records. */
-export function checkedToolArchives(archives, assets, entries) {
-  const fail = message => { throw new Error(`Invalid tool archive: ${message}`); };
-  if (!Array.isArray(archives)) fail('expected an archive array');
-  const sources = new Map(assets.map(asset => [asset.target, asset.source]));
-  const planned = new Map();
-  for (const archive of archives) {
-    if (!archive || typeof archive.entry !== 'string' || !entries.includes(archive.entry) || typeof sources.get(archive.entry) !== 'string'
-      || archive.target !== posix.dirname(archive.entry) + '.zip') fail('archive must belong to a planned package entry');
-    const manifest = checkedManifest(archive.manifest, fail);
-    if (manifest.download !== true) fail('archive requires download: true');
-    const sourceDirectory = dirname(sources.get(archive.entry));
-    for (const file of manifest.files) {
-      if (sources.get(posix.join(posix.dirname(archive.entry), file)) !== join(sourceDirectory, ...file.split('/'))) {
-        fail(`member does not match the selected package file: ${file}`);
-      }
-    }
-    const selected = { entry: archive.entry, target: archive.target, manifest };
-    const previous = planned.get(archive.target);
-    if (previous && JSON.stringify(previous) !== JSON.stringify(selected)) fail(`conflicting selections: ${archive.target}`);
-    planned.set(archive.target, selected);
-  }
-  return [...planned.values()];
-}
-
 /** The build and dev server use identical archive bytes, generated from selected files. */
 export async function createToolArchive(archive, assets, root) {
-  const [selection] = checkedToolArchives([archive], assets, [archive.entry]);
   const sources = new Map(assets.map(asset => [asset.target, asset.source]));
   const files = Object.create(null);
-  const fail = message => { throw new Error(`Cannot create tool archive ${archive.target}: ${message}`); };
-  for (const file of [...selection.manifest.files].sort()) {
-    const source = sources.get(posix.join(posix.dirname(selection.entry), file));
-    const handle = await openCheckedFile(root, source, fail);
-    try { files[file] = await handle.readFile(); }
-    finally { await handle.close(); }
+  const entryDir = posix.dirname(archive.entry);
+  for (const file of [...archive.manifest.files].sort()) {
+    const source = await realpath(sources.get(posix.join(entryDir, file)));
+    if (!inside(root, source)) throw new Error(`Cannot create tool archive ${archive.target}: file escapes notesDir`);
+    files[file] = await readFile(source);
   }
-  const manifestSource = join(dirname(sources.get(selection.entry)), 'manifest.json');
-  const manifestHandle = await openCheckedFile(root, manifestSource, fail);
-  let manifestBytes;
-  try { manifestBytes = await manifestHandle.readFile(); }
-  finally { await manifestHandle.close(); }
-  let current;
-  try { current = JSON.parse(manifestBytes.toString('utf8').replace(/^\uFEFF/, '')); }
-  catch (error) { fail(`control manifest is invalid: ${error.message}`); }
-  if (JSON.stringify(checkedManifest(current, fail)) !== JSON.stringify(selection.manifest)) {
-    fail('control manifest changed after content sync');
-  }
-  files['manifest.json'] = manifestBytes;
+  const manifestSource = await realpath(join(dirname(sources.get(archive.entry)), 'manifest.json'));
+  if (!inside(root, manifestSource)) throw new Error(`Cannot create tool archive ${archive.target}: manifest escapes notesDir`);
+  files['manifest.json'] = await readFile(manifestSource);
   return zipSync(files, { level: 6, mtime: new Date(1980, 0, 1) });
 }
